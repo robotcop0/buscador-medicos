@@ -1,14 +1,31 @@
-import { doctors, Doctor } from "@/data/doctors";
+import { doctors } from "@/data/doctors";
 import { coordsFromCP, haversineKm } from "@/lib/coordinates";
+import type { Doctor } from "@/lib/types";
 
-export type DoctorWithDistance = Doctor & { distanceKm: number | null };
+function normalize(s: string): string {
+  return s
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function especialidadMatches(doctor: string, query: string): boolean {
+  if (!query) return true;
+  const d = normalize(doctor);
+  const q = normalize(query);
+  // Match permisivo: "Cardiología" encuentra "Cardiología Infantil",
+  // "Cirugía general" encuentra "Cirugía General Y Del Aparato Digestivo", etc.
+  return d.includes(q) || q.includes(d);
+}
 
 export function filterDoctors(
   mutua: string,
   especialidad: string,
   cp: string,
   maxKm?: number
-): DoctorWithDistance[] {
+): Doctor[] {
   const userCoords = cp ? coordsFromCP(cp) : null;
 
   return doctors
@@ -16,25 +33,22 @@ export function filterDoctors(
       const matchMutua =
         !mutua || mutua === "Sin mutua" ? true : doctor.mutuas.includes(mutua);
 
-      const matchEspecialidad =
-        !especialidad || doctor.especialidad === especialidad;
+      const matchEspecialidad = especialidadMatches(doctor.especialidad, especialidad);
 
       if (!matchMutua || !matchEspecialidad) return false;
 
-      // Si no hay CP, no filtramos por distancia
       if (!cp || !userCoords) return true;
 
       const doctorCoords = coordsFromCP(doctor.cp);
-      if (!doctorCoords) return true; // CP desconocido → incluir
+      if (!doctorCoords) return true;
 
       const km = haversineKm(userCoords, doctorCoords);
 
-      // Sin límite de radio → solo filtrar por provincia (comportamiento anterior)
       if (!maxKm) return doctor.cp.slice(0, 2) === cp.slice(0, 2);
 
       return km <= maxKm;
     })
-    .map((doctor) => {
+    .map<Doctor>((doctor) => {
       const doctorCoords = userCoords ? coordsFromCP(doctor.cp) : null;
       const distanceKm =
         userCoords && doctorCoords

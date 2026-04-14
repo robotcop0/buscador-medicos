@@ -1,7 +1,7 @@
-import { SearchResult } from "@/lib/claudeSearch";
+import type { Doctor } from "@/lib/types";
 
 type Props = {
-  doctor: SearchResult;
+  doctor: Doctor;
   searchCp?: string;
 };
 
@@ -18,7 +18,7 @@ function formatPhone(tel: string): string {
 
 export default function DoctorCard({ doctor, searchCp }: Props) {
   const distance =
-    searchCp && doctor.distanceKm !== null
+    searchCp && doctor.distanceKm != null
       ? doctor.distanceKm === 0
         ? "< 1 km"
         : `${doctor.distanceKm} km`

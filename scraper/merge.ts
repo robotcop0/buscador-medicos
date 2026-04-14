@@ -65,19 +65,9 @@ export function toTypeScriptFile(doctors: RawDoctor[]): string {
 // Última actualización: ${new Date().toISOString()}
 // Total médicos: ${withIds.length}
 
-export type Doctor = {
-  id: number;
-  nombre: string;
-  especialidad: string;
-  mutuas: string[];
-  direccion: string;
-  cp: string;
-  ciudad: string;
-  rating: number;
-  numReviews: number;
-};
+import type { Doctor } from "@/lib/types";
 
-export const doctors: Doctor[] = [
+export const doctors: Omit<Doctor, "distanceKm" | "telefono">[] = [
 ${lines.join(",\n")}
 ];
 `;
