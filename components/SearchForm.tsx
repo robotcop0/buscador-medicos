@@ -3,9 +3,8 @@
 import { useState, useRef, useEffect, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 
-const AVAILABLE_MUTUAS = ["Adeslas", "Occidente"] as const;
+const AVAILABLE_MUTUAS = ["Adeslas", "Allianz", "Occidente"] as const;
 const COMING_SOON_MUTUAS = [
-  "Allianz",
   "Asisa",
   "AXA Salud",
   "Caser Salud",

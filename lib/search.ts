@@ -1,6 +1,7 @@
 import { doctors } from "@/data/doctors";
 import { coordsFromCP, haversineKm } from "@/lib/coordinates";
 import { searchOccident } from "@/lib/sources/occident";
+import { searchAllianz } from "@/lib/sources/allianz";
 import type { Doctor } from "@/lib/types";
 
 function normalize(s: string): string {
@@ -46,6 +47,7 @@ export async function filterDoctors(
 ): Promise<Doctor[]> {
   const wantAdeslas = !mutua || mutua === "Adeslas";
   const wantOccidente = !mutua || mutua === "Occidente";
+  const wantAllianz = !mutua || mutua === "Allianz";
 
   const offline = wantAdeslas
     ? (doctors as Doctor[]).filter((d) => {
@@ -54,13 +56,18 @@ export async function filterDoctors(
       })
     : [];
 
-  // Occident solo se consulta si hay especialidad; el endpoint la exige.
-  const occidentPromise: Promise<Doctor[]> =
-    wantOccidente && especialidad ? searchOccident(cp, especialidad) : Promise.resolve([]);
+  // Occident exige especialidad en su endpoint. Allianz sí sabe hacer fan-out
+  // cuando no se especifica (barre todas las especialidades principales).
+  const [occident, allianz] = await Promise.all([
+    wantOccidente && especialidad ? searchOccident(cp, especialidad) : Promise.resolve([]),
+    wantAllianz && cp ? searchAllianz(cp, especialidad) : Promise.resolve([]),
+  ]);
 
-  const occident = await occidentPromise;
-
-  const merged = [...applyGeo(offline, cp, maxKm), ...applyGeo(occident, cp, maxKm)];
+  const merged = [
+    ...applyGeo(offline, cp, maxKm),
+    ...applyGeo(occident, cp, maxKm),
+    ...applyGeo(allianz, cp, maxKm),
+  ];
 
   return merged.sort((a, b) => {
     if (b.rating !== a.rating) return b.rating - a.rating;
