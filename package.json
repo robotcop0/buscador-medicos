@@ -10,7 +10,8 @@
     "scrape": "tsx scraper/scrape.ts",
     "scrape:doctoralia": "tsx scraper/scrape.ts --only=doctoralia",
     "scrape:google": "tsx scraper/scrape.ts --only=google",
-    "scrape:adeslas": "tsx scraper/scrape-adeslas.ts"
+    "scrape:adeslas": "tsx scraper/scrape-adeslas.ts",
+    "scrape:occident": "tsx scraper/scrape-occident.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.88.0",

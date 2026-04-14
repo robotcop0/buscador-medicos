@@ -7,6 +7,6 @@ export async function findDoctors(
   cp: string,
   maxKm?: number
 ): Promise<SearchResponse> {
-  const doctors = filterDoctors(mutua, especialidad, cp, maxKm);
+  const doctors = await filterDoctors(mutua, especialidad, cp, maxKm);
   return { doctors };
 }

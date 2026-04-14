@@ -1,5 +1,6 @@
 import { doctors } from "@/data/doctors";
 import { coordsFromCP, haversineKm } from "@/lib/coordinates";
+import { searchOccident } from "@/lib/sources/occident";
 import type { Doctor } from "@/lib/types";
 
 function normalize(s: string): string {
@@ -15,49 +16,54 @@ function especialidadMatches(doctor: string, query: string): boolean {
   if (!query) return true;
   const d = normalize(doctor);
   const q = normalize(query);
-  // Match permisivo: "Cardiología" encuentra "Cardiología Infantil",
-  // "Cirugía general" encuentra "Cirugía General Y Del Aparato Digestivo", etc.
   return d.includes(q) || q.includes(d);
 }
 
-export function filterDoctors(
-  mutua: string,
-  especialidad: string,
-  cp: string,
-  maxKm?: number
-): Doctor[] {
+function applyGeo(list: Doctor[], cp: string, maxKm?: number): Doctor[] {
   const userCoords = cp ? coordsFromCP(cp) : null;
-
-  return doctors
+  return list
     .filter((doctor) => {
-      const matchMutua =
-        !mutua || mutua === "Sin mutua" ? true : doctor.mutuas.includes(mutua);
-
-      const matchEspecialidad = especialidadMatches(doctor.especialidad, especialidad);
-
-      if (!matchMutua || !matchEspecialidad) return false;
-
       if (!cp || !userCoords) return true;
-
       const doctorCoords = coordsFromCP(doctor.cp);
       if (!doctorCoords) return true;
-
       const km = haversineKm(userCoords, doctorCoords);
-
       if (!maxKm) return doctor.cp.slice(0, 2) === cp.slice(0, 2);
-
       return km <= maxKm;
     })
     .map<Doctor>((doctor) => {
       const doctorCoords = userCoords ? coordsFromCP(doctor.cp) : null;
       const distanceKm =
-        userCoords && doctorCoords
-          ? Math.round(haversineKm(userCoords, doctorCoords))
-          : null;
+        userCoords && doctorCoords ? Math.round(haversineKm(userCoords, doctorCoords)) : null;
       return { ...doctor, distanceKm };
-    })
-    .sort((a, b) => {
-      if (b.rating !== a.rating) return b.rating - a.rating;
-      return b.numReviews - a.numReviews;
     });
+}
+
+export async function filterDoctors(
+  mutua: string,
+  especialidad: string,
+  cp: string,
+  maxKm?: number
+): Promise<Doctor[]> {
+  const wantAdeslas = !mutua || mutua === "Adeslas";
+  const wantOccidente = !mutua || mutua === "Occidente";
+
+  const offline = wantAdeslas
+    ? (doctors as Doctor[]).filter((d) => {
+        const matchMutua = !mutua ? true : d.mutuas.includes(mutua);
+        return matchMutua && especialidadMatches(d.especialidad, especialidad);
+      })
+    : [];
+
+  // Occident solo se consulta si hay especialidad; el endpoint la exige.
+  const occidentPromise: Promise<Doctor[]> =
+    wantOccidente && especialidad ? searchOccident(cp, especialidad) : Promise.resolve([]);
+
+  const occident = await occidentPromise;
+
+  const merged = [...applyGeo(offline, cp, maxKm), ...applyGeo(occident, cp, maxKm)];
+
+  return merged.sort((a, b) => {
+    if (b.rating !== a.rating) return b.rating - a.rating;
+    return b.numReviews - a.numReviews;
+  });
 }

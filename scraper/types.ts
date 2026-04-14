@@ -7,7 +7,7 @@ export type RawDoctor = {
   ciudad: string;
   rating: number;
   numReviews: number;
-  source: "doctoralia" | "google" | "adeslas";
+  source: "doctoralia" | "google" | "adeslas" | "occident";
   telefono?: string;
   profileUrl?: string;
 };

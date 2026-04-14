@@ -1,15 +1,23 @@
 /**
- * Convierte `data/adeslas-raw.json` (output del scraper) al formato canonical
- * consumido por la UI: `data/doctors.json` + un shim `data/doctors.ts`.
+ * Fusiona los JSON crudos de cada scraper en el formato canonical que consume
+ * la UI: `data/doctors.json` + shim `data/doctors.ts`.
  *
- * Se ejecuta como un paso separado del scraping para poder iterar sobre el
- * formato sin volver a pegar a Adeslas.
+ * Fuentes leídas:
+ *   - data/adeslas-raw.json  (npm run scrape:adeslas)
+ *   - data/occident-raw.json (npm run scrape:occident)
+ *
+ * Dedup: si dos entradas coinciden en `normalize(nombre) + cp + especialidad`,
+ * se fusionan conservando todas las mutuas.
  */
 import * as fs from "fs";
 import * as path from "path";
 import type { RawDoctor } from "./types";
 
-const RAW = path.join(__dirname, "../data/adeslas-raw.json");
+const SOURCES = [
+  { path: "../data/adeslas-raw.json", mutua: "Adeslas" },
+  { path: "../data/occident-raw.json", mutua: "Occidente" },
+];
+
 const OUT_JSON = path.join(__dirname, "../data/doctors.json");
 const OUT_TS = path.join(__dirname, "../data/doctors.ts");
 
@@ -26,16 +34,55 @@ type CanonicalDoctor = {
   numReviews: number;
 };
 
+function normalizeKey(name: string): string {
+  return name
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[.,()]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 function main() {
-  if (!fs.existsSync(RAW)) {
-    console.error(`No existe ${RAW}. Ejecuta primero: npm run scrape:adeslas`);
+  const buckets: RawDoctor[][] = [];
+  for (const src of SOURCES) {
+    const p = path.join(__dirname, src.path);
+    if (!fs.existsSync(p)) {
+      console.warn(`⚠ ${src.mutua}: ${src.path} no existe, omito. Ejecuta 'npm run scrape:${src.mutua.toLowerCase()}' primero.`);
+      continue;
+    }
+    const raw = JSON.parse(fs.readFileSync(p, "utf-8")) as RawDoctor[];
+    console.log(`Leídos ${raw.length} registros de ${src.path}`);
+    buckets.push(raw);
+  }
+
+  if (buckets.length === 0) {
+    console.error("No hay datos de origen. Aborto.");
     process.exit(1);
   }
 
-  const raw = JSON.parse(fs.readFileSync(RAW, "utf-8")) as RawDoctor[];
-  console.log(`Leídos ${raw.length} registros de adeslas-raw.json`);
+  // Merge + dedup: conservar primera aparición, fusionar mutuas si coincide
+  const map = new Map<string, RawDoctor>();
+  for (const bucket of buckets) {
+    for (const d of bucket) {
+      const key = `${normalizeKey(d.nombre)}::${d.cp}::${normalizeKey(d.especialidad)}`;
+      const existing = map.get(key);
+      if (existing) {
+        for (const m of d.mutuas) {
+          if (!existing.mutuas.includes(m)) existing.mutuas.push(m);
+        }
+        if (!existing.telefono && d.telefono) existing.telefono = d.telefono;
+      } else {
+        map.set(key, { ...d, mutuas: [...d.mutuas] });
+      }
+    }
+  }
 
-  const canonical: CanonicalDoctor[] = raw.map((d, i) => ({
+  const all = Array.from(map.values());
+  console.log(`Tras dedup: ${all.length} médicos únicos`);
+
+  const canonical: CanonicalDoctor[] = all.map((d, i) => ({
     id: i + 1,
     nombre: d.nombre,
     especialidad: d.especialidad,
@@ -52,21 +99,16 @@ function main() {
   const sizeMb = (fs.statSync(OUT_JSON).size / 1024 / 1024).toFixed(1);
   console.log(`✓ ${canonical.length} médicos → ${path.relative(process.cwd(), OUT_JSON)} (${sizeMb} MB)`);
 
-  // Shim TS que re-exporta el JSON con el tipo canonical.
-  const shim = `// Generado por scraper/build-doctors.ts — no editar a mano.
-// Total: ${canonical.length} médicos (Adeslas cuadro general, última actualización ${new Date().toISOString()})
-import raw from "./doctors.json";
-import type { Doctor } from "@/lib/types";
+  const porMutua: Record<string, number> = {};
+  for (const d of canonical) {
+    for (const m of d.mutuas) porMutua[m] = (porMutua[m] || 0) + 1;
+  }
+  console.log(`Por mutua: ${Object.entries(porMutua).map(([k, v]) => `${k}=${v}`).join(", ")}`);
 
-export const doctors = raw as Omit<Doctor, "distanceKm" | "telefono"> &
-  { telefono?: string }[] extends infer _ ? Array<Omit<Doctor, "distanceKm" | "telefono"> & { telefono?: string }> : never;
-`;
-
-  // Simpler shim — el tipo complicado de arriba es una tontería.
   fs.writeFileSync(
     OUT_TS,
     `// Generado por scraper/build-doctors.ts — no editar a mano.
-// Total: ${canonical.length} médicos (Adeslas cuadro general).
+// Total: ${canonical.length} médicos. Última actualización: ${new Date().toISOString()}
 import raw from "./doctors.json";
 import type { Doctor } from "@/lib/types";
 
