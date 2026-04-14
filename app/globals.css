@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Activa cifras tabulares y características OpenType de Inter */
+body {
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11", "tnum";
+}
+
+/* Transición suave en selects (Chrome no anima por defecto) */
+select {
+  transition: color 0.15s ease;
+}
+
+/* Animación de entrada para los resultados */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.3s ease forwards;
+}
