@@ -120,6 +120,7 @@ async function resolveEspecialidad(especialidad: string, provinceId: number): Pr
     all.find((n) => norm(n).startsWith(target)) ??
     all.find((n) => target.startsWith(norm(n))) ??
     all.find((n) => norm(n).includes(target)) ??
+    all.find((n) => target.includes(norm(n))) ??
     null
   );
 }

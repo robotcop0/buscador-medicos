@@ -119,7 +119,8 @@ async function resolveEspecialidadCodigo(especialidad: string): Promise<string |
     list.find((e) => norm(e.descripcionEspecialidad) === target) ??
     list.find((e) => norm(e.descripcionEspecialidad).startsWith(target)) ??
     list.find((e) => target.startsWith(norm(e.descripcionEspecialidad))) ??
-    list.find((e) => norm(e.descripcionEspecialidad).includes(target));
+    list.find((e) => norm(e.descripcionEspecialidad).includes(target)) ??
+    list.find((e) => target.includes(norm(e.descripcionEspecialidad)));
   return match?.codigoEspecialidad ?? null;
 }
 

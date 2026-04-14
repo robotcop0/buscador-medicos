@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 
-const AVAILABLE_MUTUAS = ["Adeslas", "Allianz", "Mapfre", "Occidente"] as const;
+const AVAILABLE_MUTUAS = ["Adeslas", "Allianz", "Mapfre", "Occidente", "Sanitas"] as const;
 const COMING_SOON_MUTUAS = [
   "Asisa",
   "AXA Salud",
@@ -15,7 +15,6 @@ const COMING_SOON_MUTUAS = [
   "Generali",
   "IMQ",
   "Muface",
-  "Sanitas",
 ] as const;
 
 type MutuaItem = { name: string; available: boolean };
