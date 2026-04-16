@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useRef, useEffect, FormEvent } from "react";
+import { useState, useRef, useEffect, FormEvent, KeyboardEvent } from "react";
 import { useRouter } from "next/navigation";
 
-const AVAILABLE_MUTUAS = ["Adeslas", "Allianz", "AXA Salud", "Mapfre", "Occidente", "Sanitas"] as const;
+const AVAILABLE_MUTUAS = ["Adeslas", "Allianz", "AXA Salud", "Mapfre", "Sanitas"] as const;
 const COMING_SOON_MUTUAS = [
   "Asisa",
   "Caser Salud",
@@ -14,12 +14,21 @@ const COMING_SOON_MUTUAS = [
   "Generali",
   "IMQ",
   "Muface",
+  "Occidente",
 ] as const;
 
 type MutuaItem = { name: string; available: boolean };
 const MUTUAS: MutuaItem[] = [
   ...AVAILABLE_MUTUAS.map((name) => ({ name, available: true })),
   ...COMING_SOON_MUTUAS.map((name) => ({ name, available: false })),
+];
+
+const RADIOS = [
+  { value: "2", label: "2 km" },
+  { value: "10", label: "10 km" },
+  { value: "25", label: "25 km" },
+  { value: "50", label: "50 km" },
+  { value: "100", label: "100 km" },
 ];
 
 const ESPECIALIDADES = [
@@ -56,14 +65,6 @@ const ESPECIALIDADES = [
   "Reumatología",
   "Traumatología",
   "Urología",
-];
-
-const RADIOS = [
-  { value: "2", label: "2 km" },
-  { value: "10", label: "10 km" },
-  { value: "25", label: "25 km" },
-  { value: "50", label: "50 km" },
-  { value: "100", label: "100 km" },
 ];
 
 export default function SearchForm() {
@@ -306,7 +307,10 @@ function Combobox({
 }) {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
+  const [highlight, setHighlight] = useState(0);
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const itemRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const triggerRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     function onDoc(e: MouseEvent) {
@@ -331,6 +335,77 @@ function Combobox({
 
   const selected = options.find((o) => o.value === value);
 
+  // Lista unificada de índices navegables: 0 = placeholder ("Cualquiera"), 1..N = filtered.
+  // Saltamos disabled al navegar.
+  const totalItems = 1 + filtered.length;
+  const isDisabled = (idx: number): boolean =>
+    idx === 0 ? false : !!filtered[idx - 1]?.disabled;
+
+  function moveHighlight(delta: number) {
+    if (totalItems === 0) return;
+    let next = highlight;
+    for (let i = 0; i < totalItems; i++) {
+      next = (next + delta + totalItems) % totalItems;
+      if (!isDisabled(next)) {
+        setHighlight(next);
+        return;
+      }
+    }
+  }
+
+  // Al abrir o al cambiar query: reset al primer item habilitado.
+  useEffect(() => {
+    if (!open) return;
+    let start = 0;
+    while (start < totalItems && isDisabled(start)) start++;
+    setHighlight(start < totalItems ? start : 0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open, query]);
+
+  // Scroll al item resaltado cuando cambia.
+  useEffect(() => {
+    if (!open) return;
+    itemRefs.current[highlight]?.scrollIntoView({ block: "nearest" });
+  }, [highlight, open]);
+
+  function selectIndex(idx: number) {
+    if (idx === 0) {
+      onChange("");
+    } else {
+      const opt = filtered[idx - 1];
+      if (!opt || opt.disabled) return;
+      onChange(opt.value);
+    }
+    setOpen(false);
+    setQuery("");
+    triggerRef.current?.focus();
+  }
+
+  function handleKeyDown(e: KeyboardEvent) {
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      moveHighlight(1);
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      moveHighlight(-1);
+    } else if (e.key === "Enter") {
+      e.preventDefault();
+      selectIndex(highlight);
+    } else if (e.key === "Escape") {
+      e.preventDefault();
+      setOpen(false);
+      setQuery("");
+      triggerRef.current?.focus();
+    }
+  }
+
+  function handleTriggerKeyDown(e: KeyboardEvent) {
+    if (!open && (e.key === "ArrowDown" || e.key === "Enter" || e.key === " ")) {
+      e.preventDefault();
+      setOpen(true);
+    }
+  }
+
   const triggerBase = mobile
     ? "w-full px-4 py-3 text-sm bg-white border border-gray-200 rounded-xl text-gray-900 flex items-center justify-between transition-all hover:border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent"
     : "w-full bg-transparent text-sm text-gray-900 flex items-center justify-between focus:outline-none";
@@ -338,8 +413,12 @@ function Combobox({
   return (
     <div ref={wrapperRef} className="relative">
       <button
+        ref={triggerRef}
         type="button"
         onClick={() => setOpen((v) => !v)}
+        onKeyDown={handleTriggerKeyDown}
+        aria-haspopup="listbox"
+        aria-expanded={open}
         className={triggerBase}
       >
         <span className={selected ? "text-gray-900 truncate" : "text-gray-400 truncate"}>
@@ -370,6 +449,7 @@ function Combobox({
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
+              onKeyDown={handleKeyDown}
               placeholder="Buscar…"
               autoFocus
               className="w-full px-3 py-2 text-sm bg-gray-50 border border-transparent rounded-lg focus:outline-none focus:bg-white focus:border-gray-200"
@@ -382,14 +462,20 @@ function Combobox({
           >
             <li>
               <button
-                type="button"
-                onClick={() => {
-                  onChange("");
-                  setOpen(false);
-                  setQuery("");
+                ref={(el) => {
+                  itemRefs.current[0] = el;
                 }}
-                className={`w-full text-left px-4 py-2 text-sm hover:bg-gray-50 ${
-                  value === "" ? "text-gray-900 font-medium" : "text-gray-500"
+                type="button"
+                role="option"
+                aria-selected={highlight === 0}
+                onMouseEnter={() => setHighlight(0)}
+                onClick={() => selectIndex(0)}
+                className={`w-full text-left px-4 py-2 text-sm ${
+                  highlight === 0
+                    ? "bg-gray-100 text-gray-900"
+                    : value === ""
+                    ? "text-gray-900 font-medium"
+                    : "text-gray-500"
                 }`}
               >
                 {placeholder}
@@ -398,38 +484,45 @@ function Combobox({
             {filtered.length === 0 && (
               <li className="px-4 py-3 text-sm text-gray-400">Sin resultados</li>
             )}
-            {filtered.map((o) => (
-              <li key={o.value}>
-                <button
-                  type="button"
-                  disabled={o.disabled}
-                  onClick={() => {
-                    if (o.disabled) return;
-                    onChange(o.value);
-                    setOpen(false);
-                    setQuery("");
-                  }}
-                  className={`w-full text-left px-4 py-2 text-sm flex items-center justify-between gap-3 transition-colors ${
-                    o.disabled
-                      ? "text-gray-300 cursor-not-allowed"
-                      : value === o.value
-                      ? "bg-gray-50 text-gray-900 font-medium"
-                      : "text-gray-700 hover:bg-gray-50"
-                  }`}
-                >
-                  <span className="flex items-center gap-2 truncate">
-                    {o.disabled && <ConstructionIcon />}
-                    <span className="truncate">{o.label}</span>
-                  </span>
-                  {o.badge && (
-                    <span className="text-[10px] font-medium text-amber-600 bg-amber-50 px-2 py-0.5 rounded-full whitespace-nowrap">
-                      {o.badge}
+            {filtered.map((o, i) => {
+              const idx = i + 1;
+              const isHighlighted = highlight === idx;
+              return (
+                <li key={o.value}>
+                  <button
+                    ref={(el) => {
+                      itemRefs.current[idx] = el;
+                    }}
+                    type="button"
+                    role="option"
+                    aria-selected={isHighlighted}
+                    disabled={o.disabled}
+                    onMouseEnter={() => !o.disabled && setHighlight(idx)}
+                    onClick={() => selectIndex(idx)}
+                    className={`w-full text-left px-4 py-2 text-sm flex items-center justify-between gap-3 transition-colors ${
+                      o.disabled
+                        ? "text-gray-300 cursor-not-allowed"
+                        : isHighlighted
+                        ? "bg-gray-100 text-gray-900 font-medium"
+                        : value === o.value
+                        ? "bg-gray-50 text-gray-900 font-medium"
+                        : "text-gray-700"
+                    }`}
+                  >
+                    <span className="flex items-center gap-2 truncate">
+                      {o.disabled && <ConstructionIcon />}
+                      <span className="truncate">{o.label}</span>
                     </span>
-                  )}
-                  {!o.badge && value === o.value && !o.disabled && <CheckIcon />}
-                </button>
-              </li>
-            ))}
+                    {o.badge && (
+                      <span className="text-[10px] font-medium text-amber-600 bg-amber-50 px-2 py-0.5 rounded-full whitespace-nowrap">
+                        {o.badge}
+                      </span>
+                    )}
+                    {!o.badge && value === o.value && !o.disabled && !isHighlighted && <CheckIcon />}
+                  </button>
+                </li>
+              );
+            })}
           </ul>
         </div>
       )}

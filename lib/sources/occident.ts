@@ -25,9 +25,32 @@ type Medico = {
 let tokenCache: { token: string; expiresAt: number } | null = null;
 let especialidadesCache: Especialidad[] | null = null;
 
+const BROWSER_UA =
+  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36";
+
+const REQUEST_TIMEOUT_MS = 8000;
+
+async function fetchWithTimeout(url: string, init: RequestInit): Promise<Response> {
+  const ctrl = new AbortController();
+  const t = setTimeout(() => ctrl.abort(), REQUEST_TIMEOUT_MS);
+  try {
+    return await fetch(url, { ...init, signal: ctrl.signal });
+  } finally {
+    clearTimeout(t);
+  }
+}
+
 async function getToken(): Promise<string> {
   if (tokenCache && tokenCache.expiresAt > Date.now() + 60_000) return tokenCache.token;
-  const r = await fetch(`${BASE}/token.txt?v=${Date.now()}`, { cache: "no-store" });
+  const r = await fetchWithTimeout(`${BASE}/token.txt?v=${Date.now()}`, {
+    cache: "no-store",
+    headers: {
+      "user-agent": BROWSER_UA,
+      accept: "*/*",
+      "accept-language": "es-ES,es;q=0.9,en;q=0.8",
+      referer: `${BASE}/particulares/salud/cuadro-medico`,
+    },
+  });
   if (!r.ok) throw new Error(`Occident token: ${r.status}`);
   const j = (await r.json()) as { access_token: string; expires_in: number };
   tokenCache = { token: j.access_token, expiresAt: Date.now() + j.expires_in * 1000 };
@@ -37,11 +60,15 @@ async function getToken(): Promise<string> {
 async function apiGet<T>(path: string, params: Record<string, string>): Promise<T> {
   const token = await getToken();
   const qs = new URLSearchParams(params).toString();
-  const r = await fetch(`${BASE}${path}?${qs}`, {
+  const r = await fetchWithTimeout(`${BASE}${path}?${qs}`, {
     headers: {
       authorization: `Bearer ${token}`,
       "x-requested-with": "XMLHttpRequest",
       accept: "application/json, text/javascript, */*; q=0.01",
+      "user-agent": BROWSER_UA,
+      "accept-language": "es-ES,es;q=0.9,en;q=0.8",
+      referer: `${BASE}/particulares/salud/cuadro-medico`,
+      origin: BASE,
     },
     cache: "no-store",
   });
@@ -116,10 +143,15 @@ export async function searchOccident(cp: string, especialidad: string): Promise<
   let espId: string | null = null;
   try {
     espId = await resolveEspecialidadId(especialidad);
-  } catch {
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.warn(`[Occident] No se pudo obtener el catálogo de especialidades (${msg})`);
     return [];
   }
-  if (!espId) return [];
+  if (!espId) {
+    console.warn(`[Occident] Especialidad no encontrada en el catálogo: "${especialidad}"`);
+    return [];
+  }
 
   const codProv = cp && /^\d{5}$/.test(cp) ? cp.slice(0, 2) : "0";
 
@@ -142,11 +174,14 @@ export async function searchOccident(cp: string, especialidad: string): Promise<
       }
     );
     const medicos = j.Salida?.Medicos ?? [];
+    console.log(`[Occident] ${medicos.length} médicos para espId=${espId} prov=${codProv}`);
     // IDs > 1e8 para no chocar con los offline de Adeslas.
     return medicos
       .map((m, i) => toDoctor(m, 100_000_000 + i))
       .filter((d): d is Doctor => d !== null);
-  } catch {
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.warn(`[Occident] ObtenerMedicos falló (espId=${espId}, prov=${codProv}): ${msg}`);
     return [];
   }
 }

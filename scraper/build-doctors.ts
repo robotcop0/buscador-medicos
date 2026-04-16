@@ -16,6 +16,7 @@ import type { RawDoctor } from "./types";
 const SOURCES = [
   { path: "../data/adeslas-raw.json", mutua: "Adeslas" },
   { path: "../data/occident-raw.json", mutua: "Occidente" },
+  { path: "../data/sanitas-raw.json", mutua: "Sanitas" },
 ];
 
 const OUT_JSON = path.join(__dirname, "../data/doctors.json");
@@ -73,6 +74,12 @@ function main() {
           if (!existing.mutuas.includes(m)) existing.mutuas.push(m);
         }
         if (!existing.telefono && d.telefono) existing.telefono = d.telefono;
+        // Preservar el mejor rating disponible (Sanitas trae valoración real,
+        // Adeslas no; nos quedamos con el que tiene más votos).
+        if (d.numReviews > existing.numReviews) {
+          existing.rating = d.rating;
+          existing.numReviews = d.numReviews;
+        }
       } else {
         map.set(key, { ...d, mutuas: [...d.mutuas] });
       }
