@@ -67,51 +67,116 @@ export const PROVINCIAS: string[] = [
 
 // Mapeo de la etiqueta que Doctoralia usa en `data-eec-specialization-name`
 // (masculino/femenino, con acentos) → categoría canónica del combo UI.
+// Claves en minúscula + sin acentos, incluyendo AMBAS variantes de género
+// para especialidades con alternancia -o/-a. Especialidades invariantes
+// (pediatra, dentista, internista, ...) van con su forma única.
 // Usado por parsePage para rechazar cards cuya especialidad real no coincide
-// con la iteración (capa defensiva: la URL canonical ya filtra en server,
-// pero si alguna vez deja de hacerlo, este filtro evita contaminación).
+// con la iteración (capa defensiva).
 export const DOCTORALIA_NAME_TO_CANONICAL: Record<string, string> = {
+  // Alergología
   "alergologo": "Alergología",
+  "alergologa": "Alergología",
+  // Andrología
   "andrologo": "Andrología",
+  "androloga": "Andrología",
+  // Aparato digestivo
   "gastroenterologo": "Aparato digestivo",
+  "gastroenterologa": "Aparato digestivo",
   "especialista en aparato digestivo": "Aparato digestivo",
+  // Cardiología
   "cardiologo": "Cardiología",
+  "cardiologa": "Cardiología",
+  // Cirugía general
   "cirujano general": "Cirugía general",
+  "cirujana general": "Cirugía general",
   "cirujano": "Cirugía general",
+  "cirujana": "Cirugía general",
+  // Cirugía plástica
   "cirujano plastico": "Cirugía plástica",
+  "cirujana plastica": "Cirugía plástica",
+  // Dermatología
   "dermatologo": "Dermatología",
+  "dermatologa": "Dermatología",
+  // Endocrinología
   "endocrinologo": "Endocrinología",
+  "endocrinologa": "Endocrinología",
+  // Fisioterapia (invariante)
   "fisioterapeuta": "Fisioterapia",
+  // Ginecología
   "ginecologo": "Ginecología",
+  "ginecologa": "Ginecología",
+  // Hematología
   "hematologo": "Hematología",
+  "hematologa": "Hematología",
+  // Logopedia (invariante)
   "logopeda": "Logopedia",
+  // Medicina de urgencias
   "medico de urgencias": "Medicina de urgencias",
+  "medica de urgencias": "Medicina de urgencias",
+  // Medicina estética
   "medico estetico": "Medicina estética",
-  "medico estetica": "Medicina estética",
+  "medica estetica": "Medicina estética",
+  // Medicina general
   "medico de cabecera": "Medicina general",
+  "medica de cabecera": "Medicina general",
   "medico general": "Medicina general",
+  "medica general": "Medicina general",
   "medico de familia": "Medicina general",
+  "medica de familia": "Medicina general",
+  // Medicina interna (invariante)
   "internista": "Medicina interna",
+  // Nefrología
   "nefrologo": "Nefrología",
+  "nefrologa": "Nefrología",
+  // Neumología
   "neumologo": "Neumología",
+  "neumologa": "Neumología",
+  // Neurocirugía
   "neurocirujano": "Neurocirugía",
+  "neurocirujana": "Neurocirugía",
+  // Neurología
   "neurologo": "Neurología",
+  "neurologa": "Neurología",
+  // Nutrición y dietética (invariantes)
   "nutricionista": "Nutrición y dietética",
   "dietista": "Nutrición y dietética",
+  // Odontología (dentista invariante, odontologo/a gendered)
   "dentista": "Odontología",
   "odontologo": "Odontología",
+  "odontologa": "Odontología",
+  // Oftalmología
   "oftalmologo": "Oftalmología",
+  "oftalmologa": "Oftalmología",
+  // Oncología
   "oncologo": "Oncología",
+  "oncologa": "Oncología",
+  // Otorrinolaringología
   "otorrinolaringologo": "Otorrinolaringología",
+  "otorrinolaringologa": "Otorrinolaringología",
+  // Pediatría (invariante)
   "pediatra": "Pediatría",
+  // Podología
   "podologo": "Podología",
+  "podologa": "Podología",
+  // Psicología
   "psicologo": "Psicología",
+  "psicologa": "Psicología",
+  // Psiquiatría (invariante)
   "psiquiatra": "Psiquiatría",
+  // Rehabilitación
   "medico rehabilitador": "Rehabilitación",
+  "medica rehabilitadora": "Rehabilitación",
   "rehabilitador": "Rehabilitación",
+  "rehabilitadora": "Rehabilitación",
+  // Reumatología
   "reumatologo": "Reumatología",
+  "reumatologa": "Reumatología",
+  // Traumatología
   "traumatologo": "Traumatología",
+  "traumatologa": "Traumatología",
+  // Urología
   "urologo": "Urología",
+  "urologa": "Urología",
 };
 
 function canonicalOf(doctoraliaName: string): string | null {
@@ -120,7 +185,6 @@ function canonicalOf(doctoraliaName: string): string | null {
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
     .replace(/[^a-z ]/g, " ")
-    .replace(/a\b/g, "o")   // "psicologa" → "psicologo", "cirujana" → "cirujano"
     .replace(/\s+/g, " ")
     .trim();
   // exact match primero
