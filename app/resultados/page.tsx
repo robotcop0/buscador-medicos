@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { findDoctors } from "@/lib/doctorSearch";
 import DoctorCard from "@/components/DoctorCard";
+import { imqCoversCp, IMQ_COVERAGE_LABEL } from "@/lib/sources/imq";
 import type { Doctor } from "@/lib/types";
 
 type SearchParams = {
@@ -63,6 +64,12 @@ export default async function ResultadosPage({
   const currentPage = Math.min(page, totalPages || 1);
   const startItem = totalFound === 0 ? 0 : (currentPage - 1) * PAGE_SIZE + 1;
   const endItem = Math.min(currentPage * PAGE_SIZE, totalFound);
+
+  // Aviso de cobertura: IMQ sólo opera en 5 provincias. Si el usuario filtra
+  // IMQ con un CP fuera de esa zona, mostramos el porqué en vez de un empty
+  // state genérico.
+  const imqOutOfCoverage =
+    mutua === "IMQ" && !!cp && !imqCoversCp(cp);
 
   return (
     <main className="min-h-screen px-6 py-16">
@@ -141,6 +148,18 @@ export default async function ResultadosPage({
                   />
                 )}
               </>
+            ) : imqOutOfCoverage ? (
+              <div className="py-20 text-center">
+                <p className="text-sm text-gray-400 mb-1">
+                  IMQ solo opera en {IMQ_COVERAGE_LABEL}.
+                </p>
+                <p className="text-xs text-gray-300 mb-8">
+                  El código postal {cp} está fuera de su red. Prueba con otra mutua o con un CP de esa zona.
+                </p>
+                <Link href="/" className="text-xs text-gray-900 underline underline-offset-4">
+                  Nueva búsqueda
+                </Link>
+              </div>
             ) : (
               <div className="py-20 text-center">
                 <p className="text-sm text-gray-400 mb-1">Sin resultados para estos filtros.</p>

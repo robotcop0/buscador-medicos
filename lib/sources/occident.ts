@@ -34,7 +34,11 @@ async function getToken(): Promise<string> {
   return tokenCache.token;
 }
 
-async function apiGet<T>(path: string, params: Record<string, string>): Promise<T> {
+async function apiGet<T>(
+  path: string,
+  params: Record<string, string>,
+  retried = false
+): Promise<T> {
   const token = await getToken();
   const qs = new URLSearchParams(params).toString();
   const r = await fetch(`${BASE}${path}?${qs}`, {
@@ -45,6 +49,10 @@ async function apiGet<T>(path: string, params: Record<string, string>): Promise<
     },
     cache: "no-store",
   });
+  if ((r.status === 401 || r.status === 403) && !retried) {
+    tokenCache = null;
+    return apiGet<T>(path, params, true);
+  }
   if (!r.ok) throw new Error(`Occident ${path}: ${r.status}`);
   return (await r.json()) as T;
 }
@@ -68,17 +76,45 @@ function norm(s: string): string {
     .trim();
 }
 
+// Sinónimos UI → Occident. La lista oficial de Occident usa nomenclatura propia
+// (p.ej. ESTOMATOLOGÍA en lugar de ODONTOLOGÍA). Si el usuario escoge una
+// especialidad del dropdown que no coincide literalmente, la redirigimos aquí.
+const SYNONYMS: Record<string, string> = {
+  odontologia: "estomatologia",
+  logopedia: "logofoniatria",
+  "medicina de urgencias": "urgencias",
+};
+
 async function resolveEspecialidadId(especialidad: string): Promise<string | null> {
   const list = await getEspecialidades();
-  const target = norm(especialidad);
-  // Igual exacto > prefijo > contiene
-  return (
-    list.find((e) => norm(e.Descripcion) === target)?.Id ??
-    list.find((e) => norm(e.Descripcion).startsWith(target))?.Id ??
-    list.find((e) => target.startsWith(norm(e.Descripcion)))?.Id ??
-    list.find((e) => norm(e.Descripcion).includes(target))?.Id ??
-    null
-  );
+  const raw = norm(especialidad);
+  const target = SYNONYMS[raw] ?? raw;
+  // Cuando varios candidatos encajan por prefijo (p.ej. "traumatologia" →
+  // "TRAUMATOLOGÍA PEDIÁTRICA" e "TRAUMATOLOGÍA Y CIRUGIA ORTOPÉDICA"), nos
+  // quedamos con el que NO parece ser una subespecialidad (pediátrica, etc.).
+  // Un proxy simple: preferir el de descripción más larga que coincida solo si
+  // no hay exacto; para prefijos preferimos el de Id numérico más bajo, que en
+  // la convención de Occident suele ser la especialidad "adulto/general".
+  const byIdAsc = (a: Especialidad, b: Especialidad) =>
+    parseInt(a.Id, 10) - parseInt(b.Id, 10);
+
+  const exact = list.find((e) => norm(e.Descripcion) === target);
+  if (exact) return exact.Id;
+
+  const prefix = list
+    .filter((e) => norm(e.Descripcion).startsWith(target))
+    .sort(byIdAsc);
+  if (prefix.length) return prefix[0].Id;
+
+  const reversePrefix = list.find((e) => target.startsWith(norm(e.Descripcion)));
+  if (reversePrefix) return reversePrefix.Id;
+
+  const includes = list
+    .filter((e) => norm(e.Descripcion).includes(target))
+    .sort(byIdAsc);
+  if (includes.length) return includes[0].Id;
+
+  return null;
 }
 
 function normalizeText(raw: string): string {

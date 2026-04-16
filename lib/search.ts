@@ -5,6 +5,15 @@ import { searchAllianz } from "@/lib/sources/allianz";
 import { searchMapfre } from "@/lib/sources/mapfre";
 import { searchSanitas } from "@/lib/sources/sanitas";
 import { searchAxa } from "@/lib/sources/axa";
+import { searchCaser } from "@/lib/sources/caser";
+import { searchCigna } from "@/lib/sources/cigna";
+import { searchDivinaPastora } from "@/lib/sources/divina-pastora";
+import { searchAsisa } from "@/lib/sources/asisa";
+import { searchDkv } from "@/lib/sources/dkv";
+import { searchImq } from "@/lib/sources/imq";
+import { searchMuface } from "@/lib/sources/muface";
+import { searchGenerali } from "@/lib/sources/generali";
+import { searchFiatc } from "@/lib/sources/fiatc";
 import type { Doctor } from "@/lib/types";
 
 function normalize(s: string): string {
@@ -54,6 +63,21 @@ export async function filterDoctors(
   const wantMapfre = !mutua || mutua === "Mapfre";
   const wantSanitas = !mutua || mutua === "Sanitas";
   const wantAxa = !mutua || mutua === "AXA Salud";
+  const wantCaser = !mutua || mutua === "Caser Salud";
+  const wantCigna = !mutua || mutua === "Cigna";
+  const wantDivina = !mutua || mutua === "Divina Pastora";
+  const wantAsisa = !mutua || mutua === "Asisa";
+  const wantDkv = !mutua || mutua === "DKV";
+  const wantImq = !mutua || mutua === "IMQ";
+  const wantFiatc = !mutua || mutua === "Fiatc";
+  // MUFACE no es una mutua; es un régimen que delega en Adeslas + Asisa con
+  // cuadros específicos. Solo se consulta cuando el usuario lo pide explícito
+  // (si no, los mismos médicos ya vendrían vía Adeslas/Asisa "Salud").
+  const wantMuface = mutua === "MUFACE";
+  // Generali Salud Premium es co-branded Sanitas: solo lo consultamos si el
+  // usuario filtra por "Generali". Si no, los mismos médicos ya llegan por
+  // Sanitas (evitamos duplicados en el merge "todas las mutuas").
+  const wantGenerali = mutua === "Generali";
 
   const offline = wantAdeslas
     ? (doctors as Doctor[]).filter((d) => {
@@ -64,12 +88,22 @@ export async function filterDoctors(
 
   // Occident exige especialidad. Allianz hace fan-out si no se pasa.
   // Mapfre acepta radio sin especialidad (devuelve todo lo cercano).
-  const [occident, allianz, mapfre, sanitas, axa] = await Promise.all([
+  // Divina Pastora / Asisa / MUFACE exigen especialidad.
+  const [occident, allianz, mapfre, sanitas, axa, caser, cigna, divina, asisa, dkv, imq, muface, generali, fiatc] = await Promise.all([
     wantOccidente && especialidad ? searchOccident(cp, especialidad) : Promise.resolve([]),
     wantAllianz && cp ? searchAllianz(cp, especialidad) : Promise.resolve([]),
     wantMapfre && cp ? searchMapfre(cp, especialidad) : Promise.resolve([]),
     wantSanitas && cp ? searchSanitas(cp, especialidad) : Promise.resolve([]),
     wantAxa && cp ? searchAxa(cp, especialidad) : Promise.resolve([]),
+    wantCaser && cp && especialidad ? searchCaser(cp, especialidad) : Promise.resolve([]),
+    wantCigna && cp && especialidad ? searchCigna(cp, especialidad) : Promise.resolve([]),
+    wantDivina && cp && especialidad ? searchDivinaPastora(cp, especialidad) : Promise.resolve([]),
+    wantAsisa && cp && especialidad ? searchAsisa(cp, especialidad) : Promise.resolve([]),
+    wantDkv && cp && especialidad ? searchDkv(cp, especialidad) : Promise.resolve([]),
+    wantImq && cp && especialidad ? searchImq(cp, especialidad) : Promise.resolve([]),
+    wantMuface && cp && especialidad ? searchMuface(cp, especialidad) : Promise.resolve([]),
+    wantGenerali && cp ? searchGenerali(cp, especialidad) : Promise.resolve([]),
+    wantFiatc && cp && especialidad ? searchFiatc(cp, especialidad) : Promise.resolve([]),
   ]);
 
   const merged = [
@@ -79,6 +113,15 @@ export async function filterDoctors(
     ...applyGeo(mapfre, cp, maxKm),
     ...applyGeo(sanitas, cp, maxKm),
     ...applyGeo(axa, cp, maxKm),
+    ...applyGeo(caser, cp, maxKm),
+    ...applyGeo(cigna, cp, maxKm),
+    ...applyGeo(divina, cp, maxKm),
+    ...applyGeo(asisa, cp, maxKm),
+    ...applyGeo(dkv, cp, maxKm),
+    ...applyGeo(imq, cp, maxKm),
+    ...applyGeo(muface, cp, maxKm),
+    ...applyGeo(generali, cp, maxKm),
+    ...applyGeo(fiatc, cp, maxKm),
   ];
 
   return merged.sort((a, b) => {

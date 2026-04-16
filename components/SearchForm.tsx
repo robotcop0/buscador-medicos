@@ -3,18 +3,8 @@
 import { useState, useRef, useEffect, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 
-const AVAILABLE_MUTUAS = ["Adeslas", "Allianz", "AXA Salud", "Mapfre", "Occidente", "Sanitas"] as const;
-const COMING_SOON_MUTUAS = [
-  "Asisa",
-  "Caser Salud",
-  "Cigna",
-  "Divina Pastora",
-  "DKV",
-  "Fiatc",
-  "Generali",
-  "IMQ",
-  "Muface",
-] as const;
+const AVAILABLE_MUTUAS = ["Adeslas", "Allianz", "Asisa", "AXA Salud", "Caser Salud", "Cigna", "DKV", "Divina Pastora", "Fiatc", "Generali", "IMQ", "Mapfre", "MUFACE", "Occidente", "Sanitas"] as const;
+const COMING_SOON_MUTUAS = [] as const;
 
 type MutuaItem = { name: string; available: boolean };
 const MUTUAS: MutuaItem[] = [
@@ -74,6 +64,8 @@ export default function SearchForm() {
   const [cpError, setCpError] = useState("");
   const [radio, setRadio] = useState("");
 
+  const canSubmit = cp.length === 5 && !!mutua && !!especialidad;
+
   function handleCpChange(value: string) {
     const clean = value.replace(/\D/g, "").slice(0, 5);
     setCp(clean);
@@ -87,6 +79,7 @@ export default function SearchForm() {
       setCpError("5 dígitos");
       return;
     }
+    if (!especialidad) return;
     const params = new URLSearchParams();
     if (mutua) params.set("mutua", mutua);
     if (especialidad) params.set("especialidad", especialidad);
@@ -141,7 +134,8 @@ export default function SearchForm() {
           {/* Buscar */}
           <button
             type="submit"
-            className="px-7 bg-gray-900 text-white text-sm font-medium hover:bg-gray-700 active:bg-gray-800 transition-colors focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+            disabled={!canSubmit}
+            className="px-7 bg-gray-900 text-white text-sm font-medium hover:bg-gray-700 active:bg-gray-800 transition-colors focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white disabled:bg-gray-300 disabled:cursor-not-allowed disabled:hover:bg-gray-300"
             aria-label="Buscar médicos"
           >
             Buscar
@@ -189,7 +183,9 @@ export default function SearchForm() {
         </div>
 
         <div>
-          <label className="block text-xs font-medium text-gray-500 mb-1">Especialidad</label>
+          <label className="block text-xs font-medium text-gray-500 mb-1">
+            Especialidad
+          </label>
           <EspecialidadCombobox value={especialidad} onChange={setEspecialidad} mobile />
         </div>
 
@@ -237,7 +233,8 @@ export default function SearchForm() {
         <div className="pt-1">
           <button
             type="submit"
-            className="w-full bg-gray-900 text-white text-sm font-medium py-3 rounded-xl hover:bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900"
+            disabled={!canSubmit}
+            className="w-full bg-gray-900 text-white text-sm font-medium py-3 rounded-xl hover:bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 disabled:bg-gray-300 disabled:cursor-not-allowed disabled:hover:bg-gray-300"
           >
             Buscar
           </button>
@@ -260,7 +257,7 @@ function MutuaCombobox({ value, onChange, mobile }: ComboboxProps) {
     <Combobox
       value={value}
       onChange={onChange}
-      placeholder={mobile ? "Cualquier mutua" : "Cualquiera"}
+      placeholder={mobile ? "Selecciona mutua" : "Selecciona…"}
       options={MUTUAS.map((m) => ({
         value: m.name,
         label: m.name,
@@ -277,7 +274,7 @@ function EspecialidadCombobox({ value, onChange, mobile }: ComboboxProps) {
     <Combobox
       value={value}
       onChange={onChange}
-      placeholder={mobile ? "Cualquier especialidad" : "Cualquiera"}
+      placeholder={mobile ? "Selecciona especialidad" : "Selecciona…"}
       options={ESPECIALIDADES.map((e) => ({ value: e, label: e }))}
       mobile={mobile}
     />
@@ -378,23 +375,8 @@ function Combobox({
           <ul
             role="listbox"
             className="overflow-y-auto py-1"
-            style={{ maxHeight: 5 * 36 }}
+            style={{ maxHeight: 6 * 36 }}
           >
-            <li>
-              <button
-                type="button"
-                onClick={() => {
-                  onChange("");
-                  setOpen(false);
-                  setQuery("");
-                }}
-                className={`w-full text-left px-4 py-2 text-sm hover:bg-gray-50 ${
-                  value === "" ? "text-gray-900 font-medium" : "text-gray-500"
-                }`}
-              >
-                {placeholder}
-              </button>
-            </li>
             {filtered.length === 0 && (
               <li className="px-4 py-3 text-sm text-gray-400">Sin resultados</li>
             )}
