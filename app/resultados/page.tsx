@@ -128,7 +128,7 @@ export default async function ResultadosPage({
               )}
 
               {totalFound > 0 && (
-                <p className="text-[11px] text-gray-300 mt-1 leading-relaxed">
+                <p className="text-[11px] text-gray-400 mt-1 leading-relaxed">
                   Las valoraciones provienen de Doctoralia. El matcheo por nombre y provincia puede no ser 100% exacto.
                 </p>
               )}
