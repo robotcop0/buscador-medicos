@@ -76,21 +76,52 @@ export default function DoctorCard({ doctor, searchCp }: Props) {
         </div>
 
         {/* Rating */}
-        {doctor.rating > 0 && (
-          <div className="flex-shrink-0 text-right">
+        <div className="flex-shrink-0 text-right">
+          {doctor.rating > 0 ? (
+            doctor.doctoraliaUrl ? (
+              <a
+                href={doctor.doctoraliaUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Ver perfil en Doctoralia"
+                className="group/rating inline-block"
+              >
+                <div
+                  className={`inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full border text-sm font-semibold tabular-nums transition-colors ${ratingStyle(doctor.rating)} group-hover/rating:border-gray-400`}
+                >
+                  {doctor.rating.toFixed(1)}
+                  <span aria-hidden="true">★</span>
+                </div>
+                {doctor.numReviews > 0 && (
+                  <p className="tabular-nums text-[11px] text-gray-400 mt-1 group-hover/rating:text-gray-600 transition-colors">
+                    {doctor.numReviews.toLocaleString("es-ES")} reseñas
+                  </p>
+                )}
+              </a>
+            ) : (
+              <>
+                <div
+                  className={`inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full border text-sm font-semibold tabular-nums ${ratingStyle(doctor.rating)}`}
+                >
+                  {doctor.rating.toFixed(1)}
+                  <span aria-hidden="true">★</span>
+                </div>
+                {doctor.numReviews > 0 && (
+                  <p className="tabular-nums text-[11px] text-gray-400 mt-1">
+                    {doctor.numReviews.toLocaleString("es-ES")} reseñas
+                  </p>
+                )}
+              </>
+            )
+          ) : (
             <div
-              className={`inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full border text-sm font-semibold tabular-nums ${ratingStyle(doctor.rating)}`}
+              title="Sin valoraciones disponibles"
+              className="inline-flex items-center px-2 py-0.5 rounded-full border text-sm text-gray-300 border-gray-100 bg-gray-50 tabular-nums"
             >
-              {doctor.rating.toFixed(1)}
-              <span aria-hidden="true">★</span>
+              —
             </div>
-            {doctor.numReviews > 0 && (
-              <p className="tabular-nums text-[11px] text-gray-400 mt-1">
-                {doctor.numReviews.toLocaleString("es-ES")} reseñas
-              </p>
-            )}
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </article>
   );

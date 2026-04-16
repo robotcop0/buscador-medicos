@@ -9,6 +9,7 @@ export type Doctor = {
   telefono?: string;
   rating: number;
   numReviews: number;
+  doctoraliaUrl?: string;
   distanceKm?: number | null;
 };
 

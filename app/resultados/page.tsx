@@ -127,6 +127,12 @@ export default async function ResultadosPage({
                 </p>
               )}
 
+              {totalFound > 0 && (
+                <p className="text-[11px] text-gray-300 mt-1 leading-relaxed">
+                  Las valoraciones provienen de Doctoralia. El matcheo por nombre y provincia puede no ser 100% exacto.
+                </p>
+              )}
+
               {mutua === "IMQ" && (
                 <div className="mt-4 flex items-start gap-2 bg-amber-50 border border-amber-100 text-amber-900 rounded-xl px-3 py-2">
                   <span aria-hidden className="mt-0.5">ℹ️</span>
