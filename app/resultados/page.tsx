@@ -126,6 +126,16 @@ export default async function ResultadosPage({
                   Mostrando {startItem}–{endItem} · ordenados por valoración
                 </p>
               )}
+
+              {mutua === "IMQ" && (
+                <div className="mt-4 flex items-start gap-2 bg-amber-50 border border-amber-100 text-amber-900 rounded-xl px-3 py-2">
+                  <span aria-hidden className="mt-0.5">ℹ️</span>
+                  <p className="text-xs leading-relaxed">
+                    IMQ sólo opera en {IMQ_COVERAGE_LABEL}. Fuera de esas
+                    provincias no hay cuadro médico.
+                  </p>
+                </div>
+              )}
             </header>
 
             {/* Results */}
