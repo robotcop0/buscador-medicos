@@ -11,7 +11,10 @@ import type { Doctor } from "@/lib/types";
 
 const ENDPOINT =
   "https://sca-cm-prod.ent.westeurope.azure.elastic-cloud.com/api/as/v1/engines/cm-pre/elasticsearch/_search";
-const TOKEN = "Bearer private-r4ffymb39xyg4jixdzcnxpxi";
+// Bearer público expuesto en el bundle del buscador de segurcaixaadeslas.es.
+// Configurar en `.env.local` (ver `.env.local.example`). Si falta, el cliente
+// devuelve [] silenciosamente.
+const TOKEN = process.env.ADESLAS_BEARER ?? "";
 
 type Hit = {
   _source: {
@@ -73,6 +76,7 @@ export async function searchAdeslasLive(
   opts: AdeslasLiveOptions
 ): Promise<Doctor[]> {
   if (!cp || !/^\d{5}$/.test(cp) || !especialidad) return [];
+  if (!TOKEN) return [];
 
   const coords = coordsFromCP(cp);
   if (!coords) return [];

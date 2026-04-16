@@ -14,8 +14,9 @@ import type { Doctor } from "@/lib/types";
 
 const BASE = "https://www.axa.es";
 const PATH = "/cuadro-medico-salud";
-const PORTLET_ID = "publicportals_HealthSearcherPortlet_INSTANCE_ZxaW0EybYFu1";
-const NS = `_${PORTLET_ID}_`;
+// Portlet id público del Liferay de axa.es. Se renueva poco pero puede cambiar.
+const PORTLET_ID = process.env.AXA_PORTLET_ID ?? "";
+const NS = PORTLET_ID ? `_${PORTLET_ID}_` : "";
 
 const SESSION_TTL_MS = 20 * 60 * 1000;
 let sessionCache: { pAuth: string; cookies: string; at: number } | null = null;
@@ -182,6 +183,7 @@ function capitalize(raw: string): string {
 
 export async function searchAxa(cp: string, especialidad: string): Promise<Doctor[]> {
   if (!cp || !/^\d{5}$/.test(cp)) return [];
+  if (!PORTLET_ID) return [];
   const coords = coordsFromCP(cp);
   if (!coords) return [];
   const espId = resolveEspecialidadId(especialidad);

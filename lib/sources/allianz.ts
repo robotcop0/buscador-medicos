@@ -12,7 +12,8 @@ import { coordsFromCP } from "@/lib/coordinates";
 import type { Doctor } from "@/lib/types";
 
 const BASE = "https://buscador.allianzsalud.es";
-const HASH = "61fb2995ecb50913a744ad92daa191d0";
+// Hash público que identifica la red Allianz en la plataforma Asisa.
+const HASH = process.env.ALLIANZ_HASH ?? "";
 const NETWORK_ID = "168";
 const PAGE_SIZE = 100;
 
@@ -219,6 +220,7 @@ async function fanOut<T, R>(items: T[], concurrency: number, fn: (item: T) => Pr
 
 export async function searchAllianz(cp: string, especialidad: string): Promise<Doctor[]> {
   if (!cp || !/^\d{5}$/.test(cp)) return [];
+  if (!HASH) return [];
 
   const provinceId = parseInt(cp.slice(0, 2), 10);
   const coords = coordsFromCP(cp);

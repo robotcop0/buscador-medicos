@@ -12,8 +12,10 @@ import type { Doctor } from "@/lib/types";
 const API = "https://api.sanitas.es/is-cuadro-medico-publico/api/v2";
 const PAGE_SIZE = 50;
 
+// Apikey pública extraída del cliente MSWeb. Configurar `SANITAS_APIKEY`.
+const SANITAS_APIKEY = process.env.SANITAS_APIKEY ?? "";
 const HEADERS: Record<string, string> = {
-  authorization: "Apikey 9LMMEbW6IPcD3gbUV8ulaZpcBed9iGjK",
+  authorization: `Apikey ${SANITAS_APIKEY}`,
   "snt-caller-id": "MSWeb",
   "snt-caller-version": "2.62.2",
   "snt-caller-language": "es_ES",
@@ -175,6 +177,7 @@ async function fetchEspecialistas(params: {
 
 export async function searchSanitas(cp: string, especialidad: string): Promise<Doctor[]> {
   if (!cp || !/^\d{5}$/.test(cp)) return [];
+  if (!SANITAS_APIKEY) return [];
   const provinciaCod = parseInt(cp.slice(0, 2), 10);
 
   let especialidadId: number | undefined;

@@ -13,7 +13,13 @@ import type { RawDoctor } from "../types";
 
 const ENDPOINT =
   "https://sca-cm-prod.ent.westeurope.azure.elastic-cloud.com/api/as/v1/engines/cm-pre/elasticsearch/_search";
-const TOKEN = "Bearer private-r4ffymb39xyg4jixdzcnxpxi";
+// Bearer público del frontend de segurcaixaadeslas.es. Poner en `.env.local`.
+const TOKEN = process.env.ADESLAS_BEARER ?? "";
+if (!TOKEN) {
+  throw new Error(
+    "ADESLAS_BEARER no definido. Copia .env.local.example → .env.local"
+  );
+}
 
 const PAGE_SIZE = 1000;
 const THROTTLE_MS = 250;
