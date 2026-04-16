@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, FormEvent } from "react";
 import { useRouter } from "next/navigation";
+import { IMQ_COVERAGE_LABEL } from "@/lib/sources/imq";
 
 const AVAILABLE_MUTUAS = ["Adeslas", "Allianz", "Asisa", "AXA Salud", "Caser Salud", "Cigna", "DKV", "Divina Pastora", "Fiatc", "Generali", "IMQ", "Mapfre", "MUFACE", "Occidente", "Sanitas"] as const;
 const COMING_SOON_MUTUAS = [] as const;
@@ -142,6 +143,15 @@ export default function SearchForm() {
           </button>
         </div>
 
+        {mutua === "IMQ" && (
+          <div className="mt-4 flex items-start gap-2 bg-amber-50 border border-amber-100 text-amber-900 rounded-xl px-3 py-2 animate-fade-up">
+            <span aria-hidden className="mt-0.5">ℹ️</span>
+            <p className="text-xs leading-relaxed">
+              IMQ sólo opera en {IMQ_COVERAGE_LABEL}. Fuera de esas provincias no hay cuadro médico.
+            </p>
+          </div>
+        )}
+
         {cpComplete && (
           <div className="mt-4 flex items-center gap-3 animate-fade-up">
             <span className="text-xs text-gray-400 whitespace-nowrap">Radio máximo</span>
@@ -181,6 +191,15 @@ export default function SearchForm() {
           <label className="block text-xs font-medium text-gray-500 mb-1">Mutua</label>
           <MutuaCombobox value={mutua} onChange={setMutua} mobile />
         </div>
+
+        {mutua === "IMQ" && (
+          <div className="flex items-start gap-2 bg-amber-50 border border-amber-100 text-amber-900 rounded-xl px-3 py-2 animate-fade-up">
+            <span aria-hidden className="mt-0.5">ℹ️</span>
+            <p className="text-xs leading-relaxed">
+              IMQ sólo opera en {IMQ_COVERAGE_LABEL}. Fuera de esas provincias no hay cuadro médico.
+            </p>
+          </div>
+        )}
 
         <div>
           <label className="block text-xs font-medium text-gray-500 mb-1">
