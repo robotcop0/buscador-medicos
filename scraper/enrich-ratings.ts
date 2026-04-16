@@ -39,7 +39,7 @@ const CP_PREFIX_TO_PROVINCIA: Record<string, string> = {
 };
 
 const EXCLUDE_NAME_RE =
-  /^(centro|cl[ií]nica|policl[ií]nic|hospital|instituto|sanitas|cap|cm|ambulatori|fundaci[oó]n)\b/i;
+  /^(centro|cl[ií]nica|policl[ií]nica?|hospital|instituto|sanitas|cap|cm|ambulatori[oa]?|fundaci[oó]n)\b/i;
 
 function normName(s: string): string {
   return s
