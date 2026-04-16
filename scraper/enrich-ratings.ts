@@ -86,6 +86,12 @@ function main() {
     );
     process.exit(1);
   }
+  if (!fs.existsSync(DOCTORS_JSON)) {
+    console.error(
+      `No existe ${DOCTORS_JSON}. Ejecuta 'npm run scrape:adeslas' + 'npx tsx scraper/build-doctors.ts' primero.`
+    );
+    process.exit(1);
+  }
   const doctors = JSON.parse(fs.readFileSync(DOCTORS_JSON, "utf-8")) as DoctorRow[];
   const profiles = JSON.parse(
     fs.readFileSync(RATINGS_JSON, "utf-8")
@@ -125,10 +131,14 @@ function main() {
     if (cache.has(cacheKey)) {
       const cached = cache.get(cacheKey);
       if (cached) {
-        d.rating = cached.rating;
-        d.numReviews = cached.numReviews;
         d.doctoraliaUrl = cached.url;
-        matched++;
+        // Mismo criterio que la rama de fresh-compute: sólo contamos
+        // "matched" y asignamos rating cuando el candidato tenía rating > 0.
+        if (cached.rating > 0) {
+          d.rating = cached.rating;
+          d.numReviews = cached.numReviews;
+          matched++;
+        }
       }
       continue;
     }
