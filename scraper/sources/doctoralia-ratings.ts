@@ -14,34 +14,36 @@ export type DoctoraliaProfile = {
   numReviews: number;
 };
 
-// Combo UI → slug Doctoralia (singular masculino, sin acentos, guiones).
-// Provisional: verificar HTTP 200 + cards > 0 en Step 2.4.
+// Combo UI → slug Doctoralia. Slugs verificados probando /<slug>/madrid para
+// cada entrada (HTTP 200 + cards > 0). Doctoralia usa formas inconsistentes:
+// a veces singular masculino (alergologo), a veces nombre canónico de la
+// especialidad (medicina-general, oncologia-medica, nutricion-y-dietetica).
 export const ESPECIALIDAD_SLUGS: Record<string, string> = {
   "Alergología": "alergologo",
   "Andrología": "andrologo",
-  "Aparato digestivo": "gastroenterologo",
+  "Aparato digestivo": "digestologo",
   "Cardiología": "cardiologo",
   "Cirugía general": "cirujano-general",
   "Cirugía plástica": "cirujano-plastico",
   "Dermatología": "dermatologo",
-  "Endocrinología": "endocrinologo",
+  "Endocrinología": "endocrino",
   "Fisioterapia": "fisioterapeuta",
   "Ginecología": "ginecologo",
   "Hematología": "hematologo",
   "Logopedia": "logopeda",
-  "Medicina de urgencias": "medico-de-urgencias",
+  "Medicina de urgencias": "medicina-de-urgencias",
   "Medicina estética": "medico-estetico",
-  "Medicina general": "medico-de-cabecera",
+  "Medicina general": "medicina-general",
   "Medicina interna": "internista",
   "Nefrología": "nefrologo",
   "Neumología": "neumologo",
   "Neurocirugía": "neurocirujano",
   "Neurología": "neurologo",
-  "Nutrición y dietética": "nutricionista",
+  "Nutrición y dietética": "nutricion-y-dietetica",
   "Odontología": "dentista",
   "Oftalmología": "oftalmologo",
-  "Oncología": "oncologo",
-  "Otorrinolaringología": "otorrinolaringologo",
+  "Oncología": "oncologia-medica",
+  "Otorrinolaringología": "otorrino",
   "Pediatría": "pediatra",
   "Podología": "podologo",
   "Psicología": "psicologo",
@@ -80,6 +82,8 @@ export const DOCTORALIA_NAME_TO_CANONICAL: Record<string, string> = {
   "andrologo": "Andrología",
   "androloga": "Andrología",
   // Aparato digestivo
+  "digestologo": "Aparato digestivo",
+  "digestologa": "Aparato digestivo",
   "gastroenterologo": "Aparato digestivo",
   "gastroenterologa": "Aparato digestivo",
   "especialista en aparato digestivo": "Aparato digestivo",
@@ -98,6 +102,8 @@ export const DOCTORALIA_NAME_TO_CANONICAL: Record<string, string> = {
   "dermatologo": "Dermatología",
   "dermatologa": "Dermatología",
   // Endocrinología
+  "endocrino": "Endocrinología",
+  "endocrina": "Endocrinología",
   "endocrinologo": "Endocrinología",
   "endocrinologa": "Endocrinología",
   // Fisioterapia (invariante)
@@ -111,6 +117,8 @@ export const DOCTORALIA_NAME_TO_CANONICAL: Record<string, string> = {
   // Logopedia (invariante)
   "logopeda": "Logopedia",
   // Medicina de urgencias
+  "urgenciologo": "Medicina de urgencias",
+  "urgenciologa": "Medicina de urgencias",
   "medico de urgencias": "Medicina de urgencias",
   "medica de urgencias": "Medicina de urgencias",
   // Medicina estética
@@ -148,9 +156,13 @@ export const DOCTORALIA_NAME_TO_CANONICAL: Record<string, string> = {
   "oftalmologo": "Oftalmología",
   "oftalmologa": "Oftalmología",
   // Oncología
+  "oncologo medico": "Oncología",
+  "oncologa medica": "Oncología",
   "oncologo": "Oncología",
   "oncologa": "Oncología",
   // Otorrinolaringología
+  "otorrino": "Otorrinolaringología",
+  "otorrina": "Otorrinolaringología",
   "otorrinolaringologo": "Otorrinolaringología",
   "otorrinolaringologa": "Otorrinolaringología",
   // Pediatría (invariante)
