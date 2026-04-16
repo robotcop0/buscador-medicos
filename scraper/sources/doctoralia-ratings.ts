@@ -65,6 +65,82 @@ export const PROVINCIAS: string[] = [
   "Valencia", "Valladolid", "Vizcaya", "Zamora", "Zaragoza",
 ];
 
+// Mapeo de la etiqueta que Doctoralia usa en `data-eec-specialization-name`
+// (masculino/femenino, con acentos) → categoría canónica del combo UI.
+// Usado por parsePage para rechazar cards cuya especialidad real no coincide
+// con la iteración (capa defensiva: la URL canonical ya filtra en server,
+// pero si alguna vez deja de hacerlo, este filtro evita contaminación).
+export const DOCTORALIA_NAME_TO_CANONICAL: Record<string, string> = {
+  "alergologo": "Alergología",
+  "andrologo": "Andrología",
+  "gastroenterologo": "Aparato digestivo",
+  "especialista en aparato digestivo": "Aparato digestivo",
+  "cardiologo": "Cardiología",
+  "cirujano general": "Cirugía general",
+  "cirujano": "Cirugía general",
+  "cirujano plastico": "Cirugía plástica",
+  "dermatologo": "Dermatología",
+  "endocrinologo": "Endocrinología",
+  "fisioterapeuta": "Fisioterapia",
+  "ginecologo": "Ginecología",
+  "hematologo": "Hematología",
+  "logopeda": "Logopedia",
+  "medico de urgencias": "Medicina de urgencias",
+  "medico estetico": "Medicina estética",
+  "medico estetica": "Medicina estética",
+  "medico de cabecera": "Medicina general",
+  "medico general": "Medicina general",
+  "medico de familia": "Medicina general",
+  "internista": "Medicina interna",
+  "nefrologo": "Nefrología",
+  "neumologo": "Neumología",
+  "neurocirujano": "Neurocirugía",
+  "neurologo": "Neurología",
+  "nutricionista": "Nutrición y dietética",
+  "dietista": "Nutrición y dietética",
+  "dentista": "Odontología",
+  "odontologo": "Odontología",
+  "oftalmologo": "Oftalmología",
+  "oncologo": "Oncología",
+  "otorrinolaringologo": "Otorrinolaringología",
+  "pediatra": "Pediatría",
+  "podologo": "Podología",
+  "psicologo": "Psicología",
+  "psiquiatra": "Psiquiatría",
+  "medico rehabilitador": "Rehabilitación",
+  "rehabilitador": "Rehabilitación",
+  "reumatologo": "Reumatología",
+  "traumatologo": "Traumatología",
+  "urologo": "Urología",
+};
+
+function canonicalOf(doctoraliaName: string): string | null {
+  const normalized = doctoraliaName
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z ]/g, " ")
+    .replace(/a\b/g, "o")   // "psicologa" → "psicologo", "cirujana" → "cirujano"
+    .replace(/\s+/g, " ")
+    .trim();
+  // exact match primero
+  if (DOCTORALIA_NAME_TO_CANONICAL[normalized]) return DOCTORALIA_NAME_TO_CANONICAL[normalized];
+  // startsWith para subespecialidades: "cardiologo infantil" → Cardiología
+  for (const [key, val] of Object.entries(DOCTORALIA_NAME_TO_CANONICAL)) {
+    if (normalized.startsWith(key + " ") || normalized === key) return val;
+  }
+  return null;
+}
+
+function provinciaSlug(p: string): string {
+  return p
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/[^a-z-]/g, "");
+}
+
 const BASE = "https://www.doctoralia.es";
 const DELAY_MS = 250;
 const MAX_PAGES = 20;
@@ -107,22 +183,24 @@ function parsePage(
   html: string,
   especialidadCanonical: string,
   provincia: string
-): DoctoraliaProfile[] {
+): { profiles: DoctoraliaProfile[]; rawCardCount: number } {
   const $ = cheerio.load(html);
   const out: DoctoraliaProfile[] = [];
-  $("[data-id='result-item']").each((_, el) => {
+  const rawCards = $("[data-id='result-item']");
+  rawCards.each((_, el) => {
     const card = $(el);
     const entityId = card.attr("data-eec-entity-id");
     if (!entityId) return;
     const name = card.attr("data-doctor-name")?.trim() ?? "";
     if (!name) return;
-    const url = card.attr("data-doctor-url") ?? "";
     const especialidadDoctoralia =
       card.attr("data-eec-specialization-name")?.trim() ?? "";
+    const canonicalFromCard = canonicalOf(especialidadDoctoralia);
+    if (canonicalFromCard !== especialidadCanonical) return;
+    const url = card.attr("data-doctor-url") ?? "";
     const rating = parseFloat(card.attr("data-eec-stars-rating") ?? "0") || 0;
     const numReviews =
       parseInt(card.attr("data-eec-opinions-count") ?? "0", 10) || 0;
-
     const cities = new Set<string>();
     card.find("[itemprop='addressLocality']").each((_, e) => {
       const v = $(e).attr("content")?.trim();
@@ -133,7 +211,6 @@ function parsePage(
       const v = $(e).attr("content")?.trim();
       if (v) streets.add(v);
     });
-
     out.push({
       entityId,
       url,
@@ -147,7 +224,7 @@ function parsePage(
       numReviews,
     });
   });
-  return out;
+  return { profiles: out, rawCardCount: rawCards.length };
 }
 
 export type ScrapeOptions = {
@@ -175,14 +252,14 @@ export async function scrapeDoctoralia(
       log(`  ${especialidadCanonical} · ${provincia}`);
       for (let page = 1; page <= MAX_PAGES; page++) {
         await sleep(DELAY_MS);
-        const url = `${BASE}/buscar?spec=${slug}&loc=${encodeURIComponent(
-          provincia
-        )}${page > 1 ? `&page=${page}` : ""}`;
+        const url = `${BASE}/${slug}/${provinciaSlug(provincia)}${
+          page > 1 ? `?page=${page}` : ""
+        }`;
         const html = await fetchWithBackoff(url);
         totalFetches++;
         if (!html) break;
-        const profiles = parsePage(html, especialidadCanonical, provincia);
-        if (profiles.length === 0) break;
+        const { profiles, rawCardCount } = parsePage(html, especialidadCanonical, provincia);
+        if (rawCardCount === 0) break;
         let added = 0;
         for (const p of profiles) {
           const existing = byEntity.get(p.entityId);
@@ -198,9 +275,11 @@ export async function scrapeDoctoralia(
           }
         }
         log(
-          `    pág ${page}: ${profiles.length} cards, ${added} nuevos (total únicos: ${byEntity.size})`
+          `    pág ${page}: ${profiles.length}/${rawCardCount} cards aceptadas, ${added} nuevos (total únicos: ${byEntity.size})`
         );
-        if (profiles.length < 10) break; // última página
+        // Stop if: fewer than 10 raw cards (last real page) OR no new profiles
+        // added (Doctoralia cycles the same results on out-of-range pages).
+        if (rawCardCount < 10 || (page > 1 && added === 0)) break;
       }
     }
   }
