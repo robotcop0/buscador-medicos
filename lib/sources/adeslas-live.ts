@@ -6,7 +6,7 @@
  * consume el cliente MUFACE con `md_id=4`. Token Bearer expuesto por el
  * propio buscador público de `segurcaixaadeslas.es`.
  */
-import { coordsFromCP } from "@/lib/coordinates";
+import { coordsFromCP, normalizeCp } from "@/lib/coordinates";
 import type { Doctor } from "@/lib/types";
 
 const ENDPOINT =
@@ -139,7 +139,7 @@ export async function searchAdeslasLive(
         especialidad: esp,
         mutuas: [opts.mutuaLabel],
         direccion: s.address_name ?? "",
-        cp: s.address_postalcode ?? "",
+        cp: normalizeCp(s.address_postalcode),
         ciudad: s.address_municipality,
         telefono: firstPhone(s.phones),
         rating: 0,

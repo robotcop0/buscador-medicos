@@ -14,6 +14,7 @@ import { searchImq } from "@/lib/sources/imq";
 import { searchMuface } from "@/lib/sources/muface";
 import { searchGenerali } from "@/lib/sources/generali";
 import { searchFiatc } from "@/lib/sources/fiatc";
+import { enrichWithDoctoralia } from "@/lib/ratings-index";
 import type { Doctor } from "@/lib/types";
 
 function normalize(s: string): string {
@@ -124,7 +125,9 @@ export async function filterDoctors(
     ...applyGeo(fiatc, cp, maxKm),
   ];
 
-  return merged.sort((a, b) => {
+  const enriched = merged.map(enrichWithDoctoralia);
+
+  return enriched.sort((a, b) => {
     if (b.rating !== a.rating) return b.rating - a.rating;
     return b.numReviews - a.numReviews;
   });

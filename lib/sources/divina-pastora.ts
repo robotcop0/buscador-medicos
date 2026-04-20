@@ -7,7 +7,7 @@
  * búsqueda en `/search` con paginación por `offset` (15 items/página) y
  * filtro geográfico vía bbox (`southWestLatitude/Longitude`+`northEastLatitude/Longitude`).
  */
-import { coordsFromCP } from "@/lib/coordinates";
+import { coordsFromCP, normalizeCp } from "@/lib/coordinates";
 import type { Doctor } from "@/lib/types";
 
 const BASE = "https://web-app-ws.azurewebsites.net/api/medicalteam";
@@ -165,7 +165,7 @@ function toDoctor(it: Item, offsetId: number, espLabel: string): Doctor | null {
     especialidad: normalizeText(espLabel),
     mutuas: ["Divina Pastora"],
     direccion: normalizeText(it.address ?? ""),
-    cp: (it.postalCode ?? "").trim(),
+    cp: normalizeCp(it.postalCode),
     ciudad: normalizeText(it.town ?? ""),
     telefono: firstPhone(it),
     rating: 0,

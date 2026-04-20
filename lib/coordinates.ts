@@ -3,6 +3,19 @@
 
 export type LatLng = { lat: number; lng: number };
 
+/**
+ * Normaliza CPs a 5 dígitos. Varios APIs de mutuas (Allianz, Occident,
+ * Sanitas...) devuelven CPs de provincias 01-09 sin cero inicial ("8402"
+ * en vez de "08402"), rompiendo el matching por provincia (cp.slice(0,2))
+ * y el lookup del índice de ratings/reseñas.
+ */
+export function normalizeCp(raw: string | number | undefined | null): string {
+  const s = (raw == null ? "" : String(raw)).trim();
+  if (!s) return "";
+  if (/^\d{4}$/.test(s)) return `0${s}`;
+  return s;
+}
+
 const PROVINCE_COORDS: Record<string, LatLng> = {
   "01": { lat: 42.846, lng: -2.672 },  // Álava / Vitoria
   "02": { lat: 38.994, lng: -1.858 },  // Albacete

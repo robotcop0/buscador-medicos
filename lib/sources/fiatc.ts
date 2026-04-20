@@ -13,7 +13,7 @@
  *
  * `quadre=0` = "Cuadro completo" (cubre todos los productos Medifiatc).
  */
-import { coordsFromCP } from "@/lib/coordinates";
+import { coordsFromCP, normalizeCp } from "@/lib/coordinates";
 import type { Doctor } from "@/lib/types";
 
 const BASE = "https://guiamedica.fiatc.es/resultats-cerca-medica/";
@@ -119,7 +119,7 @@ function centreToDoctor(c: Centre, offsetId: number): Doctor | null {
     especialidad: normalizeText((c.lit_esp ?? "").trim()),
     mutuas: ["Fiatc"],
     direccion: normalizeText(c.direccio ?? ""),
-    cp: (c.codi_postal ?? "").trim(),
+    cp: normalizeCp(c.codi_postal),
     ciudad: normalizeText(c.lit_pob ?? ""),
     telefono: firstPhone(c),
     rating: 0,

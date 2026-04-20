@@ -7,6 +7,7 @@
  * Flujo por búsqueda: resolver especialidad → id, CP → provincia INE, pedir
  * /especialistas y expandir cada médico a un registro por centro.
  */
+import { normalizeCp } from "@/lib/coordinates";
 import type { Doctor } from "@/lib/types";
 
 const API = "https://api.sanitas.es/is-cuadro-medico-publico/api/v2";
@@ -136,7 +137,7 @@ function toDoctorRecords(e: Especialista, offsetStart: number): Doctor[] {
         especialidad: espNombre,
         mutuas: ["Sanitas"],
         direccion: capitalize(c.domicilio || ""),
-        cp: c.codigoPostal,
+        cp: normalizeCp(c.codigoPostal),
         ciudad: capitalize(c.poblacion?.nombre || c.provincia?.nombre || ""),
         telefono: c.telefono ? c.telefono.replace(/\D/g, "") : undefined,
         rating,

@@ -7,6 +7,7 @@
  *
  * Token y listado de especialidades se cachean en memoria del módulo.
  */
+import { normalizeCp } from "@/lib/coordinates";
 import type { Doctor } from "@/lib/types";
 
 const BASE = "https://www.occident.com";
@@ -139,7 +140,7 @@ function toDoctor(m: Medico, offsetId: number): Doctor | null {
     especialidad: normalizeText(m.Especialidad),
     mutuas: ["Occidente"],
     direccion: normalizeText((m.Direccion || "").replace(/\s*,\s*,\s*$/, "")),
-    cp: (m.CPostal || "").trim(),
+    cp: normalizeCp(m.CPostal),
     ciudad: normalizeText(m.Localidad),
     telefono: (m.Telefono || "").replace(/\D/g, "") || undefined,
     rating: 0,

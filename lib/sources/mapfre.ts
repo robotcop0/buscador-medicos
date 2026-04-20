@@ -9,7 +9,7 @@
  * CP y llamar en paralelo `/facultativos` y `/centrosMedicos` con un radio
  * configurable.
  */
-import { coordsFromCP } from "@/lib/coordinates";
+import { coordsFromCP, normalizeCp } from "@/lib/coordinates";
 import type { Doctor } from "@/lib/types";
 
 const BASE = "https://buscadores.mapfre.es";
@@ -171,7 +171,7 @@ function toDoctorFromFacultativo(f: Facultativo, offsetId: number): Doctor | nul
     especialidad: facultativoEspecialidad(f),
     mutuas: ["Mapfre"],
     direccion: buildAddress(f),
-    cp: (f.codigoPostal || "").trim(),
+    cp: normalizeCp(f.codigoPostal),
     ciudad: capitalize(f.descripcionPoblacion || ""),
     telefono: firstPhone(f),
     rating: 0,
@@ -187,7 +187,7 @@ function toDoctorFromCentro(c: CentroMedico, offsetId: number): Doctor | null {
     especialidad: capitalize(c.serviciosConcertados?.[0]?.nombreEspecialidad ?? ""),
     mutuas: ["Mapfre"],
     direccion: buildAddress(c),
-    cp: (c.codigoPostal || "").trim(),
+    cp: normalizeCp(c.codigoPostal),
     ciudad: capitalize(c.descripcionPoblacion || ""),
     telefono: firstPhone(c),
     rating: 0,

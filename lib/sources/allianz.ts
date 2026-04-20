@@ -8,7 +8,7 @@
  * Flujo por búsqueda: 1 POST a `/search/list` con `provinceId` derivado del
  * CP y lat/lng resueltos via `coordsFromCP`.
  */
-import { coordsFromCP } from "@/lib/coordinates";
+import { coordsFromCP, normalizeCp } from "@/lib/coordinates";
 import type { Doctor } from "@/lib/types";
 
 const BASE = "https://buscador.allianzsalud.es";
@@ -167,7 +167,7 @@ function toDoctor(m: Medico, offsetId: number): Doctor | null {
     especialidad: normalizeText(m.SpecialityName),
     mutuas: ["Allianz"],
     direccion: buildAddress(m),
-    cp: (m.PostalCode || "").trim(),
+    cp: normalizeCp(m.PostalCode),
     ciudad: normalizeText(m.City),
     telefono: firstPhone(m),
     rating: 0,

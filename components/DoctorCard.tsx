@@ -1,4 +1,5 @@
 import type { Doctor } from "@/lib/types";
+import ReviewsSection from "@/components/ReviewsSection";
 
 type Props = {
   doctor: Doctor;
@@ -123,6 +124,13 @@ export default function DoctorCard({ doctor, searchCp }: Props) {
           )}
         </div>
       </div>
+
+      {doctor.doctoraliaUrl && (
+        <ReviewsSection
+          url={doctor.doctoraliaUrl}
+          initialReviews={doctor.doctoraliaReviews}
+        />
+      )}
     </article>
   );
 }

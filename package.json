@@ -9,6 +9,7 @@
     "lint": "next lint",
     "scrape": "tsx scraper/scrape.ts",
     "scrape:doctoralia": "tsx scraper/scrape-doctoralia-ratings.ts",
+    "scrape:doctoralia-reviews": "tsx scraper/scrape-doctoralia-reviews.ts",
     "scrape:google": "tsx scraper/scrape.ts --only=google",
     "scrape:adeslas": "tsx scraper/scrape-adeslas.ts",
     "scrape:occident": "tsx scraper/scrape-occident.ts"

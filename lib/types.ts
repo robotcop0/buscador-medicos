@@ -1,3 +1,10 @@
+export type DoctoraliaReview = {
+  author: string;
+  rating: number;
+  date: string;
+  comment: string;
+};
+
 export type Doctor = {
   id: number;
   nombre: string;
@@ -10,6 +17,7 @@ export type Doctor = {
   rating: number;
   numReviews: number;
   doctoraliaUrl?: string;
+  doctoraliaReviews?: DoctoraliaReview[];
   distanceKm?: number | null;
 };
 
