@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { findDoctors } from "@/lib/doctorSearch";
 import DoctorCard from "@/components/DoctorCard";
+import SearchForm from "@/components/SearchForm";
 import { imqCoversCp, IMQ_COVERAGE_LABEL } from "@/lib/sources/imq";
 import type { Doctor } from "@/lib/types";
 
@@ -42,12 +43,6 @@ export default async function ResultadosPage({
   } catch (err) {
     error = err instanceof Error ? err.message : "Error en la búsqueda";
   }
-
-  const activeFilters = [
-    mutua && mutua,
-    especialidad && especialidad,
-    cp && (radio ? `${cp} · ${radio} km` : cp),
-  ].filter(Boolean) as string[];
 
   // Build pagination links preserving filters.
   function pageHref(p: number): string {
@@ -97,6 +92,17 @@ export default async function ResultadosPage({
           </div>
         ) : (
           <>
+            {/* Search form (editable, pre-relleno con los filtros actuales) */}
+            <div className="mb-8">
+              <SearchForm
+                initialMutua={mutua}
+                initialEspecialidad={especialidad}
+                initialCp={cp}
+                initialRadio={radio}
+                compact
+              />
+            </div>
+
             {/* Header */}
             <header className="mb-8">
               <div className="flex items-baseline gap-3 flex-wrap">
@@ -108,22 +114,9 @@ export default async function ResultadosPage({
                 </span>
               </div>
 
-              {activeFilters.length > 0 && (
-                <div className="flex flex-wrap gap-1.5 mt-3">
-                  {activeFilters.map((f) => (
-                    <span
-                      key={f}
-                      className="text-xs text-gray-500 bg-white border border-gray-200 px-2.5 py-1 rounded-full"
-                    >
-                      {f}
-                    </span>
-                  ))}
-                </div>
-              )}
-
               {totalFound > 0 && (
                 <p className="text-xs text-gray-400 mt-3">
-                  Mostrando {startItem}–{endItem} · ordenados por valoración
+                  Mostrando {startItem}–{endItem} · valorados primero, luego por cercanía
                 </p>
               )}
 

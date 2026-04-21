@@ -14,7 +14,7 @@ export default function Home() {
         <header className="mb-10">
           <h1 className="text-4xl sm:text-5xl leading-tight tracking-tight text-gray-900">
             <span className="font-light">Encuentra </span>
-            <span className="font-bold">tu médico.</span>
+            <span className="font-bold">tu mejor médico.</span>
           </h1>
           <p className="mt-3 text-sm text-gray-400 font-light">
             Búsqueda en tiempo real en toda España.

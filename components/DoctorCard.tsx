@@ -115,12 +115,12 @@ export default function DoctorCard({ doctor, searchCp }: Props) {
               </>
             )
           ) : (
-            <div
-              title="Sin valoraciones disponibles"
-              className="inline-flex items-center px-2 py-0.5 rounded-full border text-sm text-gray-300 border-gray-100 bg-gray-50 tabular-nums"
+            <span
+              title="Este médico aún no tiene reseñas en nuestras fuentes"
+              className="text-[11px] text-gray-400 italic whitespace-nowrap"
             >
-              —
-            </div>
+              Sin valoraciones
+            </span>
           )}
         </div>
       </div>

@@ -127,8 +127,27 @@ export async function filterDoctors(
 
   const enriched = merged.map(enrichWithDoctoralia);
 
-  return enriched.sort((a, b) => {
+  // Split: primero los que tienen valoración, después los que no. Dentro de
+  // cada grupo, los valorados por rating↓ (desempatando por nº reseñas↓) y
+  // los no valorados por distancia↑ (o por nombre si no hay CP).
+  const rated: Doctor[] = [];
+  const unrated: Doctor[] = [];
+  for (const d of enriched) {
+    if (d.numReviews > 0 && d.rating > 0) rated.push(d);
+    else unrated.push(d);
+  }
+
+  rated.sort((a, b) => {
     if (b.rating !== a.rating) return b.rating - a.rating;
     return b.numReviews - a.numReviews;
   });
+
+  unrated.sort((a, b) => {
+    const da = a.distanceKm ?? Number.POSITIVE_INFINITY;
+    const db = b.distanceKm ?? Number.POSITIVE_INFINITY;
+    if (da !== db) return da - db;
+    return a.nombre.localeCompare(b.nombre, "es");
+  });
+
+  return [...rated, ...unrated];
 }

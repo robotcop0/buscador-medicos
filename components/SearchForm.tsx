@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect, FormEvent } from "react";
+import { useState, useRef, useEffect, FormEvent, KeyboardEvent } from "react";
 import { useRouter } from "next/navigation";
 import { IMQ_COVERAGE_LABEL } from "@/lib/sources/imq";
 
@@ -57,13 +57,27 @@ const RADIOS = [
   { value: "100", label: "100 km" },
 ];
 
-export default function SearchForm() {
+type SearchFormProps = {
+  initialMutua?: string;
+  initialEspecialidad?: string;
+  initialCp?: string;
+  initialRadio?: string;
+  compact?: boolean;
+};
+
+export default function SearchForm({
+  initialMutua = "",
+  initialEspecialidad = "",
+  initialCp = "",
+  initialRadio = "",
+  compact = false,
+}: SearchFormProps = {}) {
   const router = useRouter();
-  const [mutua, setMutua] = useState("");
-  const [especialidad, setEspecialidad] = useState("");
-  const [cp, setCp] = useState("");
+  const [mutua, setMutua] = useState(initialMutua);
+  const [especialidad, setEspecialidad] = useState(initialEspecialidad);
+  const [cp, setCp] = useState(initialCp);
   const [cpError, setCpError] = useState("");
-  const [radio, setRadio] = useState("");
+  const [radio, setRadio] = useState(initialRadio);
 
   const canSubmit = cp.length === 5 && !!mutua && !!especialidad;
 
@@ -91,30 +105,43 @@ export default function SearchForm() {
 
   const cpComplete = cp.length === 5;
 
+  // Clases condicionales según compact.
+  const containerCls = compact
+    ? "flex items-stretch bg-gray-50 border border-gray-200 rounded-xl overflow-visible transition-shadow focus-within:shadow-sm"
+    : "flex items-stretch bg-white border border-gray-200 rounded-2xl overflow-visible transition-shadow focus-within:shadow-sm";
+  const cellCls = compact
+    ? "flex-1 px-3 py-2 border-r border-gray-200 min-w-0"
+    : "flex-1 px-5 py-3 border-r border-gray-100 min-w-0";
+  const cpCellCls = compact
+    ? "w-28 px-3 py-2 border-r border-gray-200"
+    : "w-36 px-5 py-3 border-r border-gray-100";
+  const labelCls = compact
+    ? "text-[9px] font-medium text-gray-400 uppercase tracking-wider mb-0.5"
+    : "text-[10px] font-medium text-gray-400 uppercase tracking-wider mb-1";
+  const buttonCls = compact
+    ? "px-5 bg-gray-900 text-white text-xs font-medium hover:bg-gray-700 active:bg-gray-800 transition-colors focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white disabled:bg-gray-300 disabled:cursor-not-allowed disabled:hover:bg-gray-300"
+    : "px-7 bg-gray-900 text-white text-sm font-medium hover:bg-gray-700 active:bg-gray-800 transition-colors focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white disabled:bg-gray-300 disabled:cursor-not-allowed disabled:hover:bg-gray-300";
+
   return (
     <form onSubmit={handleSubmit} noValidate>
       {/* ── DESKTOP ── */}
       <div className="hidden sm:block">
-        <div className="flex items-stretch bg-white border border-gray-200 rounded-2xl overflow-visible transition-shadow focus-within:shadow-sm">
+        <div className={containerCls}>
           {/* Mutua */}
-          <div className="flex-1 px-5 py-3 border-r border-gray-100 min-w-0">
-            <p className="text-[10px] font-medium text-gray-400 uppercase tracking-wider mb-1">
-              Mutua
-            </p>
+          <div className={cellCls}>
+            <p className={labelCls}>Mutua</p>
             <MutuaCombobox value={mutua} onChange={setMutua} />
           </div>
 
           {/* Especialidad */}
-          <div className="flex-1 px-5 py-3 border-r border-gray-100 min-w-0">
-            <p className="text-[10px] font-medium text-gray-400 uppercase tracking-wider mb-1">
-              Especialidad
-            </p>
+          <div className={cellCls}>
+            <p className={labelCls}>Especialidad</p>
             <EspecialidadCombobox value={especialidad} onChange={setEspecialidad} />
           </div>
 
           {/* Código postal */}
-          <div className="w-36 px-5 py-3 border-r border-gray-100">
-            <p className="text-[10px] font-medium text-gray-400 uppercase tracking-wider mb-1">
+          <div className={cpCellCls}>
+            <p className={labelCls}>
               C. Postal
               {cpError && <span className="text-red-400 ml-1 normal-case">{cpError}</span>}
             </p>
@@ -125,7 +152,7 @@ export default function SearchForm() {
               value={cp}
               onChange={(e) => handleCpChange(e.target.value)}
               placeholder="28001"
-              className={`w-full bg-transparent text-sm text-gray-900 placeholder-gray-400 focus:outline-none ${
+              className={`w-full bg-transparent ${compact ? "text-xs" : "text-sm"} text-gray-900 placeholder-gray-400 focus:outline-none ${
                 cpError ? "text-red-500" : ""
               }`}
               aria-label="Código postal"
@@ -136,7 +163,7 @@ export default function SearchForm() {
           <button
             type="submit"
             disabled={!canSubmit}
-            className="px-7 bg-gray-900 text-white text-sm font-medium hover:bg-gray-700 active:bg-gray-800 transition-colors focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white disabled:bg-gray-300 disabled:cursor-not-allowed disabled:hover:bg-gray-300"
+            className={buttonCls}
             aria-label="Buscar médicos"
           >
             Buscar
@@ -322,7 +349,10 @@ function Combobox({
 }) {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
+  const [highlight, setHighlight] = useState(0);
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const itemRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
   useEffect(() => {
     function onDoc(e: MouseEvent) {
@@ -347,6 +377,68 @@ function Combobox({
 
   const selected = options.find((o) => o.value === value);
 
+  // Al abrir o cambiar query: reset al primer item habilitado.
+  useEffect(() => {
+    if (!open) return;
+    let start = 0;
+    while (start < filtered.length && filtered[start].disabled) start++;
+    setHighlight(start < filtered.length ? start : 0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open, query]);
+
+  // Scroll automático al item resaltado.
+  useEffect(() => {
+    if (!open) return;
+    itemRefs.current[highlight]?.scrollIntoView({ block: "nearest" });
+  }, [highlight, open]);
+
+  function moveHighlight(delta: number) {
+    const n = filtered.length;
+    if (n === 0) return;
+    let next = highlight;
+    for (let i = 0; i < n; i++) {
+      next = (next + delta + n) % n;
+      if (!filtered[next].disabled) {
+        setHighlight(next);
+        return;
+      }
+    }
+  }
+
+  function selectAt(idx: number) {
+    const opt = filtered[idx];
+    if (!opt || opt.disabled) return;
+    onChange(opt.value);
+    setOpen(false);
+    setQuery("");
+    triggerRef.current?.focus();
+  }
+
+  function handleListKeyDown(e: KeyboardEvent<HTMLInputElement>) {
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      moveHighlight(1);
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      moveHighlight(-1);
+    } else if (e.key === "Enter") {
+      e.preventDefault();
+      selectAt(highlight);
+    } else if (e.key === "Escape") {
+      e.preventDefault();
+      setOpen(false);
+      setQuery("");
+      triggerRef.current?.focus();
+    }
+  }
+
+  function handleTriggerKeyDown(e: KeyboardEvent<HTMLButtonElement>) {
+    if (!open && (e.key === "ArrowDown" || e.key === "Enter" || e.key === " ")) {
+      e.preventDefault();
+      setOpen(true);
+    }
+  }
+
   const triggerBase = mobile
     ? "w-full px-4 py-3 text-sm bg-white border border-gray-200 rounded-xl text-gray-900 flex items-center justify-between transition-all hover:border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent"
     : "w-full bg-transparent text-sm text-gray-900 flex items-center justify-between focus:outline-none";
@@ -354,8 +446,12 @@ function Combobox({
   return (
     <div ref={wrapperRef} className="relative">
       <button
+        ref={triggerRef}
         type="button"
         onClick={() => setOpen((v) => !v)}
+        onKeyDown={handleTriggerKeyDown}
+        aria-haspopup="listbox"
+        aria-expanded={open}
         className={triggerBase}
       >
         <span className={selected ? "text-gray-900 truncate" : "text-gray-400 truncate"}>
@@ -386,6 +482,7 @@ function Combobox({
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
+              onKeyDown={handleListKeyDown}
               placeholder="Buscar…"
               autoFocus
               className="w-full px-3 py-2 text-sm bg-gray-50 border border-transparent rounded-lg focus:outline-none focus:bg-white focus:border-gray-200"
@@ -399,38 +496,44 @@ function Combobox({
             {filtered.length === 0 && (
               <li className="px-4 py-3 text-sm text-gray-400">Sin resultados</li>
             )}
-            {filtered.map((o) => (
-              <li key={o.value}>
-                <button
-                  type="button"
-                  disabled={o.disabled}
-                  onClick={() => {
-                    if (o.disabled) return;
-                    onChange(o.value);
-                    setOpen(false);
-                    setQuery("");
-                  }}
-                  className={`w-full text-left px-4 py-2 text-sm flex items-center justify-between gap-3 transition-colors ${
-                    o.disabled
-                      ? "text-gray-300 cursor-not-allowed"
-                      : value === o.value
-                      ? "bg-gray-50 text-gray-900 font-medium"
-                      : "text-gray-700 hover:bg-gray-50"
-                  }`}
-                >
-                  <span className="flex items-center gap-2 truncate">
-                    {o.disabled && <ConstructionIcon />}
-                    <span className="truncate">{o.label}</span>
-                  </span>
-                  {o.badge && (
-                    <span className="text-[10px] font-medium text-amber-600 bg-amber-50 px-2 py-0.5 rounded-full whitespace-nowrap">
-                      {o.badge}
+            {filtered.map((o, i) => {
+              const isHighlighted = highlight === i;
+              return (
+                <li key={o.value}>
+                  <button
+                    ref={(el) => {
+                      itemRefs.current[i] = el;
+                    }}
+                    type="button"
+                    role="option"
+                    aria-selected={isHighlighted}
+                    disabled={o.disabled}
+                    onMouseEnter={() => !o.disabled && setHighlight(i)}
+                    onClick={() => selectAt(i)}
+                    className={`w-full text-left px-4 py-2 text-sm flex items-center justify-between gap-3 transition-colors ${
+                      o.disabled
+                        ? "text-gray-300 cursor-not-allowed"
+                        : isHighlighted
+                        ? "bg-gray-100 text-gray-900 font-medium"
+                        : value === o.value
+                        ? "bg-gray-50 text-gray-900 font-medium"
+                        : "text-gray-700"
+                    }`}
+                  >
+                    <span className="flex items-center gap-2 truncate">
+                      {o.disabled && <ConstructionIcon />}
+                      <span className="truncate">{o.label}</span>
                     </span>
-                  )}
-                  {!o.badge && value === o.value && !o.disabled && <CheckIcon />}
-                </button>
-              </li>
-            ))}
+                    {o.badge && (
+                      <span className="text-[10px] font-medium text-amber-600 bg-amber-50 px-2 py-0.5 rounded-full whitespace-nowrap">
+                        {o.badge}
+                      </span>
+                    )}
+                    {!o.badge && value === o.value && !o.disabled && !isHighlighted && <CheckIcon />}
+                  </button>
+                </li>
+              );
+            })}
           </ul>
         </div>
       )}

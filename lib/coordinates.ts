@@ -1,5 +1,7 @@
-// Coordenadas aproximadas de cada provincia española (primeros 2 dígitos del CP)
-// Usamos el centroide de la capital de provincia
+// Coordenadas por CP (10.876 CPs) con fallback al centroide de provincia.
+// Dataset: github.com/kodens-dev/Spain-Postal-Codes
+
+import { CP_COORDS } from "@/data/cp-coords";
 
 export type LatLng = { lat: number; lng: number };
 
@@ -85,6 +87,10 @@ export function haversineKm(a: LatLng, b: LatLng): number {
 }
 
 export function coordsFromCP(cp: string): LatLng | null {
-  const prefix = cp.slice(0, 2);
+  if (!cp) return null;
+  const normalized = normalizeCp(cp);
+  const exact = CP_COORDS[normalized];
+  if (exact) return { lat: exact[0], lng: exact[1] };
+  const prefix = normalized.slice(0, 2);
   return PROVINCE_COORDS[prefix] ?? null;
 }
