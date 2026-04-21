@@ -15,6 +15,10 @@ import { searchMuface } from "@/lib/sources/muface";
 import { searchGenerali } from "@/lib/sources/generali";
 import { searchFiatc } from "@/lib/sources/fiatc";
 import { enrichWithDoctoralia } from "@/lib/ratings-index";
+import { enrichWithGoogle } from "@/lib/google-ratings-index";
+import { mergeRatings } from "@/lib/ratings-merge";
+import { sortByRating } from "@/lib/ratings-sort";
+import { enrichCentrosLive } from "@/lib/google-live-enrich";
 import type { Doctor } from "@/lib/types";
 
 function normalize(s: string): string {
@@ -125,29 +129,24 @@ export async function filterDoctors(
     ...applyGeo(fiatc, cp, maxKm),
   ];
 
-  const enriched = merged.map(enrichWithDoctoralia);
+  const enriched = merged
+    .map(enrichWithDoctoralia)
+    .map(enrichWithGoogle)
+    .map(mergeRatings);
 
-  // Split: primero los que tienen valoración, después los que no. Dentro de
-  // cada grupo, los valorados por rating↓ (desempatando por nº reseñas↓) y
-  // los no valorados por distancia↑ (o por nombre si no hay CP).
-  const rated: Doctor[] = [];
-  const unrated: Doctor[] = [];
-  for (const d of enriched) {
-    if (d.numReviews > 0 && d.rating > 0) rated.push(d);
-    else unrated.push(d);
-  }
-
-  rated.sort((a, b) => {
-    if (b.rating !== a.rating) return b.rating - a.rating;
-    return b.numReviews - a.numReviews;
+  // Enriquecimiento live de TODOS los centros sin rating cacheado (no solo
+  // los de la página actual). Necesario para que el sort global respete
+  // orden por rating merged: si live-enrichamos solo una página, centros
+  // rated aparecen tanto arriba como abajo y el usuario ve pages vacías
+  // intercaladas. Concurrencia 8, timeout global 10 s: centros que no
+  // respondan en ese presupuesto quedan "unrated" y van al final del
+  // listado (consistente con el split rated/unrated); en siguientes
+  // visitas se sirven desde cache persistente y esta etapa es <100 ms.
+  const liveEnriched = await enrichCentrosLive(enriched, {
+    concurrency: 8,
+    perRequestTimeoutMs: 8_000,
+    globalTimeoutMs: 10_000,
   });
 
-  unrated.sort((a, b) => {
-    const da = a.distanceKm ?? Number.POSITIVE_INFINITY;
-    const db = b.distanceKm ?? Number.POSITIVE_INFINITY;
-    if (da !== db) return da - db;
-    return a.nombre.localeCompare(b.nombre, "es");
-  });
-
-  return [...rated, ...unrated];
+  return sortByRating(liveEnriched);
 }

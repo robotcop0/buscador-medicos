@@ -27,3 +27,18 @@ select {
 .animate-fade-up {
   animation: fadeUp 0.3s ease forwards;
 }
+
+/* Barra de progreso indeterminada: un bloque que barre de izquierda a derecha
+   mientras el SSR enriquece centros con Google Maps. */
+@keyframes progress-sweep {
+  0% {
+    transform: translateX(-120%);
+  }
+  100% {
+    transform: translateX(420%);
+  }
+}
+
+.animate-progress-sweep {
+  animation: progress-sweep 1.8s ease-in-out infinite;
+}

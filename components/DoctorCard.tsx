@@ -1,5 +1,7 @@
 import type { Doctor } from "@/lib/types";
 import ReviewsSection from "@/components/ReviewsSection";
+import GoogleReviewsSection from "@/components/GoogleReviewsSection";
+import { CENTER_RE } from "@/lib/center";
 
 type Props = {
   doctor: Doctor;
@@ -25,9 +27,26 @@ export default function DoctorCard({ doctor, searchCp }: Props) {
         : `${doctor.distanceKm} km`
       : null;
 
+  const isCenter = CENTER_RE.test(doctor.nombre);
+  // El SSR ya resolvió todos los ratings (Doctoralia + Google) vía
+  // `enrichCentrosLive` en `app/resultados/page.tsx`. El card solo lee.
+  const effectivePlaceId = doctor.googlePlaceId;
+
+  // Tiene rating? Puede venir de Doctoralia (merge) o de Google (merge).
+  const hasRating = doctor.rating > 0;
+  // Preferimos enlace a Doctoralia cuando existe; si no, a Google Maps.
+  const ratingLink = doctor.doctoraliaUrl
+    ? { href: doctor.doctoraliaUrl, title: "Ver perfil en Doctoralia" }
+    : effectivePlaceId
+    ? {
+        href: `https://www.google.com/maps/place/?q=place_id:${effectivePlaceId}`,
+        title: "Ver en Google Maps",
+      }
+    : null;
+
   return (
     <article className="group py-5 border-b border-gray-200 last:border-b-0">
-      <div className="flex items-start justify-between gap-6">
+      <div className="flex items-start justify-between gap-3 sm:gap-6">
 
         {/* Info */}
         <div className="flex-1 min-w-0">
@@ -44,7 +63,7 @@ export default function DoctorCard({ doctor, searchCp }: Props) {
             {doctor.ciudad && <span>{doctor.ciudad}</span>}
             {doctor.cp && <span className="tabular-nums">{doctor.cp}</span>}
             {doctor.direccion && (
-              <span className="hidden sm:inline truncate max-w-[220px]">{doctor.direccion}</span>
+              <span className="truncate max-w-[140px] sm:max-w-[220px]">{doctor.direccion}</span>
             )}
             {distance && (
               <span className="text-blue-600 font-medium">{distance}</span>
@@ -78,13 +97,13 @@ export default function DoctorCard({ doctor, searchCp }: Props) {
 
         {/* Rating */}
         <div className="flex-shrink-0 text-right">
-          {doctor.rating > 0 ? (
-            doctor.doctoraliaUrl ? (
+          {hasRating ? (
+            ratingLink ? (
               <a
-                href={doctor.doctoraliaUrl}
+                href={ratingLink.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                title="Ver perfil en Doctoralia"
+                title={ratingLink.title}
                 className="group/rating inline-block"
               >
                 <div
@@ -129,6 +148,14 @@ export default function DoctorCard({ doctor, searchCp }: Props) {
         <ReviewsSection
           url={doctor.doctoraliaUrl}
           initialReviews={doctor.doctoraliaReviews}
+          totalReviews={doctor.numReviews}
+        />
+      )}
+
+      {isCenter && effectivePlaceId && (
+        <GoogleReviewsSection
+          placeId={effectivePlaceId}
+          initialReviews={doctor.googleReviews}
         />
       )}
     </article>

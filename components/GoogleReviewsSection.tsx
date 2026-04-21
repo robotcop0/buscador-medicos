@@ -1,27 +1,29 @@
 "use client";
 
 import { useRef, useState } from "react";
-import type { DoctoraliaReview } from "@/lib/types";
+import type { GoogleReview } from "@/lib/types";
 
 type Props = {
-  url: string;
-  initialReviews?: DoctoraliaReview[];
-  // Total de reseñas que Doctoralia reporta en el card del doctor. Permite
-  // saber a priori si el snapshot SSR ya las contiene todas y evitar
-  // mostrar "Ver más" cuando un clic no traería nada nuevo.
-  totalReviews?: number;
+  placeId: string;
+  initialReviews?: GoogleReview[];
 };
 
-// Mostramos 3 de entrada; cada clic en "Ver más" revela otras 3. Cuando no
-// quedan reseñas cacheadas por mostrar, pedimos la siguiente página al backend
-// (10 por página, paginadas contra el XHR de Doctoralia).
 const VISIBLE_STEP = 3;
 
-function ReviewItem({ review }: { review: DoctoraliaReview }) {
+type Status = "idle" | "loading" | "loaded" | "error";
+
+type PageResponse = {
+  reviews: GoogleReview[];
+  page: number;
+  total: number;
+  hasMore: boolean;
+};
+
+function ReviewItem({ review }: { review: GoogleReview }) {
   return (
     <li className="py-2 border-t border-gray-100 first:border-t-0">
       <div className="flex items-center gap-2 text-[11px] text-gray-500">
-        <span className="font-medium text-gray-700 truncate">{review.author}</span>
+        <span className="font-medium text-gray-700 truncate">{review.author || "Usuario"}</span>
         {review.rating > 0 && (
           <span className="tabular-nums text-amber-600">
             {review.rating.toFixed(1)} ★
@@ -29,48 +31,36 @@ function ReviewItem({ review }: { review: DoctoraliaReview }) {
         )}
         {review.date && <span className="text-gray-400">· {review.date}</span>}
       </div>
-      <p className="mt-0.5 text-xs text-gray-600 leading-relaxed">{review.comment}</p>
+      {review.comment && (
+        <p className="mt-0.5 text-xs text-gray-600 leading-relaxed">{review.comment}</p>
+      )}
+      {review.reply?.text && (
+        <div className="mt-1 pl-3 border-l-2 border-gray-200">
+          <p className="text-[10px] text-gray-400 uppercase tracking-wider">
+            Respuesta del centro {review.reply.date ? `· ${review.reply.date}` : ""}
+          </p>
+          <p className="text-xs text-gray-600 leading-relaxed">{review.reply.text}</p>
+        </div>
+      )}
     </li>
   );
 }
 
-type Status = "idle" | "loading" | "loaded" | "error";
-
-type PageResponse = {
-  reviews: DoctoraliaReview[];
-  page: number;
-  total: number;
-  hasMore: boolean;
-};
-
-export default function ReviewsSection({ url, initialReviews, totalReviews }: Props) {
+export default function GoogleReviewsSection({ placeId, initialReviews }: Props) {
   const hasInitial = !!(initialReviews && initialReviews.length > 0);
-  // Si sabemos cuántas reseñas hay en total y el snapshot ya las contiene
-  // todas, el botón "Ver más" no tiene nada que revelar: evitamos el clic
-  // fantasma que solo sirve para confirmar con un fetch inútil.
-  const snapshotIsComplete =
-    hasInitial &&
-    typeof totalReviews === "number" &&
-    totalReviews > 0 &&
-    initialReviews!.length >= totalReviews;
-
-  const [reviews, setReviews] = useState<DoctoraliaReview[] | null>(
+  const [reviews, setReviews] = useState<GoogleReview[] | null>(
     hasInitial ? initialReviews! : null
   );
   const [status, setStatus] = useState<Status>(hasInitial ? "loaded" : "idle");
   const [visible, setVisible] = useState<number>(VISIBLE_STEP);
   const [loadingMore, setLoadingMore] = useState(false);
-  // `loadedPages = 0` significa que aún no hemos hablado con el backend: el
-  // snapshot SSR (`initialReviews`) no cuenta como página fetcheada. En la
-  // primera expansión haremos page=1 con refresh=1 para traer las 10 reales.
-  const [loadedPages, setLoadedPages] = useState<number>(0);
-  // `true` = puede haber más (por defecto, hasta que el backend lo confirme).
-  const [hasMorePages, setHasMorePages] = useState<boolean>(!snapshotIsComplete);
+  const [loadedPages, setLoadedPages] = useState<number>(hasInitial ? 1 : 0);
+  const [hasMorePages, setHasMorePages] = useState<boolean>(true);
   const firstOpenRef = useRef(false);
 
-  async function fetchPage(page: number, refresh = false): Promise<PageResponse | null> {
-    const qs = `url=${encodeURIComponent(url)}&page=${page}${refresh ? "&refresh=1" : ""}`;
-    const res = await fetch(`/api/doctoralia-reviews?${qs}`);
+  async function fetchPage(page: number): Promise<PageResponse | null> {
+    const qs = `placeId=${encodeURIComponent(placeId)}&page=${page}`;
+    const res = await fetch(`/api/google-reviews?${qs}`);
     if (!res.ok) return null;
     return (await res.json()) as PageResponse;
   }
@@ -79,7 +69,7 @@ export default function ReviewsSection({ url, initialReviews, totalReviews }: Pr
     const isOpen = e.currentTarget.open;
     if (!isOpen || firstOpenRef.current) return;
     firstOpenRef.current = true;
-    if (reviews !== null) return; // ya teníamos initialReviews
+    if (reviews !== null) return;
     setStatus("loading");
     const data = await fetchPage(1);
     if (!data) {
@@ -96,30 +86,20 @@ export default function ReviewsSection({ url, initialReviews, totalReviews }: Pr
 
   async function handleVerMas() {
     if (!reviews) return;
-
-    // Reseñas ya cacheadas pero aún no visibles: simplemente reveladas.
     if (visible < reviews.length) {
       setVisible(Math.min(visible + VISIBLE_STEP, reviews.length));
       return;
     }
-
     if (!hasMorePages) return;
-
-    // Si no hemos tocado el backend todavía (solo tenemos el snapshot SSR),
-    // la primera petición es page=1 con refresh=1; a partir de ahí paginamos.
-    const isFirstFetch = loadedPages === 0;
-    const nextPage = isFirstFetch ? 1 : loadedPages + 1;
-
+    const nextPage = loadedPages + 1;
     setLoadingMore(true);
-    const data = await fetchPage(nextPage, isFirstFetch);
+    const data = await fetchPage(nextPage);
     setLoadingMore(false);
-
     if (!data) {
       setHasMorePages(false);
       return;
     }
-
-    const merged = isFirstFetch ? data.reviews : [...reviews, ...data.reviews];
+    const merged = [...reviews, ...data.reviews];
     setReviews(merged);
     setLoadedPages(nextPage);
     setHasMorePages(data.hasMore);
@@ -132,6 +112,8 @@ export default function ReviewsSection({ url, initialReviews, totalReviews }: Pr
     reviews !== null &&
     (visible < reviews.length || hasMorePages);
 
+  const mapsUrl = `https://www.google.com/maps/place/?q=place_id:${placeId}`;
+
   return (
     <details className="mt-3 group/details" onToggle={handleToggle}>
       <summary className="list-none cursor-pointer text-[11px] inline-flex items-center gap-3 select-none">
@@ -142,16 +124,16 @@ export default function ReviewsSection({ url, initialReviews, totalReviews }: Pr
           >
             ▶
           </span>
-          Ver reseñas
+          Ver reseñas Google
         </span>
         <a
-          href={url}
+          href={mapsUrl}
           target="_blank"
           rel="noopener noreferrer"
           onClick={(e) => e.stopPropagation()}
           className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 hover:underline"
         >
-          Doctoralia
+          Google Maps
           <span aria-hidden="true">→</span>
         </a>
       </summary>

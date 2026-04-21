@@ -125,7 +125,7 @@ export default function SearchForm({
   return (
     <form onSubmit={handleSubmit} noValidate>
       {/* ── DESKTOP ── */}
-      <div className="hidden sm:block">
+      <div className="hidden md:block">
         <div className={containerCls}>
           {/* Mutua */}
           <div className={cellCls}>
@@ -213,7 +213,7 @@ export default function SearchForm({
       </div>
 
       {/* ── MOBILE ── */}
-      <div className="sm:hidden space-y-3">
+      <div className="md:hidden space-y-3">
         <div>
           <label className="block text-xs font-medium text-gray-500 mb-1">Mutua</label>
           <MutuaCombobox value={mutua} onChange={setMutua} mobile />
@@ -247,7 +247,7 @@ export default function SearchForm({
             value={cp}
             onChange={(e) => handleCpChange(e.target.value)}
             placeholder="28001"
-            className={`w-full px-4 py-3 text-sm bg-white border rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all ${
+            className={`w-full px-4 py-3 text-base sm:text-sm bg-white border rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all ${
               cpError ? "border-red-300" : "border-gray-200"
             }`}
           />
@@ -440,7 +440,7 @@ function Combobox({
   }
 
   const triggerBase = mobile
-    ? "w-full px-4 py-3 text-sm bg-white border border-gray-200 rounded-xl text-gray-900 flex items-center justify-between transition-all hover:border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent"
+    ? "w-full px-4 py-3 text-base bg-white border border-gray-200 rounded-xl text-gray-900 flex items-center justify-between transition-all hover:border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent"
     : "w-full bg-transparent text-sm text-gray-900 flex items-center justify-between focus:outline-none";
 
   return (
@@ -472,7 +472,7 @@ function Combobox({
 
       {open && (
         <div
-          className={`absolute z-50 mt-2 w-full min-w-[260px] bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden animate-fade-up ${
+          className={`absolute z-50 mt-2 w-full min-w-0 sm:min-w-[260px] max-w-[calc(100vw-2rem)] bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden animate-fade-up ${
             mobile ? "" : "left-0"
           }`}
           style={{ maxHeight: 360 }}
@@ -485,7 +485,7 @@ function Combobox({
               onKeyDown={handleListKeyDown}
               placeholder="Buscar…"
               autoFocus
-              className="w-full px-3 py-2 text-sm bg-gray-50 border border-transparent rounded-lg focus:outline-none focus:bg-white focus:border-gray-200"
+              className="w-full px-3 py-2 text-base sm:text-sm bg-gray-50 border border-transparent rounded-lg focus:outline-none focus:bg-white focus:border-gray-200"
             />
           </div>
           <ul

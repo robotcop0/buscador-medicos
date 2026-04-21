@@ -14,10 +14,9 @@ export type Review = {
 };
 
 const TIMEOUT_MS = 15000;
-// Doctoralia renderiza hasta ~10 reseñas por página en el perfil. Parseamos
-// todas y dejamos que la UI decida cuántas enseñar inicialmente y cuántas
-// añadir al pulsar "Ver más".
-const MAX_REVIEWS = 10;
+// Doctoralia renderiza 10 reseñas por página (tanto en el perfil SSR como en
+// el endpoint XHR `/ajax/mobile/doctor-opinions/{id}/{page}`).
+const PAGE_SIZE = 10;
 
 const HEADERS = {
   "User-Agent":
@@ -80,7 +79,69 @@ export function parseReviews(html: string): Review[] {
       date: date.slice(0, 40),
       comment: comment.slice(0, 600),
     });
-    if (reviews.length >= MAX_REVIEWS) break;
+    if (reviews.length >= PAGE_SIZE) break;
   }
   return reviews;
+}
+
+/**
+ * Extrae el `entity id` del doctor del HTML de la página de perfil. Doctoralia
+ * lo expone tanto en `data-eec-entity-id` como en `data-profile-id`. Lo usa el
+ * endpoint AJAX para paginar las reseñas (`/ajax/mobile/doctor-opinions/{id}/{page}`).
+ */
+export function parseDoctorId(html: string): string | null {
+  const m =
+    html.match(/data-eec-entity-id=["'](\d+)["']/) ||
+    html.match(/data-profile-id=["'](\d+)["']/);
+  return m ? m[1] : null;
+}
+
+/**
+ * Total de opiniones declaradas en el perfil (puede superar al nº parseable:
+ * no todas llevan comentario). Se extrae del meta `numberOfReviews` schema.org
+ * o, como fallback, del texto "N opiniones".
+ */
+export function parseReviewTotal(html: string): number | null {
+  const $ = cheerio.load(html);
+  const metaCount =
+    $('[itemprop="reviewCount"]').attr("content") ||
+    $('[itemprop="ratingCount"]').attr("content");
+  if (metaCount) {
+    const n = parseInt(metaCount, 10);
+    if (Number.isFinite(n) && n > 0) return n;
+  }
+  const textMatch = html.match(/(\d{1,5})\s+opiniones/i);
+  if (textMatch) {
+    const n = parseInt(textMatch[1], 10);
+    if (Number.isFinite(n) && n > 0) return n;
+  }
+  return null;
+}
+
+/**
+ * Descarga la página `page` (1-indexed) de reseñas via el endpoint AJAX que
+ * usa el propio botón "Ver más opiniones anteriores" del perfil. Devuelve las
+ * reseñas parseadas y el total declarado por Doctoralia para decidir si hay
+ * más páginas por pedir.
+ */
+export async function fetchOpinionsPage(
+  doctorId: string,
+  page: number
+): Promise<{ reviews: Review[]; total: number } | null> {
+  const url = `https://www.doctoralia.es/ajax/mobile/doctor-opinions/${encodeURIComponent(
+    doctorId
+  )}/${page}`;
+  try {
+    const res = await axios.get(url, {
+      headers: { ...HEADERS, Accept: "application/json, text/plain, */*" },
+      timeout: TIMEOUT_MS,
+    });
+    const data = res.data as { limit?: number; numRows?: number; html?: string };
+    if (!data || typeof data.html !== "string") return null;
+    const reviews = parseReviews(data.html);
+    const total = Number.isFinite(data.numRows) ? Number(data.numRows) : reviews.length;
+    return { reviews, total };
+  } catch {
+    return null;
+  }
 }

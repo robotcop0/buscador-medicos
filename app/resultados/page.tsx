@@ -34,6 +34,9 @@ export default async function ResultadosPage({
   let error: string | null = null;
 
   try {
+    // `findDoctors` ya hace el enriquecimiento live de TODOS los centros
+    // (no solo los de la página) y ordena globalmente antes de devolver.
+    // Aquí nos limitamos a paginar.
     const response = await findDoctors(mutua, especialidad, cp, maxKm);
     totalFound = response.doctors.length;
     totalPages = Math.max(1, Math.ceil(totalFound / PAGE_SIZE));
@@ -67,10 +70,10 @@ export default async function ResultadosPage({
     mutua === "IMQ" && !!cp && !imqCoversCp(cp);
 
   return (
-    <main className="min-h-screen px-6 py-16">
-      <div className="w-full max-w-2xl mx-auto">
+    <main className="min-h-screen px-4 sm:px-6 py-8 sm:py-12 md:py-16">
+      <div className="w-full max-w-2xl lg:max-w-3xl mx-auto">
         {/* Nav */}
-        <div className="flex items-center justify-between mb-10">
+        <div className="flex items-center justify-between mb-6 sm:mb-10">
           <Link
             href="/"
             className="text-xs text-gray-400 hover:text-gray-700 transition-colors focus:outline-none focus:underline"
@@ -93,7 +96,7 @@ export default async function ResultadosPage({
         ) : (
           <>
             {/* Search form (editable, pre-relleno con los filtros actuales) */}
-            <div className="mb-8">
+            <div className="mb-6 sm:mb-8">
               <SearchForm
                 initialMutua={mutua}
                 initialEspecialidad={especialidad}
@@ -104,12 +107,12 @@ export default async function ResultadosPage({
             </div>
 
             {/* Header */}
-            <header className="mb-8">
+            <header className="mb-6 sm:mb-8">
               <div className="flex items-baseline gap-3 flex-wrap">
-                <span className="text-2xl font-bold text-gray-900 tabular-nums">
+                <span className="text-2xl sm:text-3xl font-bold text-gray-900 tabular-nums">
                   {totalFound}
                 </span>
-                <span className="text-lg font-light text-gray-900">
+                <span className="text-base sm:text-lg font-light text-gray-900">
                   {totalFound === 1 ? "médico encontrado" : "médicos encontrados"}
                 </span>
               </div>
@@ -122,7 +125,7 @@ export default async function ResultadosPage({
 
               {totalFound > 0 && (
                 <p className="text-[11px] text-gray-400 mt-1 leading-relaxed">
-                  Las valoraciones provienen de Doctoralia. El matcheo por nombre y provincia puede no ser 100% exacto.
+                  Valoraciones de Doctoralia (médicos) y Google Maps (centros). El matcheo puede no ser 100% exacto.
                 </p>
               )}
 
@@ -142,7 +145,7 @@ export default async function ResultadosPage({
               <>
                 <section
                   aria-label="Médicos encontrados"
-                  className="bg-white rounded-2xl border border-gray-200 px-6 animate-fade-up"
+                  className="bg-white rounded-2xl border border-gray-200 px-4 sm:px-6 animate-fade-up"
                 >
                   {pageResults.map((doctor) => (
                     <DoctorCard key={doctor.id} doctor={doctor} searchCp={cp} />

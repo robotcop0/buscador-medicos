@@ -1,0 +1,2582 @@
+[
+  {
+    "nameKey": "barcelona centro medico quirurgico",
+    "cpPrefix": "08",
+    "nombreOriginal": "Centro Medico Quirurgico Barcelona",
+    "rating": 2.6,
+    "numReviews": 109,
+    "placeId": "0x12a4b14bbb6e5db1:0x9e863b659bfa5565",
+    "address": "Centro Médico Quirúrgico Barcelona S.L., Carrer dels Capitans de Mar, 20, 22, 08330 Premià de Mar, Barcelona",
+    "at": 1776796446739
+  },
+  {
+    "nameKey": "centre jaume medic",
+    "cpPrefix": "08",
+    "nombreOriginal": "Centre Mèdic Jaume I",
+    "rating": 3.3,
+    "numReviews": 803,
+    "placeId": "0x12a4bf280a95b971:0x148cd29257a47fda",
+    "address": "Centre Mèdic Jaume 1, Av. de Jaume I, 105, 08100 Mollet del Vallès, Barcelona",
+    "at": 1776796447185
+  },
+  {
+    "nameKey": "blanca creu hospital maresme",
+    "cpPrefix": "08",
+    "nombreOriginal": "Hospital Creu Blanca Maresme, S.l.",
+    "rating": 4.4,
+    "numReviews": 1044,
+    "placeId": "0x12a4b53c87c74745:0xf01f0b74a267cf27",
+    "address": "Hospital CreuBlanca Maresme, Carrer Pablo Iglesias, 43, 08302 Mataró, Barcelona",
+    "at": 1776796449472
+  },
+  {
+    "nameKey": "centre medic montreix nou",
+    "cpPrefix": "08",
+    "nombreOriginal": "Centre Medic Nou Montreix",
+    "rating": 3.6,
+    "numReviews": 41,
+    "placeId": "0x12a4bc4a7784bf49:0x9f7a88f512c5f6b6",
+    "address": "Centre Mèdic Montreix, Carrer les Aigües, 7, 08110 Montcada i Reixac, Barcelona",
+    "at": 1776796450084
+  },
+  {
+    "nameKey": "centro medico teknon",
+    "cpPrefix": "08",
+    "nombreOriginal": "Centro Médico Teknon",
+    "rating": 3.6,
+    "numReviews": 3142,
+    "placeId": "0x12a4981447f96d79:0xb814667ed34600a",
+    "address": "Centro Médico Teknon, Carrer de Vilana, 12, Sarrià-Sant Gervasi, 08022 Barcelona",
+    "at": 1776796458553
+  },
+  {
+    "nameKey": "hospital milagrosa vithas",
+    "cpPrefix": "28",
+    "nombreOriginal": "Hospital Vithas La Milagrosa",
+    "rating": 3.9,
+    "numReviews": 2729,
+    "placeId": "0xd4228f3b9410bd1:0x2f119a97660df47b",
+    "address": "Hospital Universitario Vithas Madrid La Milagrosa, Calle de Modesto Lafuente, 14, Chamberí, 28010 Madrid",
+    "at": 1776796613636
+  },
+  {
+    "nameKey": "del hospital quironsalud valles",
+    "cpPrefix": "08",
+    "nombreOriginal": "Hospital Quironsalud del Valles",
+    "rating": 3,
+    "numReviews": 1718,
+    "placeId": "0x12a495a4d062dd71:0xcdd5e0f207b23405",
+    "address": "Hospital Quirónsalud del Vallés, Passeig de Rubió i Ors, 23, 08203 Sabadell, Barcelona",
+    "at": 1776797617017
+  },
+  {
+    "nameKey": "centre medic sabadell",
+    "cpPrefix": "08",
+    "nombreOriginal": "Centre Medic Sabadell",
+    "rating": 2.8,
+    "numReviews": 349,
+    "placeId": "0x12a495026469fe99:0xc713d0b141f81fb4",
+    "address": "Centre Mèdic Sabadell, Carrer del Pare Sallarès, 2C, 08201 Sabadell, Barcelona",
+    "at": 1776797617018
+  },
+  {
+    "nameKey": "arenys blava centre creu medic",
+    "cpPrefix": "08",
+    "nombreOriginal": "Centre Medic Creu Blava - Arenys",
+    "rating": 4,
+    "numReviews": 79,
+    "placeId": "0x12bb37c59ba78c53:0x1ac1d710486954f2",
+    "address": "Creu Blava Arenys de Mar, Carrer de Sant Roc, 1, Carrer de Sant Gabriel, 47-49, 08350 Arenys de Mar, Barcelona",
+    "at": 1776797617018
+  },
+  {
+    "nameKey": "can centre mora sanitari",
+    "cpPrefix": "08",
+    "nombreOriginal": "Centre Sanitari Can Mora",
+    "rating": 2.6,
+    "numReviews": 346,
+    "placeId": "0x12a496dc03f27d3d:0x188e88851a5632e",
+    "address": "Centre Sanitari Can Mora, Carrer de Sant Jordi, 37, 08172 Sant Cugat del Vallès, Barcelona",
+    "at": 1776797617018
+  },
+  {
+    "nameKey": "aptima centre clinic mutua terrassa",
+    "cpPrefix": "08",
+    "nombreOriginal": "Aptima Centre Clinic-mutua DE Terrassa",
+    "rating": 3,
+    "numReviews": 627,
+    "placeId": "0x12a492c2a1b43c21:0x9a374d9552ad4de2",
+    "address": "Àptima Centre Clínic MútuaTerrassa, Plaça del Doctor Robert, 5, 08221 Terrassa, Barcelona",
+    "at": 1776797617019
+  },
+  {
+    "nameKey": "centro medico olimpica villa",
+    "cpPrefix": "08",
+    "nombreOriginal": "Centro Medico Villa Olimpica",
+    "rating": 1.8,
+    "numReviews": 44,
+    "placeId": "0x12a4a30073729b41:0x98381ad7fc62e944",
+    "address": "Centre mèdic Vila Olímpica, Av. d'Icària, 180, Sant Martí, 08005 Barcelona",
+    "at": 1776797617019
+  },
+  {
+    "nameKey": "barcelona hospital quironsalud",
+    "cpPrefix": "08",
+    "nombreOriginal": "Hospital Quironsalud Barcelona",
+    "rating": 3.5,
+    "numReviews": 3720,
+    "placeId": "0x12a498044495d6ed:0x503f8af0c587278c",
+    "address": "Hospital Quirónsalud Barcelona, Plaça d'Alfonso Comín, 5-7, Gràcia, 08023 Barcelona",
+    "at": 1776797617020
+  },
+  {
+    "nameKey": "hospital nens",
+    "cpPrefix": "08",
+    "nombreOriginal": "Hospital HM Nens",
+    "rating": 2.5,
+    "numReviews": 1438,
+    "placeId": "0x12a4a2e89a0e7225:0x304218914c798c94",
+    "address": "Hospital HM Nens - Hospital Pediátrico en Barcelona, Carrer del Consell de Cent, 437, Eixample, 08009 Barcelona",
+    "at": 1776797620196
+  },
+  {
+    "nameKey": "barcelona hospital pilar quironsalud",
+    "cpPrefix": "08",
+    "nombreOriginal": "Hospital Quironsalud Barcelona- EL Pilar",
+    "rating": 3.5,
+    "numReviews": 2111,
+    "placeId": "0x12a4a29f4f64406d:0x63c13dc384302c9d",
+    "address": "Hospital El Pilar, Carrer de Balmes, 271, Sarrià-Sant Gervasi, 08006 Barcelona",
+    "at": 1776797621326
+  },
+  {
+    "nameKey": "barcelona hospital quironsalud teknon",
+    "cpPrefix": "08",
+    "nombreOriginal": "Hospital Quironsalud Barcelona- Teknon",
+    "rating": 2.7,
+    "numReviews": 96,
+    "placeId": "0x12a4981487dbc88b:0xbaf662711bbe7db3",
+    "address": "Hospital Quirón-Teknon, Carrer de Vilana, Sarrià-Sant Gervasi, 08022 Barcelona",
+    "at": 1776797622693
+  },
+  {
+    "nameKey": "clinica corachan instituto",
+    "cpPrefix": "08",
+    "nombreOriginal": "Clinica Corachan Instituto",
+    "rating": 4.2,
+    "numReviews": 4143,
+    "placeId": "0x12a4986f24245291:0x84c74535f352935f",
+    "address": "Clínica Corachan, Plaza Dr, Pl. de Manuel Corachán, 4, Sarrià-Sant Gervasi, 08017 Barcelona",
+    "at": 1776797624068
+  },
+  {
+    "nameKey": "barcelona clinica hla internacional",
+    "cpPrefix": "08",
+    "nombreOriginal": "Hla Clinica Internacional Barcelona",
+    "rating": 4.8,
+    "numReviews": 3651,
+    "placeId": "0x12a49953f141d535:0x21b3f7b469a233f9",
+    "address": "HLA Clínica Internacional Barcelona, Carrer d'Anglí, 38, Sarrià-Sant Gervasi, 08017 Barcelona",
+    "at": 1776797625601
+  },
+  {
+    "nameKey": "cor grupo hospital quironsalud sagrat",
+    "cpPrefix": "08",
+    "nombreOriginal": "Hospital U. Sagrat Cor - Grupo Quironsalud",
+    "rating": 3.3,
+    "numReviews": 3389,
+    "placeId": "0x12a4a2825f8a58cb:0x9c3260a0d3973a46",
+    "address": "Hospital Universitari Sagrat Cor, Carrer de Viladomat, 288, Eixample, 08029 Barcelona",
+    "at": 1776797627132
+  },
+  {
+    "nameKey": "dexeus hospital institut quiron universitari",
+    "cpPrefix": "08",
+    "nombreOriginal": "Hospital Quiron Institut Universitari Dexeus",
+    "rating": 3.5,
+    "numReviews": 2865,
+    "placeId": "0x12a4986097a37f81:0xf41dfe1215087a91",
+    "address": "Hospital Universitari Dexeus, Carrer de Sabino Arana, 19 Ed, Les Corts, 08028 Barcelona",
+    "at": 1776797629146
+  },
+  {
+    "nameKey": "centro medico molins",
+    "cpPrefix": "08",
+    "nombreOriginal": "Centro Medico Molins, S.l.",
+    "rating": 2.4,
+    "numReviews": 386,
+    "placeId": "0x12a49a990be9255f:0x245f8d0215f65b7",
+    "address": "Centro Médico Molins SL, Passeig del Terraplè, 97, 08750 Molins de Rei, Barcelona",
+    "at": 1776797629331
+  },
+  {
+    "nameKey": "collblanc policlinico",
+    "cpPrefix": "08",
+    "nombreOriginal": "Policlínico HM Collblanc",
+    "rating": 3,
+    "numReviews": 321,
+    "placeId": "0x12a498f181f0fc0b:0x13418ee5e00f13ad",
+    "address": "Policlínico HM Collblanc, Carrer Doctor Jaume Ferran i Clua, 6, 08903 L'Hospitalet de Llobregat, Barcelona",
+    "at": 1776797631760
+  },
+  {
+    "nameKey": "centre marina medic",
+    "cpPrefix": "08",
+    "nombreOriginal": "Centre Medic Marina",
+    "rating": 2.7,
+    "numReviews": 183,
+    "placeId": "0x12a49edab45103ff:0xe3c5edbe04e45436",
+    "address": "Centre Medic Marina, Avinguda de Josep Anselm Clavé, 5, 08820 El Prat de Llobregat, Barcelona",
+    "at": 1776797638376
+  },
+  {
+    "nameKey": "dra gomez instituto roig",
+    "cpPrefix": "08",
+    "nombreOriginal": "Instituto Dra. Gomez Roig",
+    "rating": 4.6,
+    "numReviews": 1235,
+    "placeId": "0x12a498690337a371:0xca205b696c613a4",
+    "address": "Instituto Dra. Gómez Roig, Pl. de Manuel Corachán, 4, Sarrià-Sant Gervasi, 08017 Barcelona",
+    "at": 1776797699521
+  },
+  {
+    "nameKey": "centro medico saluddia",
+    "cpPrefix": "28",
+    "nombreOriginal": "Saluddia Centro Medico",
+    "rating": 3.2,
+    "numReviews": 532,
+    "placeId": "0xd423b0ccaac70f3:0x763fff804fa9c80d",
+    "address": "Centro Médico Saluddia, Plaza de la Constitución s/n C.c Rivas Centro 1ª Planta, 28522 Rivas-Vaciamadrid, Madrid",
+    "at": 1776797699529
+  },
+  {
+    "nameKey": "hospital internacional ruber",
+    "cpPrefix": "28",
+    "nombreOriginal": "Hospital Ruber Internacional",
+    "rating": 4.5,
+    "numReviews": 884,
+    "placeId": "0xd4229859c625b47:0xa795a12c8b8084a0",
+    "address": "Hospital Ruber Internacional, C. de La Masó, 38, Fuencarral-El Pardo, 28034 Madrid",
+    "at": 1776797717737
+  },
+  {
+    "nameKey": "elena hospital santa viamed",
+    "cpPrefix": "28",
+    "nombreOriginal": "Hospital Viamed Santa Elena",
+    "rating": 3.6,
+    "numReviews": 1785,
+    "placeId": "0xd42284eded07a53:0x78fb4944769f7934",
+    "address": "Hospital Universitario Viamed Santa Elena, C. de la Granja, 8, Chamberí, 28003 Madrid",
+    "at": 1776797717737
+  },
+  {
+    "nameKey": "cemtro clinica",
+    "cpPrefix": "28",
+    "nombreOriginal": "Clinica Cemtro",
+    "rating": 3.4,
+    "numReviews": 1531,
+    "placeId": "0xd422befe1f13ef7:0x42d1c1521126300",
+    "address": "Clínica CEMTRO, Av. del Ventisquero de la Condesa, 42, Fuencarral-El Pardo, 28034 Madrid",
+    "at": 1776797717738
+  },
+  {
+    "nameKey": "age agrupacion clinica espanola ginecologica",
+    "cpPrefix": "28",
+    "nombreOriginal": "Clínica Age (agrupación Ginecológica Española)",
+    "rating": 3.3,
+    "numReviews": 655,
+    "placeId": "0xd42288cc6be6f53:0xc0a5e1866854962",
+    "address": "AGE Recoletas Salud, P.º de Eduardo Dato, 3, Chamberí, 28010 Madrid",
+    "at": 1776797717738
+  },
+  {
+    "nameKey": "ana caicoya clinica dra",
+    "cpPrefix": "28",
+    "nombreOriginal": "Clínica Dra. Ana Caicoya",
+    "rating": 4.8,
+    "numReviews": 209,
+    "placeId": "0xd42288cef9491d1:0x80d9dfc15d5e8f28",
+    "address": "Clínica dental Doctora Ana Caicoya de Urzaiz, Calle del General Arrando, 12, 6, Chamberí, 28010 Madrid",
+    "at": 1776797717739
+  },
+  {
+    "nameKey": "clinica gaias madrid",
+    "cpPrefix": "28",
+    "nombreOriginal": "Clinica Gaias Madrid",
+    "rating": 4.5,
+    "numReviews": 426,
+    "placeId": "0xd4229a8d06f2949:0x2af0d198f93c0b3a",
+    "address": "Clínica Gaias Madrid, Calle del General Arrando, 30, Chamberí, 28010 Madrid",
+    "at": 1776797717740
+  },
+  {
+    "nameKey": "clinica familia sagrada",
+    "cpPrefix": "08",
+    "nombreOriginal": "Clinica Sagrada Familia",
+    "rating": 3.3,
+    "numReviews": 1163,
+    "placeId": "0x12a4986d5e7da84f:0xa6102964e532d51e",
+    "address": "Clínica Sagrada Família, Carrer de Sant Casimir, 1, Sarrià-Sant Gervasi, 08022 Barcelona",
+    "at": 1776797746548
+  },
+  {
+    "nameKey": "clinica torres tres",
+    "cpPrefix": "08",
+    "nombreOriginal": "Clinica Tres Torres",
+    "rating": 3.9,
+    "numReviews": 828,
+    "placeId": "0x12a4986b0b00a223:0xba81fa7a93e474d3",
+    "address": "Clínica Mi Tres Torres, Carrer del Dr. Roux, 76, Sarrià-Sant Gervasi, 08017 Barcelona",
+    "at": 1776797746548
+  },
+  {
+    "nameKey": "dexeus hospital universitari",
+    "cpPrefix": "08",
+    "nombreOriginal": "Hospital Universitari Dexeus",
+    "rating": 3.5,
+    "numReviews": 2865,
+    "placeId": "0x12a4986097a37f81:0xf41dfe1215087a91",
+    "address": "Hospital Universitari Dexeus, Carrer de Sabino Arana, 19 Ed, Les Corts, 08028 Barcelona",
+    "at": 1776797746549
+  },
+  {
+    "nameKey": "clinica corachan",
+    "cpPrefix": "08",
+    "nombreOriginal": "Clinica Corachan",
+    "rating": 4.2,
+    "numReviews": 4143,
+    "placeId": "0x12a4986f24245291:0x84c74535f352935f",
+    "address": "Clínica Corachan, Plaza Dr, Pl. de Manuel Corachán, 4, Sarrià-Sant Gervasi, 08017 Barcelona",
+    "at": 1776797746549
+  },
+  {
+    "nameKey": "barraquer centro oftalmologia",
+    "cpPrefix": "08",
+    "nombreOriginal": "Centro DE Oftalmologia Barraquer",
+    "rating": 4.1,
+    "numReviews": 1510,
+    "placeId": "0x12a4a29e0e1bd661:0x48ebdd41926011fc",
+    "address": "Centro de Oftalmología Barraquer - Clínica Barraquer, C/ de Muntaner, 314, Sarrià-Sant Gervasi, 08021 Barcelona",
+    "at": 1776797746549
+  },
+  {
+    "nameKey": "casp centros cruz navarro",
+    "cpPrefix": "08",
+    "nombreOriginal": "Centros Cruz Navarro-casp",
+    "rating": 3.5,
+    "numReviews": 268,
+    "placeId": "0x12a4a2f249fabc23:0x5dbc8d384f2411e4",
+    "address": "Centres Cruz Navarro, Carrer de Casp, 15, Eixample, 08010 Barcelona",
+    "at": 1776797746550
+  },
+  {
+    "nameKey": "delfos hospital",
+    "cpPrefix": "08",
+    "nombreOriginal": "Hospital HM Delfos",
+    "rating": 3.4,
+    "numReviews": 1571,
+    "placeId": "0x12a49807a9fa1203:0x5438c8a022212aa4",
+    "address": "Hospital HM Nou Delfos, Av. de Vallcarca, 151, Gràcia, 08023 Barcelona",
+    "at": 1776800359726
+  },
+  {
+    "nameKey": "centro integral salud",
+    "cpPrefix": "08",
+    "nombreOriginal": "Centro Salud Integral",
+    "rating": 4.4,
+    "numReviews": 391,
+    "placeId": "0x12a4991b43596661:0x54af7a1216c4a70c",
+    "address": "Centro Salud Integral, Carrer Mina, 28, 08906 L'Hospitalet de Llobregat, Barcelona",
+    "at": 1776800359727
+  },
+  {
+    "nameKey": "albar centro medico",
+    "cpPrefix": "08",
+    "nombreOriginal": "Centro Medico Albar",
+    "rating": 3.6,
+    "numReviews": 467,
+    "placeId": "0x12a498e0d2aeaf11:0x35aecbfe9b29cba8",
+    "address": "Centro Médico Albar, Av. de Ventura Gassol, 10, 08901 L'Hospitalet de Llobregat, Barcelona",
+    "at": 1776800385787
+  },
+  {
+    "nameKey": "centre medic salut torreblanca",
+    "cpPrefix": "08",
+    "nombreOriginal": "Centre Medic Torreblanca Salut",
+    "rating": 3.5,
+    "numReviews": 755,
+    "placeId": "0x12a49bd1ea96f549:0x9d8730bade8185dc",
+    "address": "Centro Médico y Clinica Dental Torreblanca Salut, Carrer de Torreblanca, 10, 08970 Sant Joan Despí, Barcelona",
+    "at": 1776800385788
+  },
+  {
+    "nameKey": "centre martorell medic",
+    "cpPrefix": "08",
+    "nombreOriginal": "Centre Medic Martorell",
+    "rating": 4,
+    "numReviews": 946,
+    "placeId": "0x12a48ecbfa4a48fd:0x4e33097fa379095c",
+    "address": "Centre Médic Martorell, S.L., Av. Francesc Riera, 9, 08760 Martorell, Barcelona",
+    "at": 1776800385788
+  },
+  {
+    "nameKey": "2022 centre gea medic",
+    "cpPrefix": "08",
+    "nombreOriginal": "Centre Medic Dr. Gea 2022, S.l.",
+    "rating": 4.3,
+    "numReviews": 22,
+    "placeId": "0x12a485929010e6e9:0x435d5d5d2b37325a",
+    "address": "Centro Médico Doctor Gea 2022, Av. Catalunya, 62, 08757 Corbera de Llobregat, Barcelona",
+    "at": 1776800385789
+  },
+  {
+    "nameKey": "benviure centro medico",
+    "cpPrefix": "08",
+    "nombreOriginal": "Centro Medico Benviure",
+    "rating": 3.6,
+    "numReviews": 32,
+    "placeId": "0x12a49b806d95c657:0x29b556f0d0eda8a1",
+    "address": "Centre Mèdic Benviure SL, Carrer Benviure, 7, 08830 Sant Boi de Llobregat, Barcelona",
+    "at": 1776800385789
+  },
+  {
+    "nameKey": "centre game medic",
+    "cpPrefix": "08",
+    "nombreOriginal": "Game Centre Medic",
+    "rating": 2.4,
+    "numReviews": 158,
+    "placeId": "0x12a49b863058e67f:0xa8cc2afe00a64f8e",
+    "address": "Game Centre Mèdic, Carrer Riera Basté, 22, 08830 Sant Boi de Llobregat, Barcelona",
+    "at": 1776800385789
+  },
+  {
+    "nameKey": "blava centre creu malgrat medic",
+    "cpPrefix": "08",
+    "nombreOriginal": "Centre Medic Creu Blava - Malgrat",
+    "rating": 3.8,
+    "numReviews": 188,
+    "placeId": "0x12bb3e80b3d44b07:0x6eb04bdeecf0e3dd",
+    "address": "Creu Blava Malgrat de Mar, Carrer de Joan Maragall, 4, 08380 Malgrat de Mar, Barcelona",
+    "at": 1776800385790
+  },
+  {
+    "nameKey": "centre medic meisa",
+    "cpPrefix": "08",
+    "nombreOriginal": "Centre Medic Meisa",
+    "rating": 2.9,
+    "numReviews": 278,
+    "placeId": "0x12a49cf00cb24f03:0x64f521d47dbef83",
+    "address": "Centro Médico Meisa Viladecans, Plaça Saint-Herbain, s/n, 08840 Viladecans, Barcelona",
+    "at": 1776800385790
+  },
+  {
+    "nameKey": "centre especialitats mediqu urgencies",
+    "cpPrefix": "08",
+    "nombreOriginal": "C.u.e.m. Centre D'urgencies I Especialitats Mediqu",
+    "rating": 2.6,
+    "numReviews": 128,
+    "placeId": "0x12a49cdf35cd4157:0xf2133c0669d56215",
+    "address": "C U E M CENTRE D URGENCIES I ESPECIALITATS MEDIQUES DE GAVA S.L., Carrer de Sant Nicasi, 13, BJ, 08850 Gavà, Barcelona",
+    "at": 1776800387613
+  },
+  {
+    "nameKey": "ballester centro medico",
+    "cpPrefix": "08",
+    "nombreOriginal": "Centro Medico Ballester, S.l.",
+    "rating": 3.8,
+    "numReviews": 88,
+    "placeId": "0x12a49ce9e8f84d77:0xe7609eb2e4252115",
+    "address": "CENTRO MEDICO BALLESTER, Carrer del Roure, 5, 08840 Viladecans, Barcelona",
+    "at": 1776800388095
+  },
+  {
+    "nameKey": "centre gava medibaix medic",
+    "cpPrefix": "08",
+    "nombreOriginal": "Centre Medic Medibaix-gava",
+    "rating": 4.2,
+    "numReviews": 81,
+    "placeId": "0x12a49cdbd4a8f52d:0xbd7f973738c9ed89",
+    "address": "Centre Mèdic MediBaix Gavà, Carrer de F. Pi i Margall, 3, 08850 Gavà, Barcelona",
+    "at": 1776800390427
+  },
+  {
+    "nameKey": "castelldefels centre consultoris externs medic",
+    "cpPrefix": "08",
+    "nombreOriginal": "Centre Medic Castelldefels Consultoris Externs SL",
+    "rating": 3.1,
+    "numReviews": 651,
+    "placeId": "0x12a482ba51e71ed3:0x698a0087ec4a5a51",
+    "address": "Centre Mèdic Castelldefels, Av. de la Constitució, 189, 08860 Castelldefels, Barcelona",
+    "at": 1776800391280
+  },
+  {
+    "nameKey": "centre medic sitges",
+    "cpPrefix": "08",
+    "nombreOriginal": "Centre Medic Sitges",
+    "rating": 2,
+    "numReviews": 279,
+    "placeId": "0x12a38045efcdf84d:0x9c0663ae53915bac",
+    "address": "Centre Mèdic Sitges SLP, Carrer d'Espalter, 16, 08870 Sitges, Barcelona",
+    "at": 1776800392920
+  },
+  {
+    "nameKey": "hospital turia valencia vithas",
+    "cpPrefix": "46",
+    "nombreOriginal": "Hospital Vithas Valencia Turia",
+    "rating": 3.2,
+    "numReviews": 252,
+    "placeId": "0xd6049004255b787:0x8d8d38bc579409f9",
+    "address": "Hospital Vithas Valencia Turia, Carrer de Joaquín Benlloch, 89, Quatre Carreres, 46026 València, Valencia",
+    "at": 1776800593666
+  },
+  {
+    "nameKey": "casanova dermatologico instituto",
+    "cpPrefix": "46",
+    "nombreOriginal": "Instituto Dermatologico Casanova",
+    "rating": 5,
+    "numReviews": 29,
+    "placeId": "0xd61e7629bd99e07:0xc859cc3eae6454a1",
+    "address": "Instituto Dermatológico Casanova - IDC, Av. Morer, 6, 46780 Oliva, Valencia",
+    "at": 1776800593667
+  },
+  {
+    "nameKey": "clinica roche",
+    "cpPrefix": "46",
+    "nombreOriginal": "Clinica Roche",
+    "rating": 4.1,
+    "numReviews": 71,
+    "placeId": "0xd604dd4624408bb:0x483c9b462341e84d",
+    "address": "Clínica Roche, Carrer Emili Ferrer Gómez, 2A, 46470 Catarroja, Valencia",
+    "at": 1776800593667
+  },
+  {
+    "nameKey": "agrupacion clinica",
+    "cpPrefix": "46",
+    "nombreOriginal": "Agrupacion Clinica",
+    "rating": 4,
+    "numReviews": 118,
+    "placeId": "0xd6048b100f999b9:0x9a81f60e1e981490",
+    "address": "IVADE - Agrupacion Clinica, C/ del Cronista Carreres, 8, Ciutat Vella, 46003 València, Valencia",
+    "at": 1776800593668
+  },
+  {
+    "nameKey": "centro medico pasarela",
+    "cpPrefix": "46",
+    "nombreOriginal": "Centro Medico Pasarela",
+    "rating": 3.8,
+    "numReviews": 339,
+    "placeId": "0xd605954fbe8b2dd:0xcaa1e3817834c1ea",
+    "address": "Clínica Ribera Pasarela, C. Benissanó, 11, Bajo, 46183 L'Eliana, Valencia",
+    "at": 1776800593668
+  },
+  {
+    "nameKey": "clinica costera",
+    "cpPrefix": "46",
+    "nombreOriginal": "Clinica LA Costera",
+    "rating": 3.2,
+    "numReviews": 31,
+    "placeId": "0xd61a2022c893c89:0x2cb77a5365d4eb02",
+    "address": "Clínica de la Costera, Av. Cavaller Ximen de Tovia, 2, 46800 Xàtiva, Valencia",
+    "at": 1776800593669
+  },
+  {
+    "nameKey": "clinica eliana",
+    "cpPrefix": "46",
+    "nombreOriginal": "Clinica L´eliana",
+    "rating": 3.2,
+    "numReviews": 119,
+    "placeId": "0xd6051bb188d01f1:0x17691f9d9db50eb6",
+    "address": "Clínica Eliana, C/ de l'Eliana, 12, 46900 Torrent, Valencia",
+    "at": 1776800593669
+  },
+  {
+    "nameKey": "alonso dermatologico instituto",
+    "cpPrefix": "46",
+    "nombreOriginal": "Instituto Dermatologico Dr. Alonso",
+    "rating": 3.9,
+    "numReviews": 20,
+    "placeId": "0xd604f919e6334e1:0xa8edb1539ca8b3e3",
+    "address": "Instituto Dermatológico Doctor Alonso (ahora TEKDERMA) y nueva ubicación, Carrer d'Alacant, 9, Ensanche, 46004 València, Valencia",
+    "at": 1776800593671
+  },
+  {
+    "nameKey": "clinica morvedre",
+    "cpPrefix": "46",
+    "nombreOriginal": "Clinica Morvedre",
+    "rating": 3.1,
+    "numReviews": 12,
+    "placeId": "0xd6015c676c15dcf:0x5f5c37bc55ee26a",
+    "address": "Centro Médico Morvedre Sagunto, Carrer del Catedràtic Josep Lluís Blasco Estellés, 20, 46500 Sagunt, Valencia",
+    "at": 1776800593672
+  },
+  {
+    "nameKey": "hospital imed valencia",
+    "cpPrefix": "46",
+    "nombreOriginal": "Hospital Imed Valencia",
+    "rating": 3,
+    "numReviews": 5958,
+    "placeId": "0xd60459eb82a60ef:0x354b10a8f8cb428a",
+    "address": "IMED Valencia, Av. de la Ilustración, 1, 46100 Burjassot, Valencia",
+    "at": 1776800593680
+  },
+  {
+    "nameKey": "affidea clinica mislata sermesa",
+    "cpPrefix": "46",
+    "nombreOriginal": "Affidea Clinica Sermesa Mislata",
+    "rating": 2.8,
+    "numReviews": 396,
+    "placeId": "0xd604f84b1b08431:0x84ce732a96969dff",
+    "address": "Affidea Clínica Sermesa - Mislata, C/ de l'Emparrat, 3, 46920 Mislata, Valencia",
+    "at": 1776800593674
+  },
+  {
+    "nameKey": "affidea clinica tecma",
+    "cpPrefix": "46",
+    "nombreOriginal": "Affidea Clinica Tecma",
+    "rating": 4.7,
+    "numReviews": 7219,
+    "placeId": "0xd61b06530a1d56b:0x4c4aa7b53566f1a5",
+    "address": "Affidea Clinica Tecma, Avinguda del Dret de Reunió, 4, 46600 Alzira, Valencia",
+    "at": 1776800593678
+  },
+  {
+    "nameKey": "centro europa medico",
+    "cpPrefix": "46",
+    "nombreOriginal": "Centro Medico Europa",
+    "rating": 3.7,
+    "numReviews": 266,
+    "placeId": "0xd60454784d021df:0x916ce0d7fb4feb60",
+    "address": "Centro Médico Europa, Carrer del Mestre Ramón Ramia Querol, 57, 46980 Paterna, Valencia",
+    "at": 1776800593675
+  },
+  {
+    "nameKey": "alfaro hospital ignacio imed tormo",
+    "cpPrefix": "46",
+    "nombreOriginal": "Ignacio Tormo Alfaro (imed Hospital)",
+    "rating": 3,
+    "numReviews": 5958,
+    "placeId": "0xd60459eb82a60ef:0x354b10a8f8cb428a",
+    "address": "IMED Valencia, Av. de la Ilustración, 1, 46100 Burjassot, Valencia",
+    "at": 1776800593676
+  },
+  {
+    "nameKey": "hospital quironsalud valencia",
+    "cpPrefix": "46",
+    "nombreOriginal": "Hospital Quironsalud Valencia",
+    "rating": 3.4,
+    "numReviews": 2691,
+    "placeId": "0xd6048a4ff7ad6c7:0xa952e951f3c2d498",
+    "address": "Hospital Quirónsalud Valencia, Av. de Blasco Ibáñez, 14, El Llano del Real, 46010 València, Valencia",
+    "at": 1776800593677
+  },
+  {
+    "nameKey": "affidea clinica pobla sermesa vallbona",
+    "cpPrefix": "46",
+    "nombreOriginal": "Affidea Clinica Sermesa LA Pobla DE Vallbona",
+    "rating": 3.2,
+    "numReviews": 132,
+    "placeId": "0xd605ee63b7ee03f:0x2a7b27df1b98bab0",
+    "address": "Affidea Clínica Sermesa - La Pobla de Vallbona, Avinguda del Metge d José Garrido Farga, 47, Bajo, 46185 La Pobla de Vallbona, Valencia",
+    "at": 1776800593678
+  },
+  {
+    "nameKey": "clinica serimed",
+    "cpPrefix": "46",
+    "nombreOriginal": "Clinica Serimed",
+    "rating": 3.1,
+    "numReviews": 44,
+    "placeId": "0xd60ff86ae0c16db:0x805c6e78925ae492",
+    "address": "Serimed, Avinguda d'Europa, 3, 46192 Montserrat, Valencia",
+    "at": 1776800593679
+  },
+  {
+    "nameKey": "alzira centro medico vithas",
+    "cpPrefix": "46",
+    "nombreOriginal": "Centro Medico Vithas Alzira",
+    "rating": 2.8,
+    "numReviews": 198,
+    "placeId": "0xd61b16ca70542eb:0x8fd757ab13a7caab",
+    "address": "Vithas Centro Médico Alzira, Gran Via de la Comunitat Valenciana, 4, 46600 Alzira, Valencia",
+    "at": 1776800593679
+  },
+  {
+    "nameKey": "catarroja clinica jaime",
+    "cpPrefix": "46",
+    "nombreOriginal": "Clinica Jaime I Catarroja",
+    "rating": 4,
+    "numReviews": 293,
+    "placeId": "0xd604e9d2fed5763:0x8d1054bca542d9a4",
+    "address": "Clínica Jaime I de Catarroja, Av. Ramón y Cajal, 26, Bajo, 46470 Catarroja, Valencia",
+    "at": 1776800593680
+  },
+  {
+    "nameKey": "affidea atenea clinica torrent",
+    "cpPrefix": "46",
+    "nombreOriginal": "Affidea Clinica Atenea Torrent",
+    "rating": 3.8,
+    "numReviews": 747,
+    "placeId": "0xd6051bf55b3f881:0x8c94fa866083c1be",
+    "address": "Affidea Clínica Atenea Torrent, Avinguda del Rei Joan Carles I, 12, 46900 Torrent, Valencia",
+    "at": 1776800593681
+  },
+  {
+    "nameKey": "ascires hospital",
+    "cpPrefix": "46",
+    "nombreOriginal": "Hospital Ascires",
+    "rating": 4.8,
+    "numReviews": 111,
+    "placeId": "0xd604f0070e6b337:0x39ad272e6c00a0f9",
+    "address": "Hospital Ascires, Av. de les Tres Creus, 102, Patraix, 46014 València, Valencia",
+    "at": 1776800593682
+  },
+  {
+    "nameKey": "carrion corredera cristina imr instituto medico ricart torrent",
+    "cpPrefix": "46",
+    "nombreOriginal": "Corredera Carrion, Cristina (imr Instituto Medico Ricart Torrent)",
+    "rating": 4.6,
+    "numReviews": 9,
+    "placeId": "0xd6051155ae9d7e3:0x559d70672e5efdbd",
+    "address": "Dra. Cristina Corredera Carrión | Dermatóloga IMR Torrent, Av. al Vedat 147 - Consulta dermatología, 46900 Torrent, Valencia",
+    "at": 1776800593682
+  },
+  {
+    "nameKey": "ballesteros imr instituto manuel medico redondo ricart torrent",
+    "cpPrefix": "46",
+    "nombreOriginal": "Ballesteros Redondo, Manuel (imr Instituto Medico Ricart Torrent)",
+    "rating": 4.2,
+    "numReviews": 188,
+    "placeId": "0xd605139d81c9b47:0x947d1f6dd25f5718",
+    "address": "IMR Torrent, Av. al Vedat, nº147, 46900 Torrent, Valencia",
+    "at": 1776800593683
+  },
+  {
+    "nameKey": "daniela fernanda ferrer imr instituto medico ricart subiabre torrent",
+    "cpPrefix": "46",
+    "nombreOriginal": "Subiabre Ferrer, Daniela Fernanda (imr Instituto Medico Ricart Torrent)",
+    "rating": 4.2,
+    "numReviews": 188,
+    "placeId": "0xd605139d81c9b47:0x947d1f6dd25f5718",
+    "address": "IMR Torrent, Av. al Vedat, nº147, 46900 Torrent, Valencia",
+    "at": 1776800593684
+  },
+  {
+    "nameKey": "alejandro cristian imr instituto medico onate ricart torrent valenzuela",
+    "cpPrefix": "46",
+    "nombreOriginal": "Valenzuela Oñate, Cristian Alejandro (imr Instituto Medico Ricart Torrent)",
+    "rating": 4.2,
+    "numReviews": 188,
+    "placeId": "0xd605139d81c9b47:0x947d1f6dd25f5718",
+    "address": "IMR Torrent, Av. al Vedat, nº147, 46900 Torrent, Valencia",
+    "at": 1776800593684
+  },
+  {
+    "nameKey": "enrico imr instituto medico morales ricart tedone torrent",
+    "cpPrefix": "46",
+    "nombreOriginal": "Morales Tedone, Enrico (imr Instituto Medico Ricart Torrent)",
+    "rating": 4.2,
+    "numReviews": 188,
+    "placeId": "0xd605139d81c9b47:0x947d1f6dd25f5718",
+    "address": "IMR Torrent, Av. al Vedat, nº147, 46900 Torrent, Valencia",
+    "at": 1776800593685
+  },
+  {
+    "nameKey": "instituto medico ricart torrent",
+    "cpPrefix": "46",
+    "nombreOriginal": "Instituto Medico Ricart (torrent)",
+    "rating": 4.2,
+    "numReviews": 188,
+    "placeId": "0xd605139d81c9b47:0x947d1f6dd25f5718",
+    "address": "IMR Torrent, Av. al Vedat, nº147, 46900 Torrent, Valencia",
+    "at": 1776800593685
+  },
+  {
+    "nameKey": "imr instituto lopez medico requena ricart sheila",
+    "cpPrefix": "46",
+    "nombreOriginal": "Requena Lopez, Sheila (imr Instituto Medico Ricart)",
+    "rating": 4.2,
+    "numReviews": 2104,
+    "placeId": "0xd6048a518fa790f:0xec1f3ae622d4913c",
+    "address": "IMR Valencia, Carrer de les Arts Gràfiques, 5, C/ de les Arts Gràfiques, 16, 46010 València, Valencia",
+    "at": 1776800593686
+  },
+  {
+    "nameKey": "berger imr instituto maria medico ricart",
+    "cpPrefix": "46",
+    "nombreOriginal": "Berger, Maria (imr Instituto Medico Ricart)",
+    "rating": 4.2,
+    "numReviews": 2104,
+    "placeId": "0xd6048a518fa790f:0xec1f3ae622d4913c",
+    "address": "IMR Valencia, Carrer de les Arts Gràfiques, 5, C/ de les Arts Gràfiques, 16, 46010 València, Valencia",
+    "at": 1776800593691
+  },
+  {
+    "nameKey": "blanca ferrer guillem imr instituto medico ricart",
+    "cpPrefix": "46",
+    "nombreOriginal": "Ferrer Guillem, Blanca (imr Instituto Medico Ricart)",
+    "rating": 4.2,
+    "numReviews": 2104,
+    "placeId": "0xd6048a518fa790f:0xec1f3ae622d4913c",
+    "address": "IMR Valencia, Carrer de les Arts Gràfiques, 5, C/ de les Arts Gràfiques, 16, 46010 València, Valencia",
+    "at": 1776800593691
+  },
+  {
+    "nameKey": "ballesteros imr instituto manuel medico redondo ricart",
+    "cpPrefix": "46",
+    "nombreOriginal": "Ballesteros Redondo, Manuel (imr Instituto Medico Ricart)",
+    "rating": 4.2,
+    "numReviews": 2104,
+    "placeId": "0xd6048a518fa790f:0xec1f3ae622d4913c",
+    "address": "IMR Valencia, Carrer de les Arts Gràfiques, 5, C/ de les Arts Gràfiques, 16, 46010 València, Valencia",
+    "at": 1776800593692
+  },
+  {
+    "nameKey": "briz garcia imr instituto isabel maria medico ricart",
+    "cpPrefix": "46",
+    "nombreOriginal": "Garcia Briz, Maria Isabel (imr Instituto Medico Ricart)",
+    "rating": 4.2,
+    "numReviews": 2104,
+    "placeId": "0xd6048a518fa790f:0xec1f3ae622d4913c",
+    "address": "IMR Valencia, Carrer de les Arts Gràfiques, 5, C/ de les Arts Gràfiques, 16, 46010 València, Valencia",
+    "at": 1776800593692
+  },
+  {
+    "nameKey": "imr instituto maria medico penalba ricart torres",
+    "cpPrefix": "46",
+    "nombreOriginal": "Penalba Torres, Maria (imr Instituto Medico Ricart)",
+    "rating": 4.2,
+    "numReviews": 2104,
+    "placeId": "0xd6048a518fa790f:0xec1f3ae622d4913c",
+    "address": "IMR Valencia, Carrer de les Arts Gràfiques, 5, C/ de les Arts Gràfiques, 16, 46010 València, Valencia",
+    "at": 1776800593693
+  },
+  {
+    "nameKey": "enrico imr instituto medico morales ricart tedone",
+    "cpPrefix": "46",
+    "nombreOriginal": "Morales Tedone, Enrico (imr Instituto Medico Ricart)",
+    "rating": 4.2,
+    "numReviews": 2104,
+    "placeId": "0xd6048a518fa790f:0xec1f3ae622d4913c",
+    "address": "IMR Valencia, Carrer de les Arts Gràfiques, 5, C/ de les Arts Gràfiques, 16, 46010 València, Valencia",
+    "at": 1776800593699
+  },
+  {
+    "nameKey": "ernesto imr instituto lavernia medico ricart salelles",
+    "cpPrefix": "46",
+    "nombreOriginal": "Lavernia Salelles, Ernesto (imr Instituto Medico Ricart)",
+    "rating": 4.2,
+    "numReviews": 2104,
+    "placeId": "0xd6048a518fa790f:0xec1f3ae622d4913c",
+    "address": "IMR Valencia, Carrer de les Arts Gràfiques, 5, C/ de les Arts Gràfiques, 16, 46010 València, Valencia",
+    "at": 1776800593694
+  },
+  {
+    "nameKey": "imr instituto medico ricart",
+    "cpPrefix": "46",
+    "nombreOriginal": "Instituto Medico Ricart- Imr",
+    "rating": 4.2,
+    "numReviews": 2104,
+    "placeId": "0xd6048a518fa790f:0xec1f3ae622d4913c",
+    "address": "IMR Valencia, Carrer de les Arts Gràfiques, 5, C/ de les Arts Gràfiques, 16, 46010 València, Valencia",
+    "at": 1776800593694
+  },
+  {
+    "nameKey": "imr instituto jose mara medico ricart ricart vaya",
+    "cpPrefix": "46",
+    "nombreOriginal": "Ricart Vaya, Jose Mara (imr Instituto Medico Ricart)",
+    "rating": 3.6,
+    "numReviews": 184,
+    "placeId": "0xd6049b360cf6c4f:0x2a6abefceeb54102",
+    "address": "Dr. José Maria Ricart Vaya, Dermatólogo, C/ de les Arts Gràfiques, 5, El Llano del Real, 46010 València, Valencia",
+    "at": 1776800593695
+  },
+  {
+    "nameKey": "castillo imr instituto lopez medico ricart veronica",
+    "cpPrefix": "46",
+    "nombreOriginal": "Lopez Castillo, Veronica (imr Instituto Medico Ricart)",
+    "rating": 4.2,
+    "numReviews": 2104,
+    "placeId": "0xd6048a518fa790f:0xec1f3ae622d4913c",
+    "address": "IMR Valencia, Carrer de les Arts Gràfiques, 5, C/ de les Arts Gràfiques, 16, 46010 València, Valencia",
+    "at": 1776800593696
+  },
+  {
+    "nameKey": "aejandro cristian imr instituto medico onate ricart valenzuela",
+    "cpPrefix": "46",
+    "nombreOriginal": "Valenzuela Oñate, Cristian Aejandro (imr Instituto Medico Ricart)",
+    "rating": 4.2,
+    "numReviews": 2104,
+    "placeId": "0xd6048a518fa790f:0xec1f3ae622d4913c",
+    "address": "IMR Valencia, Carrer de les Arts Gràfiques, 5, C/ de les Arts Gràfiques, 16, 46010 València, Valencia",
+    "at": 1776800593696
+  },
+  {
+    "nameKey": "carmen imr instituto medico monzo ortega ricart",
+    "cpPrefix": "46",
+    "nombreOriginal": "Ortega Monzo, Mº Carmen (imr Instituto Medico Ricart)",
+    "rating": 4.2,
+    "numReviews": 2104,
+    "placeId": "0xd6048a518fa790f:0xec1f3ae622d4913c",
+    "address": "IMR Valencia, Carrer de les Arts Gràfiques, 5, C/ de les Arts Gràfiques, 16, 46010 València, Valencia",
+    "at": 1776800593697
+  },
+  {
+    "nameKey": "carrion corredera cristina imr instituto medico ricart",
+    "cpPrefix": "46",
+    "nombreOriginal": "Corredera Carrion, Cristina (imr Instituto Medico Ricart)",
+    "rating": 4.7,
+    "numReviews": 26,
+    "placeId": "0xd60490256432997:0x9f1e1d00cf3ba335",
+    "address": "Dra. Cristina Corredera | Dermatóloga IMR Valencia, Consulta Dermatología IMR, C/ de les Arts Gràfiques, 5, y 7, El Pla del Real, 46010 València, Valencia",
+    "at": 1776800593698
+  },
+  {
+    "nameKey": "dryk imr instituto joanna karina medico ricart",
+    "cpPrefix": "46",
+    "nombreOriginal": "Dryk, Karina Joanna (imr Instituto Medico Ricart)",
+    "rating": 4.2,
+    "numReviews": 2104,
+    "placeId": "0xd6048a518fa790f:0xec1f3ae622d4913c",
+    "address": "IMR Valencia, Carrer de les Arts Gràfiques, 5, C/ de les Arts Gràfiques, 16, 46010 València, Valencia",
+    "at": 1776800593698
+  },
+  {
+    "nameKey": "daniela fernanda ferrer imr instituto medico ricart subiabre",
+    "cpPrefix": "46",
+    "nombreOriginal": "Subiabre Ferrer, Daniela Fernanda (imr Instituto Medico Ricart)",
+    "rating": 4.2,
+    "numReviews": 2104,
+    "placeId": "0xd6048a518fa790f:0xec1f3ae622d4913c",
+    "address": "IMR Valencia, Carrer de les Arts Gràfiques, 5, C/ de les Arts Gràfiques, 16, 46010 València, Valencia",
+    "at": 1776800593699
+  },
+  {
+    "nameKey": "centro centro eliana medico medico pasarela",
+    "cpPrefix": "46",
+    "nombreOriginal": "Centro Medico LA Eliana (centro Medico Pasarela)",
+    "rating": 3.8,
+    "numReviews": 339,
+    "placeId": "0xd605954fbe8b2dd:0xcaa1e3817834c1ea",
+    "address": "Clínica Ribera Pasarela, C. Benissanó, 11, Bajo, 46183 L'Eliana, Valencia",
+    "at": 1776800674236
+  },
+  {
+    "nameKey": "angel consuelo del hospital miguel mira navarro virgen",
+    "cpPrefix": "46",
+    "nombreOriginal": "Navarro Mira, Miguel Ángel (hospital Virgen del Consuelo)",
+    "rating": 5,
+    "numReviews": 13,
+    "placeId": "0xd6049002612dd41:0xbbd2f6cc78a37a7a",
+    "address": "Derma- Estetic Navarro Mira, C/ de Ciril Amorós, 27, Ensanche, 46004 València, Valencia",
+    "at": 1776800674237
+  },
+  {
+    "nameKey": "consuelo del hospital virgen vithas",
+    "cpPrefix": "46",
+    "nombreOriginal": "Vithas Hospital Virgen del Consuelo",
+    "rating": 3.8,
+    "numReviews": 2034,
+    "placeId": "0xd604f3970fd1dcb:0x6bc067d140ed6152",
+    "address": "Hospital Vithas Valencia Consuelo, C/ de Callosa d'En Sarrià, 12, Jesús, 46007 València, Valencia",
+    "at": 1776800674267
+  },
+  {
+    "nameKey": "alonso consuelo dermatologico hospital instituto vithas",
+    "cpPrefix": "46",
+    "nombreOriginal": "Instituto Dermatológico Dr. Alonso (hospital Vithas EL Consuelo)",
+    "rating": 4.3,
+    "numReviews": 29,
+    "placeId": "0xd604f066e730235:0x23392bba85d89edd",
+    "address": "TEKDERMA Instituto Dermatológico Hospital El Consuelo, C/ de Callosa d'En Sarrià, 15, Jesús, 46007 València, Valencia",
+    "at": 1776800674238
+  },
+  {
+    "nameKey": "clinica morvedre sagunto",
+    "cpPrefix": "46",
+    "nombreOriginal": "Clinica Morvedre (sagunto)",
+    "rating": 3.1,
+    "numReviews": 12,
+    "placeId": "0xd6015c676c15dcf:0x5f5c37bc55ee26a",
+    "address": "Centro Médico Morvedre Sagunto, Carrer del Catedràtic Josep Lluís Blasco Estellés, 20, 46500 Sagunt, Valencia",
+    "at": 1776800674239
+  },
+  {
+    "nameKey": "affidea aldaia atenea clinica",
+    "cpPrefix": "46",
+    "nombreOriginal": "Affidea Clinica Atenea Aldaia",
+    "rating": 4.3,
+    "numReviews": 498,
+    "placeId": "0xd60503fdf427c4d:0xef4bdafb4171e0bb",
+    "address": "Affidea Clínica Atenea Aldaia, C. Xest, 32, 46960 Aldaia, Valencia",
+    "at": 1776800674239
+  },
+  {
+    "nameKey": "centro colon medico mercado quironsalud",
+    "cpPrefix": "46",
+    "nombreOriginal": "Centro Medico Quironsalud Mercado Colon",
+    "rating": 2.5,
+    "numReviews": 356,
+    "placeId": "0xd6049b08a45c415:0xc6b7c102ca75b690",
+    "address": "Centro Médico Quirónsalud Mercado de Colón, C/ de Ciril Amorós, 62, Ensanche, 46004 València, Valencia",
+    "at": 1776800674264
+  },
+  {
+    "nameKey": "angeles clinica los virgen",
+    "cpPrefix": "46",
+    "nombreOriginal": "Clinica Virgen DE Los Angeles",
+    "rating": 4.3,
+    "numReviews": 79,
+    "placeId": "0xd60ce2f254af447:0x1c2d980ebb260a63",
+    "address": "CLINICA VIRGEN DE LOS ANGELES, C. del Conde Vallellano, 57, 46340 Requena, Valencia",
+    "at": 1776800674240
+  },
+  {
+    "nameKey": "benicalap centro medico",
+    "cpPrefix": "46",
+    "nombreOriginal": "Centro Medico Benicalap",
+    "rating": 3,
+    "numReviews": 1,
+    "placeId": "0xd60458d271b4e07:0xe5cc1e950a0d8181",
+    "address": "Centro Médico Benicalap, Carrer d'Emili Marí, 2, Benicalap, 46025 València, Valencia",
+    "at": 1776800674241
+  },
+  {
+    "nameKey": "clinica dermatologica felix pizcueta rbe",
+    "cpPrefix": "46",
+    "nombreOriginal": "Clinica Dermatologica Rbe (felix Pizcueta)",
+    "rating": 3.9,
+    "numReviews": 173,
+    "placeId": "0xd6048b574a0e00f:0xf0774b2fdf24fb47",
+    "address": "RBE Clínica Dermatológica, Carrer de Félix Pizcueta, 16, Ensanche, 46004 València, Valencia",
+    "at": 1776800674242
+  },
+  {
+    "nameKey": "alonso centro dermatologico instituto valencia",
+    "cpPrefix": "46",
+    "nombreOriginal": "Instituto Dermatológico Dr. Alonso (valencia Centro)",
+    "rating": 3.9,
+    "numReviews": 20,
+    "placeId": "0xd604f919e6334e1:0xa8edb1539ca8b3e3",
+    "address": "Instituto Dermatológico Doctor Alonso (ahora TEKDERMA) y nueva ubicación, Carrer d'Alacant, 9, Ensanche, 46004 València, Valencia",
+    "at": 1776800674242
+  },
+  {
+    "nameKey": "centro medico nousalud torrente",
+    "cpPrefix": "46",
+    "nombreOriginal": "Centro Medico Nousalud Torrente",
+    "rating": 3.4,
+    "numReviews": 7,
+    "placeId": "0xd60513d68453bc1:0x96ed4bff44d3b164",
+    "address": "Nousalud Torrent, Carrer d'Helsinki 52, 6A, 46900 Torrent, Valencia",
+    "at": 1776800674243
+  },
+  {
+    "nameKey": "centro especializado fivasa salud valenciano",
+    "cpPrefix": "46",
+    "nombreOriginal": "Centro Valenciano Especializado EN Salud Fivasa",
+    "rating": 3.7,
+    "numReviews": 145,
+    "placeId": "0xd604f2d482577f3:0x68e4fab4d8a51dfc",
+    "address": "Clínica Fivasa, C. Juan Ramón Jiménez, 28, Quatre Carreres, 46006 València, Valencia",
+    "at": 1776800674243
+  },
+  {
+    "nameKey": "clinica manises",
+    "cpPrefix": "46",
+    "nombreOriginal": "Clinica Manises",
+    "rating": 3.7,
+    "numReviews": 74,
+    "placeId": "0xd605aa3228bfc2f:0xa9352337eee59d5c",
+    "address": "Clinica Manises, C/ Major, 183, BAJO, 46940 Manises, Valencia",
+    "at": 1776800674256
+  },
+  {
+    "nameKey": "clinica mestalla ribera",
+    "cpPrefix": "46",
+    "nombreOriginal": "Clinica Ribera Mestalla",
+    "rating": 4.7,
+    "numReviews": 31,
+    "placeId": "0xd60495cd7f2193f:0x476ebc68ebc21e85",
+    "address": "Clínica Ribera Mestalla, Carrer de Misser Mascó, 42, El Llano del Real, 46010 València, Valencia",
+    "at": 1776800674245
+  },
+  {
+    "nameKey": "cajal centro medico ramon",
+    "cpPrefix": "46",
+    "nombreOriginal": "Centro Medico Ramon y Cajal",
+    "rating": 2.9,
+    "numReviews": 17,
+    "placeId": "0xd605aa33c89cad5:0xb15d67d3b6bcfbac",
+    "address": "Centro Medico Ramon Y Cajal, Carrer de Ramón y Cajal, 18, 46940 Manises, Valencia",
+    "at": 1776800674245
+  },
+  {
+    "nameKey": "clinica sueca",
+    "cpPrefix": "46",
+    "nombreOriginal": "Clinica Sueca",
+    "rating": 2.8,
+    "numReviews": 119,
+    "placeId": "0xd6048cca094c65f:0x688faa59a98d619c",
+    "address": "Clínica Sueca, Carrer de Sueca, 59, Ensanche, 46004 València, Valencia",
+    "at": 1776800674254
+  },
+  {
+    "nameKey": "hospital imske ribera",
+    "cpPrefix": "46",
+    "nombreOriginal": "Hospital Ribera Imske",
+    "rating": 4.2,
+    "numReviews": 1479,
+    "placeId": "0xd60494b2869266b:0x4c0e6490c04154e1",
+    "address": "Hospital IMSKE | Traumatología y Rehabilitación, C/ de Suīssa, 11, Quatre Carreres, 46024 València, Valencia",
+    "at": 1776800674246
+  },
+  {
+    "nameKey": "clinica morvedre puerto sagunto",
+    "cpPrefix": "46",
+    "nombreOriginal": "Clinica Morvedre (puerto DE Sagunto)",
+    "rating": 3.7,
+    "numReviews": 256,
+    "placeId": "0xd6015fc0ab390c9:0x7efbc23da8e6a757",
+    "address": "Centro Médico Morvedre, Poligono Ingruinsa, Carrer Tallers, 17, 46520 Puerto de Sagunto, Valencia",
+    "at": 1776800674247
+  },
+  {
+    "nameKey": "clinica dermatologica forques rbe tres",
+    "cpPrefix": "46",
+    "nombreOriginal": "Clinica Dermatologica Rbe Tres Forques",
+    "rating": 3.5,
+    "numReviews": 64,
+    "placeId": "0xd604f3f4676b5b5:0xf069280e9da8656a",
+    "address": "RBE Clínica Dermatológica, C/ de les Tres Forques, 11, Patraix, 46018 València, Valencia",
+    "at": 1776800674248
+  },
+  {
+    "nameKey": "affidea atenea clinica eliana osito",
+    "cpPrefix": "46",
+    "nombreOriginal": "Affidea Clinica Atenea Eliana (el Osito)",
+    "rating": 4.5,
+    "numReviews": 1060,
+    "placeId": "0xd605ea593f07af5:0x133adcf3d0e85e05",
+    "address": "Affidea Clínica Atenea L'Eliana, C/ Tuéjar, 37, 46183 L'Eliana, Valencia",
+    "at": 1776800674249
+  },
+  {
+    "nameKey": "alonso dermatologico instituto octubre",
+    "cpPrefix": "46",
+    "nombreOriginal": "Instituto Dermatológico Dr. Alonso (h. 9 DE Octubre)",
+    "rating": 4.3,
+    "numReviews": 251,
+    "placeId": "0xd604f64ff0d1c37:0x238380d18615ded5",
+    "address": "TEKDERMA Instituto Dermatológico Hospital 9 de Octubre, Avenida, C/ de la Vall de la Ballestera, 59, 46015 València, Valencia",
+    "at": 1776800674249
+  },
+  {
+    "nameKey": "hospital octubre vithas",
+    "cpPrefix": "46",
+    "nombreOriginal": "Hospital Vithas 9 DE Octubre",
+    "rating": 3.7,
+    "numReviews": 4723,
+    "placeId": "0xd604f64e20783f7:0x95b126251847b1f0",
+    "address": "Hospital Vithas Valencia 9 de Octubre, C/ de la Vall de la Ballestera, 59, Campanar, 46015 València, Valencia",
+    "at": 1776800674250
+  },
+  {
+    "nameKey": "centro gandia imed medico safor",
+    "cpPrefix": "46",
+    "nombreOriginal": "Centro Medico LA Safor (imed Gandía)",
+    "rating": 3.6,
+    "numReviews": 960,
+    "placeId": "0xd61e9f5e1439509:0x8e388651310c85ea",
+    "address": "IMED Gandía, C/ de Daimús, 26, 46701 Gandia, Valencia",
+    "at": 1776800674251
+  },
+  {
+    "nameKey": "affidea alfafar atenea clinica",
+    "cpPrefix": "46",
+    "nombreOriginal": "Affidea Clinica Atenea Alfafar",
+    "rating": 3.9,
+    "numReviews": 264,
+    "placeId": "0xd604f3a5f055547:0xcced9295809b5782",
+    "address": "Affidea Clínica Atenea Alfafar, Pl. Alquería de la Culla, 14, 46910 Alfafar, Valencia",
+    "at": 1776800674251
+  },
+  {
+    "nameKey": "colon hospital imed",
+    "cpPrefix": "46",
+    "nombreOriginal": "Hospital Imed Colon",
+    "rating": 2.7,
+    "numReviews": 565,
+    "placeId": "0xd60497899c00653:0xbe3eb831ec02210b",
+    "address": "Hospital IMED Colón, Carrer d'Isabel la Catòlica, 12, Ensanche, 46004 València, Valencia",
+    "at": 1776800674252
+  },
+  {
+    "nameKey": "centro medico mestalla ribera",
+    "cpPrefix": "46",
+    "nombreOriginal": "Centro Medico Ribera Mestalla",
+    "rating": 4.7,
+    "numReviews": 31,
+    "placeId": "0xd60495cd7f2193f:0x476ebc68ebc21e85",
+    "address": "Clínica Ribera Mestalla, Carrer de Misser Mascó, 42, El Llano del Real, 46010 València, Valencia",
+    "at": 1776800674253
+  },
+  {
+    "nameKey": "alfafar atenea clinica",
+    "cpPrefix": "46",
+    "nombreOriginal": "Clinica Atenea Alfafar",
+    "rating": 3.9,
+    "numReviews": 264,
+    "placeId": "0xd604f3a5f055547:0xcced9295809b5782",
+    "address": "Affidea Clínica Atenea Alfafar, Pl. Alquería de la Culla, 14, 46910 Alfafar, Valencia",
+    "at": 1776800674254
+  },
+  {
+    "nameKey": "atenea clinica eliana",
+    "cpPrefix": "46",
+    "nombreOriginal": "Clinica Atenea L'eliana",
+    "rating": 4.5,
+    "numReviews": 1060,
+    "placeId": "0xd605ea593f07af5:0x133adcf3d0e85e05",
+    "address": "Affidea Clínica Atenea L'Eliana, C/ Tuéjar, 37, 46183 L'Eliana, Valencia",
+    "at": 1776800674255
+  },
+  {
+    "nameKey": "aldaia atenea clinica",
+    "cpPrefix": "46",
+    "nombreOriginal": "Clinica Atenea Aldaia",
+    "rating": 4.3,
+    "numReviews": 498,
+    "placeId": "0xd60503fdf427c4d:0xef4bdafb4171e0bb",
+    "address": "Affidea Clínica Atenea Aldaia, C. Xest, 32, 46960 Aldaia, Valencia",
+    "at": 1776800674256
+  },
+  {
+    "nameKey": "centro gandia med medico safor",
+    "cpPrefix": "46",
+    "nombreOriginal": "Centro Medico Gandia (c. Med. LA Safor )",
+    "rating": 3.6,
+    "numReviews": 960,
+    "placeId": "0xd61e9f5e1439509:0x8e388651310c85ea",
+    "address": "IMED Gandía, C/ de Daimús, 26, 46701 Gandia, Valencia",
+    "at": 1776800674257
+  },
+  {
+    "nameKey": "atenea clinica torrent",
+    "cpPrefix": "46",
+    "nombreOriginal": "Clinica Atenea Torrent",
+    "rating": 3.8,
+    "numReviews": 747,
+    "placeId": "0xd6051bf55b3f881:0x8c94fa866083c1be",
+    "address": "Affidea Clínica Atenea Torrent, Avinguda del Rei Joan Carles I, 12, 46900 Torrent, Valencia",
+    "at": 1776800674258
+  },
+  {
+    "nameKey": "central clinica parc",
+    "cpPrefix": "46",
+    "nombreOriginal": "Clinica Parc Central",
+    "rating": 4,
+    "numReviews": 419,
+    "placeId": "0xd6051bf4164715b:0xa38124bcf5b95bd8",
+    "address": "CLÍNICA PARC CENTRAL, Carrer de Sidney, 2000, 8, 46900 Torrent, Valencia",
+    "at": 1776800674259
+  },
+  {
+    "nameKey": "centro mapfre medico salud valencia",
+    "cpPrefix": "46",
+    "nombreOriginal": "Centro Medico Mapfre Salud Valencia",
+    "rating": 4.7,
+    "numReviews": 678,
+    "placeId": "0xd6048af9e9b5903:0xeefd32c72f3a1b90",
+    "address": "Centro Médico MAPFRE Salud, Pl. de la Legió Espanyola, 13, El Pla del Real, 46010 València, Valencia",
+    "at": 1776800674259
+  },
+  {
+    "nameKey": "clinica mestalla",
+    "cpPrefix": "46",
+    "nombreOriginal": "Clinica Mestalla",
+    "rating": 4.7,
+    "numReviews": 31,
+    "placeId": "0xd60495cd7f2193f:0x476ebc68ebc21e85",
+    "address": "Clínica Ribera Mestalla, Carrer de Misser Mascó, 42, El Llano del Real, 46010 València, Valencia",
+    "at": 1776800674260
+  },
+  {
+    "nameKey": "bonillo centro dermatologico",
+    "cpPrefix": "46",
+    "nombreOriginal": "Centro Dermatologico Dr. Bonillo",
+    "rating": 4.5,
+    "numReviews": 49,
+    "placeId": "0xd604f4b21dfd835:0xa05fdcac79ff4d33",
+    "address": "Centro Dermatológico Dr. Bonillo, C/ de Ribera, 14, pta 8, Ciutat Vella, 46002 València, Valencia",
+    "at": 1776800674265
+  },
+  {
+    "nameKey": "clinica sorolla",
+    "cpPrefix": "46",
+    "nombreOriginal": "Clinica Sorolla",
+    "rating": 3.7,
+    "numReviews": 300,
+    "placeId": "0xd60488c3edcb6f9:0x49d11aef5fa9b789",
+    "address": "EV Medical Sorolla, Carrer del Músic Ginés, 8, bajo, Algirós, 46022 València, Valencia",
+    "at": 1776800674265
+  },
+  {
+    "nameKey": "ascires clinica valencia",
+    "cpPrefix": "46",
+    "nombreOriginal": "Clinica Ascires Valencia",
+    "rating": 3.5,
+    "numReviews": 689,
+    "placeId": "0xd604f66f6496625:0xdd8d5c55acf1e0e",
+    "address": "ASCIRES Campanar, C. del Marqués de Sant Joan, 4-6, Campanar, 46015 València, Valencia",
+    "at": 1776800674266
+  },
+  {
+    "nameKey": "clinica fivasa",
+    "cpPrefix": "46",
+    "nombreOriginal": "Clínica Fivasa",
+    "rating": 3.7,
+    "numReviews": 145,
+    "placeId": "0xd604f2d482577f3:0x68e4fab4d8a51dfc",
+    "address": "Clínica Fivasa, C. Juan Ramón Jiménez, 28, Quatre Carreres, 46006 València, Valencia",
+    "at": 1776800694103
+  },
+  {
+    "nameKey": "hospital turia vithas",
+    "cpPrefix": "46",
+    "nombreOriginal": "Hospital Vithas Turia",
+    "rating": 3.2,
+    "numReviews": 252,
+    "placeId": "0xd6049004255b787:0x8d8d38bc579409f9",
+    "address": "Hospital Vithas Valencia Turia, Carrer de Joaquín Benlloch, 89, Quatre Carreres, 46026 València, Valencia",
+    "at": 1776800694077
+  },
+  {
+    "nameKey": "ascires hospital valencia",
+    "cpPrefix": "46",
+    "nombreOriginal": "Hospital Ascires Valencia",
+    "rating": 4.8,
+    "numReviews": 111,
+    "placeId": "0xd604f0070e6b337:0x39ad272e6c00a0f9",
+    "address": "Hospital Ascires, Av. de les Tres Creus, 102, Patraix, 46014 València, Valencia",
+    "at": 1776800694078
+  },
+  {
+    "nameKey": "clinica jaime",
+    "cpPrefix": "46",
+    "nombreOriginal": "Clinica Jaime I",
+    "rating": 4,
+    "numReviews": 293,
+    "placeId": "0xd604e9d2fed5763:0x8d1054bca542d9a4",
+    "address": "Clínica Jaime I de Catarroja, Av. Ramón y Cajal, 26, Bajo, 46470 Catarroja, Valencia",
+    "at": 1776800694079
+  },
+  {
+    "nameKey": "atenea clinica",
+    "cpPrefix": "46",
+    "nombreOriginal": "Clínica Atenea",
+    "rating": 3.8,
+    "numReviews": 747,
+    "placeId": "0xd6051bf55b3f881:0x8c94fa866083c1be",
+    "address": "Affidea Clínica Atenea Torrent, Avinguda del Rei Joan Carles I, 12, 46900 Torrent, Valencia",
+    "at": 1776800694112
+  },
+  {
+    "nameKey": "atenea clinica torrente",
+    "cpPrefix": "46",
+    "nombreOriginal": "Clinica Atenea Torrente",
+    "rating": 3.8,
+    "numReviews": 747,
+    "placeId": "0xd6051bf55b3f881:0x8c94fa866083c1be",
+    "address": "Affidea Clínica Atenea Torrent, Avinguda del Rei Joan Carles I, 12, 46900 Torrent, Valencia",
+    "at": 1776800694080
+  },
+  {
+    "nameKey": "clinica tekderma",
+    "cpPrefix": "46",
+    "nombreOriginal": "Clinica Tekderma",
+    "rating": 4.8,
+    "numReviews": 51,
+    "placeId": "0xd605d1c03d0a11b:0x834f1f8f414210da",
+    "address": "TEKDERMA Calderona Wellness, Carrer Botxí, 2, 46117 Bétera, Valencia",
+    "at": 1776800694081
+  },
+  {
+    "nameKey": "betera clinica salut",
+    "cpPrefix": "46",
+    "nombreOriginal": "Clínica Bétera Salut",
+    "rating": 3.5,
+    "numReviews": 195,
+    "placeId": "0xd605cc83cf99297:0x9e22f8456287e31d",
+    "address": "CLINICA BETERA SALUT SL, Carrer Calvari, 74, 46117 Bétera, Valencia",
+    "at": 1776800694105
+  },
+  {
+    "nameKey": "centro eliana medico",
+    "cpPrefix": "46",
+    "nombreOriginal": "Centro Medico L´eliana",
+    "rating": 2.2,
+    "numReviews": 199,
+    "placeId": "0xd6059526c8c27e7:0x1cf318d731c185ff",
+    "address": "Centro de Salud de La Eliana, 46183 L'Eliana, Valencia",
+    "at": 1776800694096
+  },
+  {
+    "nameKey": "atenea clinica osito",
+    "cpPrefix": "46",
+    "nombreOriginal": "Clinica Atenea EL Osito",
+    "rating": 4.5,
+    "numReviews": 1060,
+    "placeId": "0xd605ea593f07af5:0x133adcf3d0e85e05",
+    "address": "Affidea Clínica Atenea L'Eliana, C/ Tuéjar, 37, 46183 L'Eliana, Valencia",
+    "at": 1776800694084
+  },
+  {
+    "nameKey": "analisis echevarne laboratorio",
+    "cpPrefix": "46",
+    "nombreOriginal": "Laboratorio Dr. Echevarne Análisis",
+    "rating": 3.5,
+    "numReviews": 61,
+    "placeId": "0xd604f4b0f81c897:0xac860c758f4d946",
+    "address": "Laboratorio Echevarne, Av. del Marqués de Sotelo, 7, 2ª Puerta 4, Ciutat Vella, 46002 València, Valencia",
+    "at": 1776800694084
+  },
+  {
+    "nameKey": "avanzada blanes clinica medicina",
+    "cpPrefix": "46",
+    "nombreOriginal": "Blanes Clinica DE Medicina Avanzada",
+    "rating": 4.7,
+    "numReviews": 604,
+    "placeId": "0xd6048b66e28b127:0x94e8bc42791f22b1",
+    "address": "Clínica Doctor Angel Blanes Espí, Carrer de Colón, 76, Ensanche, 46004 València, Valencia",
+    "at": 1776800694085
+  },
+  {
+    "nameKey": "clinica dermatologica rbe",
+    "cpPrefix": "46",
+    "nombreOriginal": "Clínica Dermatológica Rbe",
+    "rating": 3.9,
+    "numReviews": 173,
+    "placeId": "0xd6048b574a0e00f:0xf0774b2fdf24fb47",
+    "address": "RBE Clínica Dermatológica, Carrer de Félix Pizcueta, 16, Ensanche, 46004 València, Valencia",
+    "at": 1776800694111
+  },
+  {
+    "nameKey": "clinica levante",
+    "cpPrefix": "46",
+    "nombreOriginal": "Clinica Levante",
+    "rating": 4,
+    "numReviews": 133,
+    "placeId": "0xd604894a7f2b731:0xa0eabeede5c3924c",
+    "address": "Clínica Levante, C/ del Dr. Manuel Candela, 10, Camins al Grau, 46021 València, Valencia",
+    "at": 1776800694088
+  },
+  {
+    "nameKey": "clinica martin san",
+    "cpPrefix": "46",
+    "nombreOriginal": "Clinica San Martin",
+    "rating": 3,
+    "numReviews": 140,
+    "placeId": "0xd604f4aa5fddf45:0x4de08c5ce31a058d",
+    "address": "Clínica San Martín Valencia, C/ del Gral. San Martín, 7, Ensanche, 46004 València, Valencia",
+    "at": 1776800694088
+  },
+  {
+    "nameKey": "clinicas ucv",
+    "cpPrefix": "46",
+    "nombreOriginal": "Clinicas Ucv",
+    "rating": 3.6,
+    "numReviews": 407,
+    "placeId": "0xd604f4f65d2f0af:0x31dcad7dad5d17d8",
+    "address": "Clínicas UCV, Pl. de la Ciutat de Bruges, 6, Ciutat Vella, 46001 València, Valencia",
+    "at": 1776800694089
+  },
+  {
+    "nameKey": "consuelo hospital vithas",
+    "cpPrefix": "46",
+    "nombreOriginal": "Hospital Vithas Consuelo",
+    "rating": 3.8,
+    "numReviews": 2034,
+    "placeId": "0xd604f3970fd1dcb:0x6bc067d140ed6152",
+    "address": "Hospital Vithas Valencia Consuelo, C/ de Callosa d'En Sarrià, 12, Jesús, 46007 València, Valencia",
+    "at": 1776800694090
+  },
+  {
+    "nameKey": "clinica tecma",
+    "cpPrefix": "46",
+    "nombreOriginal": "Clínica Tecma",
+    "rating": 4.7,
+    "numReviews": 7219,
+    "placeId": "0xd61b06530a1d56b:0x4c4aa7b53566f1a5",
+    "address": "Affidea Clinica Tecma, Avinguda del Dret de Reunió, 4, 46600 Alzira, Valencia",
+    "at": 1776800694109
+  },
+  {
+    "nameKey": "aguas hospital vithas vivas",
+    "cpPrefix": "46",
+    "nombreOriginal": "Hospital Vithas Aguas Vivas",
+    "rating": 4.1,
+    "numReviews": 1040,
+    "placeId": "0xd61bf6bdf3d2215:0xf31219cdc7303a0e",
+    "address": "Hospital Vithas Aguas Vivas, Carretera Alzira-Tavernes de Valldigna, CV-50, Km 12, 46740, Valencia",
+    "at": 1776800694114
+  },
+  {
+    "nameKey": "gandia hospital imed",
+    "cpPrefix": "46",
+    "nombreOriginal": "Hospital Imed Gandia",
+    "rating": 3.6,
+    "numReviews": 960,
+    "placeId": "0xd61e9f5e1439509:0x8e388651310c85ea",
+    "address": "IMED Gandía, C/ de Daimús, 26, 46701 Gandia, Valencia",
+    "at": 1776800694098
+  },
+  {
+    "nameKey": "centro medico ribera tomas",
+    "cpPrefix": "46",
+    "nombreOriginal": "Centro Medico Tomas Ribera",
+    "rating": 4.9,
+    "numReviews": 216,
+    "placeId": "0xd60151820fa8a2f:0x71c192582d1af890",
+    "address": "CLÍNICA TOMÁS RIBERA, Av. de Montiber, 7, 46500 Sagunt, Valencia",
+    "at": 1776800694098
+  },
+  {
+    "nameKey": "clinica heira",
+    "cpPrefix": "46",
+    "nombreOriginal": "Clinica Heira",
+    "rating": 4.8,
+    "numReviews": 247,
+    "placeId": "0xd60498fe94e8ec9:0x322ae39fc72b8fb1",
+    "address": "Heira - Dermatología y Medicina Estética, Carrer del Gravador Esteve, 28, Bajo, Ensanche, 46004 València, Valencia",
+    "at": 1776800694104
+  },
+  {
+    "nameKey": "alonso dermatologico instituto tekderma",
+    "cpPrefix": "46",
+    "nombreOriginal": "Instituto Dermatológico Dr. Alonso-tekderma",
+    "rating": 4,
+    "numReviews": 272,
+    "placeId": "0xd604f4a891b0563:0x53f8fc0726fc5d3",
+    "address": "TEKDERMA Instituto Dermatológico Valencia Centro, C/ del Gral. San Martín, 15, Ensanche, 46004 València, Valencia",
+    "at": 1776800694108
+  },
+  {
+    "nameKey": "alonso dermatologico instituto tekdema",
+    "cpPrefix": "46",
+    "nombreOriginal": "Instituto Dermatológico Dr. Alonso-tekdema",
+    "rating": 4,
+    "numReviews": 272,
+    "placeId": "0xd604f4a891b0563:0x53f8fc0726fc5d3",
+    "address": "TEKDERMA Instituto Dermatológico Valencia Centro, C/ del Gral. San Martín, 15, Ensanche, 46004 València, Valencia",
+    "at": 1776800694107
+  },
+  {
+    "nameKey": "centro medico nousalud",
+    "cpPrefix": "46",
+    "nombreOriginal": "Centro Médico Nousalud",
+    "rating": 3.4,
+    "numReviews": 7,
+    "placeId": "0xd60513d68453bc1:0x96ed4bff44d3b164",
+    "address": "Nousalud Torrent, Carrer d'Helsinki 52, 6A, 46900 Torrent, Valencia",
+    "at": 1776800694113
+  },
+  {
+    "nameKey": "clinica medinorte",
+    "cpPrefix": "46",
+    "nombreOriginal": "Clínica Medinorte",
+    "rating": 4.5,
+    "numReviews": 499,
+    "placeId": "0xd604f4b02764323:0x204e74a29a1b7862",
+    "address": "Medinorte, Av. del Marqués de Sotelo, 13, 1º 2, Ciutat Vella, 46002 València, Valencia",
+    "at": 1776800701235
+  },
+  {
+    "nameKey": "castillo clinica",
+    "cpPrefix": "41",
+    "nombreOriginal": "Clinica Castillo",
+    "rating": 4.9,
+    "numReviews": 64,
+    "placeId": "0xd12caa4de280447:0x59ee7171f64db290",
+    "address": "Clínica Castillo, Av. Dr. Fleming, 1, 41400 Écija, Sevilla",
+    "at": 1776800854723
+  },
+  {
+    "nameKey": "instituto investigaciones oftalmologicas",
+    "cpPrefix": "41",
+    "nombreOriginal": "Instituto DE Investigaciones Oftalmologicas",
+    "rating": 3.4,
+    "numReviews": 30,
+    "placeId": "0xd126c3db8c6e825:0x7068bc4cd90a9186",
+    "address": "Instituto de Investigaciones Oftalmológicas, C/ Juan Sebastián Elcano 12A, local A Plaza del Lápiz s/n, 41011 Sevilla",
+    "at": 1776800854725
+  },
+  {
+    "nameKey": "hospital infanta luisa quironsalud",
+    "cpPrefix": "41",
+    "nombreOriginal": "Hospital Quironsalud Infanta Luisa",
+    "rating": 3.8,
+    "numReviews": 2154,
+    "placeId": "0xd126c6a435c619f:0xd6b767a31dde7c2e",
+    "address": "Hospital Quirónsalud Infanta Luisa, C. San Jacinto, 87, 41010 Sevilla",
+    "at": 1776800854729
+  },
+  {
+    "nameKey": "agustin hospital san",
+    "cpPrefix": "41",
+    "nombreOriginal": "Hospital San Agustin",
+    "rating": 3,
+    "numReviews": 1203,
+    "placeId": "0xd126c4097b93dd7:0x58d119b2ea66e814",
+    "address": "Hospital San Agustín, Prolongación Doctor Fleming, SECTOR 13, Zona dos,, 41703 Dos Hermanas",
+    "at": 1776800854730
+  },
+  {
+    "nameKey": "centro chequeo hispalia med",
+    "cpPrefix": "41",
+    "nombreOriginal": "Centro Med.de Chequeo Hispalia, S.l.",
+    "rating": 4.5,
+    "numReviews": 40,
+    "placeId": "0xd126c1f06c488cd:0x7d4394a64a1d8efd",
+    "address": "Centro Médico Hispalia, C. Bartolomé de Medina, 6, 41004 Sevilla",
+    "at": 1776800854731
+  },
+  {
+    "nameKey": "andaluz instituto oftalmologico privado",
+    "cpPrefix": "41",
+    "nombreOriginal": "Instituto Oftalmologico Privado Andaluz",
+    "rating": 3.6,
+    "numReviews": 83,
+    "placeId": "0xd126c3f62925f15:0x457b0234b8c3e61a",
+    "address": "Instituto Oftalmológico Andaluz, Av. de la República Argentina, 31, 41011 Sevilla",
+    "at": 1776800854732
+  },
+  {
+    "nameKey": "angeles centro los medico ntra sra",
+    "cpPrefix": "41",
+    "nombreOriginal": "Centro Medico Ntra.sra. DE Los Angeles",
+    "rating": 4,
+    "numReviews": 169,
+    "placeId": "0xd126fca0e5fae09:0x6d80ca1628adb03",
+    "address": "Centro Médico y Dental Nuestra Señora de los Ángeles, C. Rómulo, s/nº, 41089 Montequinto, Sevilla",
+    "at": 1776800854733
+  },
+  {
+    "nameKey": "centro del medico ntra rocio sra",
+    "cpPrefix": "41",
+    "nombreOriginal": "Centro Medico Ntra Sra del Rocio, S.l.",
+    "rating": 4.3,
+    "numReviews": 411,
+    "placeId": "0xd12134564b16c4f:0x232b604d095fafaa",
+    "address": "Centro Médico Rocío | Gines |, C. Jesús Centeno, 24, 41960 Gines, Sevilla",
+    "at": 1776800854734
+  },
+  {
+    "nameKey": "centro medico olisalud",
+    "cpPrefix": "41",
+    "nombreOriginal": "Centro Medico Olisalud, S.l.",
+    "rating": 4,
+    "numReviews": 78,
+    "placeId": "0xd121426b71b8daf:0x330e5880f627285c",
+    "address": "Centro Médico Olisalud, C. Mures, Nº6, 41804 Olivares, Sevilla",
+    "at": 1776800854736
+  },
+  {
+    "nameKey": "corazon hospital quironsalud sagrado",
+    "cpPrefix": "41",
+    "nombreOriginal": "Hospital Quironsalud Sagrado Corazon",
+    "rating": 3.7,
+    "numReviews": 2018,
+    "placeId": "0xd126e7e231bd94d:0xd79da328d74bd050",
+    "address": "Hospital Quirónsalud Sagrado Corazón, C. Rafael Salgado, 3, 41013 Sevilla",
+    "at": 1776800854738
+  },
+  {
+    "nameKey": "angela cruz hospital santa",
+    "cpPrefix": "41",
+    "nombreOriginal": "Hospital Santa Angela DE LA Cruz",
+    "rating": 3.5,
+    "numReviews": 1897,
+    "placeId": "0xd126e19e94468f3:0xfbb0f5f1f9140a1b",
+    "address": "Hospital Viamed Sta. Angela de la Cruz, Av. de Jerez, 59, 41014 Sevilla",
+    "at": 1776800854744
+  },
+  {
+    "nameKey": "fatima hospital viamed",
+    "cpPrefix": "41",
+    "nombreOriginal": "Hospital Viamed Fatima",
+    "rating": 2.9,
+    "numReviews": 1075,
+    "placeId": "0xd126c28c3343651:0x39f3fca4d6e952e9",
+    "address": "Hospital Viamed Fátima, Gta. de Méjico, 1, 41012 Sevilla",
+    "at": 1776800854745
+  },
+  {
+    "nameKey": "aljarafe clinica eps",
+    "cpPrefix": "41",
+    "nombreOriginal": "Clinica Eps Aljarafe",
+    "rating": 4.4,
+    "numReviews": 234,
+    "placeId": "0xd1210e3ed3860f3:0xb6a36896b8167220",
+    "address": "Clínica EPS Aljarafe, C. Isaac Peral, 25, 41800 Sanlúcar la Mayor, Sevilla",
+    "at": 1776800854746
+  },
+  {
+    "nameKey": "brioude burgas clinica esp multi",
+    "cpPrefix": "41",
+    "nombreOriginal": "Clinica Multi-esp. Burgas D Brioude, SL",
+    "rating": 4,
+    "numReviews": 71,
+    "placeId": "0xd126ebde4a695e3:0x4f99b1769317a66b",
+    "address": "Centro Médico Benitez Brioude, C. Cardenal Lluch, 33 - 36, 41005 Sevilla",
+    "at": 1776800854746
+  },
+  {
+    "nameKey": "atlas centro estetico medico",
+    "cpPrefix": "41",
+    "nombreOriginal": "Centro Medico y Estetico Atlas",
+    "rating": 3.4,
+    "numReviews": 109,
+    "placeId": "0xd121b4bb1841fa1:0x5b3b9f5338bbc837",
+    "address": "Centro Médico y Estético Atlas, Av. Juan Carlos I, 4, 41840 Pilas, Sevilla",
+    "at": 1776800854755
+  },
+  {
+    "nameKey": "clinica martin",
+    "cpPrefix": "41",
+    "nombreOriginal": "Clinica Dr. Martin, S.l.p.u.",
+    "rating": 4.9,
+    "numReviews": 313,
+    "placeId": "0xd126e9139722243:0xa816c82d6ef3cc2b",
+    "address": "Clínica Oftalmológica en Sevilla Dr. Martín - Oftalmólogo en Sevilla., Avenida de Ramón y Cajal 41 Edificio Capitol Portal, 2, 1ºA, 41005 Sevilla",
+    "at": 1776800854748
+  },
+  {
+    "nameKey": "beiman cabezas clinica las",
+    "cpPrefix": "41",
+    "nombreOriginal": "Clinica Beiman Las Cabezas, S.l.",
+    "rating": 4.4,
+    "numReviews": 34,
+    "placeId": "0xd0d8fcd6d303bdd:0xffb97a7605266090",
+    "address": "Clínica Beiman, Av. Jesús Nazareno, 40, 41730 Las Cabezas de San Juan, Sevilla",
+    "at": 1776800854749
+  },
+  {
+    "nameKey": "dios hospital juan nervion san",
+    "cpPrefix": "41",
+    "nombreOriginal": "Hospital San Juan DE Dios (nervion)",
+    "rating": 3.6,
+    "numReviews": 930,
+    "placeId": "0xd126ebd8981b6b3:0x2b8280fd57ca3b01",
+    "address": "Hospital San Juan de Dios de Sevilla (Nervión), C. San Juan de Dios, 1, 41005 Sevilla",
+    "at": 1776800854750
+  },
+  {
+    "nameKey": "clinica lorenzo oftalmologica trujillo",
+    "cpPrefix": "41",
+    "nombreOriginal": "Clinica Oftalmológica Dr. Lorenzo Trujillo",
+    "rating": 4.7,
+    "numReviews": 28,
+    "placeId": "0xd126d36c5246639:0x8faca55d5ee54122",
+    "address": "Clínica Oftalmológica Dr. Lorenzo Trujillo, Virgen de Lujan, 6, 41011 Sevilla",
+    "at": 1776800854751
+  },
+  {
+    "nameKey": "aljarafe centro medico quironsalud",
+    "cpPrefix": "41",
+    "nombreOriginal": "Centro Medico Quironsalud Aljarafe",
+    "rating": 2.6,
+    "numReviews": 285,
+    "placeId": "0xd126ce9bd08705d:0x184505e9d2fa2af6",
+    "address": "Centro Médico Quirónsalud Aljarafe, Av. del Aljarafe, 41940 Sevilla",
+    "at": 1776800854752
+  },
+  {
+    "nameKey": "dios hospital juan san sevilla",
+    "cpPrefix": "41",
+    "nombreOriginal": "Hospital San Juan DE Dios Sevilla",
+    "rating": 3.6,
+    "numReviews": 930,
+    "placeId": "0xd126ebd8981b6b3:0x2b8280fd57ca3b01",
+    "address": "Hospital San Juan de Dios de Sevilla (Nervión), C. San Juan de Dios, 1, 41005 Sevilla",
+    "at": 1776800854753
+  },
+  {
+    "nameKey": "angela clinica cruz santa viamed",
+    "cpPrefix": "41",
+    "nombreOriginal": "Clinica Viamed Santa Angela DE LA Cruz",
+    "rating": 3.5,
+    "numReviews": 1897,
+    "placeId": "0xd126e19e94468f3:0xfbb0f5f1f9140a1b",
+    "address": "Hospital Viamed Sta. Angela de la Cruz, Av. de Jerez, 59, 41014 Sevilla",
+    "at": 1776800854754
+  },
+  {
+    "nameKey": "cruz eugenia hospital roja victoria",
+    "cpPrefix": "41",
+    "nombreOriginal": "Hospital Victoria Eugenia (cruz Roja)",
+    "rating": 3.5,
+    "numReviews": 330,
+    "placeId": "0xd126eaa95bac243:0x71258ea9d63d3bc5",
+    "address": "Hospital Recoletas Salud Capuchinos (antigua Cruz Roja), Av. de la Cruz Roja, 1, 41009 Sevilla",
+    "at": 1776800870498
+  },
+  {
+    "nameKey": "baviera clinica palmera sevilla",
+    "cpPrefix": "41",
+    "nombreOriginal": "Clinica Baviera Sevilla (palmera)",
+    "rating": 4.7,
+    "numReviews": 497,
+    "placeId": "0xd126e80272dc2b3:0x3097b3c02e523be5",
+    "address": "Baviera, Av. de la Palmera, 37, 41013 Sevilla",
+    "at": 1776800870500
+  },
+  {
+    "nameKey": "avanzado centro oftalmologia",
+    "cpPrefix": "41",
+    "nombreOriginal": "Centro Avanzado DE Oftalmologia",
+    "rating": 4,
+    "numReviews": 4,
+    "placeId": "0xd126e7fb6dd985f:0x959c46f76a15b2ed",
+    "address": "Centro Avanzado de Oftalmología, Av. de la Palmera, 53, 41013 Sevilla",
+    "at": 1776800870501
+  },
+  {
+    "nameKey": "centro medico nervion vithas",
+    "cpPrefix": "41",
+    "nombreOriginal": "Centro Medico Vithas Nervion",
+    "rating": 3.5,
+    "numReviews": 72,
+    "placeId": "0xd126f528bb99155:0xb3f4cca134362d62",
+    "address": "Centro Médico Vithas Nervión, Av. de Ramón y Cajal, 6, 41018 Sevilla",
+    "at": 1776800870502
+  },
+  {
+    "nameKey": "andalus centro dos hermanas medico",
+    "cpPrefix": "41",
+    "nombreOriginal": "Centro Medico Al-andalus (dos Hermanas)",
+    "rating": 3.1,
+    "numReviews": 82,
+    "placeId": "0xd126fb6bd7c0e73:0xa883218b565b2dbc",
+    "address": "Centro Médico Al Andalus, Av. San José de Calasanz, 5, 41089 Montequinto, Sevilla",
+    "at": 1776800870503
+  },
+  {
+    "nameKey": "bormujos centro viamed",
+    "cpPrefix": "41",
+    "nombreOriginal": "Centro Viamed Bormujos",
+    "rating": 2.7,
+    "numReviews": 92,
+    "placeId": "0xd12133a8b31a441:0x6f2b04713579c3ed",
+    "address": "Centro Médico Viamed Bormujos, Av. Universidad de Salamanca, 10, 41930 Bormujos, Sevilla",
+    "at": 1776800870504
+  },
+  {
+    "nameKey": "centro hispalia medico",
+    "cpPrefix": "41",
+    "nombreOriginal": "Centro Médico Hispalia",
+    "rating": 4.5,
+    "numReviews": 40,
+    "placeId": "0xd126c1f06c488cd:0x7d4394a64a1d8efd",
+    "address": "Centro Médico Hispalia, C. Bartolomé de Medina, 6, 41004 Sevilla",
+    "at": 1776800870505
+  },
+  {
+    "nameKey": "benitez brioude centro medico",
+    "cpPrefix": "41",
+    "nombreOriginal": "Centro Medico Benitez Brioude",
+    "rating": 4,
+    "numReviews": 71,
+    "placeId": "0xd126ebde4a695e3:0x4f99b1769317a66b",
+    "address": "Centro Médico Benitez Brioude, C. Cardenal Lluch, 33 - 36, 41005 Sevilla",
+    "at": 1776800870506
+  },
+  {
+    "nameKey": "alcores centro medico",
+    "cpPrefix": "41",
+    "nombreOriginal": "Centro Medico Alcores",
+    "rating": 3.3,
+    "numReviews": 24,
+    "placeId": "0xd12625f0fa3d50d:0x23f73379dcae7212",
+    "address": "Centro Médico Los Alcores, Calle Cervantes, 11, 41510 Mairena del Alcor, Sevilla",
+    "at": 1776800870507
+  },
+  {
+    "nameKey": "centro este medico sevilla",
+    "cpPrefix": "41",
+    "nombreOriginal": "Centro Medico Sevilla Este",
+    "rating": 4.8,
+    "numReviews": 212,
+    "placeId": "0xd126f2baf50a971:0xe00f4ed129e3944d",
+    "address": "Centro Médico Zona Este, C. Cueva del Agua, 5, 41020 Sevilla",
+    "at": 1776800870508
+  },
+  {
+    "nameKey": "angela clinica cruz este santa sevilla viamed",
+    "cpPrefix": "41",
+    "nombreOriginal": "Clinica Viamed Santa Angela DE LA Cruz Sevilla Este",
+    "rating": 2.6,
+    "numReviews": 94,
+    "placeId": "0xd126ee9ed751959:0xbfcdcffd823ca795",
+    "address": "Centro Médico Viamed Sevilla Este, Av. de las Ciencias, 25, 41020 Sevilla",
+    "at": 1776800870509
+  },
+  {
+    "nameKey": "baviera clinica sevilla",
+    "cpPrefix": "41",
+    "nombreOriginal": "Clinica Baviera Sevilla",
+    "rating": 4.7,
+    "numReviews": 497,
+    "placeId": "0xd126e80272dc2b3:0x3097b3c02e523be5",
+    "address": "Baviera, Av. de la Palmera, 37, 41013 Sevilla",
+    "at": 1776800870510
+  },
+  {
+    "nameKey": "alcala andaluz guadaira instituto pediatria",
+    "cpPrefix": "41",
+    "nombreOriginal": "Instituto Andaluz DE Pediatria (alcala DE Guadaira)",
+    "rating": 2.4,
+    "numReviews": 39,
+    "placeId": "0xd1264bbc2a6d769:0xa83892bedfa8e3db",
+    "address": "IHP Alcalá de Guadaíra, &, C. Escultor Martinez Montañes, Av. de la Escultora 'la Roldana', 41500 Alcalá de Guadaíra, Sevilla",
+    "at": 1776800870511
+  },
+  {
+    "nameKey": "clinica eps fisioterapia",
+    "cpPrefix": "41",
+    "nombreOriginal": "Clinica Fisioterapia Eps",
+    "rating": 4.4,
+    "numReviews": 234,
+    "placeId": "0xd1210e3ed3860f3:0xb6a36896b8167220",
+    "address": "Clínica EPS Aljarafe, C. Isaac Peral, 25, 41800 Sanlúcar la Mayor, Sevilla",
+    "at": 1776800870512
+  },
+  {
+    "nameKey": "hispalense instituto pediatria",
+    "cpPrefix": "41",
+    "nombreOriginal": "Instituto Hispalense DE Pediatría",
+    "rating": 1.7,
+    "numReviews": 39,
+    "placeId": "0xd126f34749d2363:0x9b544ab922f45284",
+    "address": "Instituto Hispalense de Pediatria S.L., &, Avenida de las Ciencias, Av. Médicos sin Frontera, Sevilla",
+    "at": 1776800870513
+  },
+  {
+    "nameKey": "centro del medico nuestra rocio sra",
+    "cpPrefix": "41",
+    "nombreOriginal": "Centro Medico Nuestra Sra del Rocio",
+    "rating": 4.3,
+    "numReviews": 411,
+    "placeId": "0xd12134564b16c4f:0x232b604d095fafaa",
+    "address": "Centro Médico Rocío | Gines |, C. Jesús Centeno, 24, 41960 Gines, Sevilla",
+    "at": 1776800870515
+  },
+  {
+    "nameKey": "centro especialidades medicas quirurgicas",
+    "cpPrefix": "41",
+    "nombreOriginal": "Centro DE Especialidades Medicas y Quirurgicas",
+    "rating": 3,
+    "numReviews": 120,
+    "placeId": "0xd127f111a61e2f3:0x31725cf352b607ed",
+    "address": "Centro De Especialidades Médicas Y Quirúrgicas, C. la Corredera, 55, 41710 Utrera, Sevilla",
+    "at": 1776800870516
+  },
+  {
+    "nameKey": "clinica hla isabel santa",
+    "cpPrefix": "41",
+    "nombreOriginal": "Clinica Hla Santa Isabel",
+    "rating": 4.3,
+    "numReviews": 6722,
+    "placeId": "0xd126ea47eb30505:0xe4c1382fb6495121",
+    "address": "HLA Clínica Santa Isabel, C. Luis Montoto, 100, 41018 Sevilla",
+    "at": 1776800870517
+  },
+  {
+    "nameKey": "centro marques medico nervion",
+    "cpPrefix": "41",
+    "nombreOriginal": "Centro Medico Marques DE Nervion",
+    "rating": 2.6,
+    "numReviews": 68,
+    "placeId": "0xd126c6a43432f43:0x9084f3153462055d",
+    "address": "Centro Médico Quirónsalud Nervión, C/ Marqués del Nervión, 47, 41005 Sevilla",
+    "at": 1776800870518
+  },
+  {
+    "nameKey": "baviera clinica sevilla triana",
+    "cpPrefix": "41",
+    "nombreOriginal": "Clinica Baviera Sevilla - Triana",
+    "rating": 4.8,
+    "numReviews": 37,
+    "placeId": "0xd126ddd8b4880e5:0x8bbd6609f040588",
+    "address": "Baviera, C. Pagés del Corro, 125, 41010 Sevilla",
+    "at": 1776800870519
+  },
+  {
+    "nameKey": "arenal centro medico",
+    "cpPrefix": "41",
+    "nombreOriginal": "Centro Medico Arenal",
+    "rating": 4.2,
+    "numReviews": 572,
+    "placeId": "0xd126c13d241ca63:0x64a6e5ef8f111e19",
+    "address": "Centro Médico Arenal, C. Pastor y Landero, 11, Casco Antiguo, 41001 Sevilla",
+    "at": 1776800870520
+  },
+  {
+    "nameKey": "corazon hospital quironsalud sagrado sevilla",
+    "cpPrefix": "41",
+    "nombreOriginal": "Hospital Quironsalud Sagrado Corazon (sevilla)",
+    "rating": 3.7,
+    "numReviews": 2018,
+    "placeId": "0xd126e7e231bd94d:0xd79da328d74bd050",
+    "address": "Hospital Quirónsalud Sagrado Corazón, C. Rafael Salgado, 3, 41013 Sevilla",
+    "at": 1776800870521
+  },
+  {
+    "nameKey": "angeles centro los medico nuestra senora",
+    "cpPrefix": "41",
+    "nombreOriginal": "Centro Medico Nuestra Señora DE Los Angeles",
+    "rating": 4,
+    "numReviews": 169,
+    "placeId": "0xd126fca0e5fae09:0x6d80ca1628adb03",
+    "address": "Centro Médico y Dental Nuestra Señora de los Ángeles, C. Rómulo, s/nº, 41089 Montequinto, Sevilla",
+    "at": 1776800870523
+  },
+  {
+    "nameKey": "centro hiniesta medico",
+    "cpPrefix": "41",
+    "nombreOriginal": "Centro Médico Hiniesta",
+    "rating": 3,
+    "numReviews": 114,
+    "placeId": "0xd126c004dc07f9d:0xe56e1d8cc3405867",
+    "address": "Centro Médico Hiniesta, C. de Madre Dolores Márquez, 2, Casco Antiguo, 41003 Sevilla",
+    "at": 1776800870524
+  },
+  {
+    "nameKey": "centro esperanza medico",
+    "cpPrefix": "41",
+    "nombreOriginal": "Centro Medico LA Esperanza",
+    "rating": 4.8,
+    "numReviews": 10,
+    "placeId": "0xd125bc4e603e451:0x8361b8896b2ddbce",
+    "address": "La Esperanza, C. San Francisco, 18, 41320 Cantillana, Sevilla",
+    "at": 1776800870525
+  },
+  {
+    "nameKey": "clinica lujan miranza virgen",
+    "cpPrefix": "41",
+    "nombreOriginal": "Clinica Virgen DE Lujan (miranza)",
+    "rating": 4.4,
+    "numReviews": 149,
+    "placeId": "0xd126c3b4334f547:0x398860391875e6c5",
+    "address": "Miranza Virgen de Luján - Oftalmología en Sevilla, Gta. de las Cigarreras, 1, 41011 Sevilla",
+    "at": 1776800870526
+  },
+  {
+    "nameKey": "angela centro cruz los medico remedios santa viamed",
+    "cpPrefix": "41",
+    "nombreOriginal": "Centro Medico Los Remedios Viamed Santa Angela DE LA Cruz",
+    "rating": 3.5,
+    "numReviews": 1897,
+    "placeId": "0xd126e19e94468f3:0xfbb0f5f1f9140a1b",
+    "address": "Hospital Viamed Sta. Angela de la Cruz, Av. de Jerez, 59, 41014 Sevilla",
+    "at": 1776800870527
+  },
+  {
+    "nameKey": "clinica pinero",
+    "cpPrefix": "41",
+    "nombreOriginal": "Clinica Piñero",
+    "rating": 4.8,
+    "numReviews": 208,
+    "placeId": "0xd126e7efa94266f:0xc254ab7cea07e3b",
+    "address": "CLINICA PIÑERO - Centro Andaluz de Oftalmología, Glorieta Plus Ultra, 1, 41013 Sevilla",
+    "at": 1776800870528
+  },
+  {
+    "nameKey": "alameda centro medico",
+    "cpPrefix": "41",
+    "nombreOriginal": "Centro Médico Alameda",
+    "rating": 2.3,
+    "numReviews": 79,
+    "placeId": "0xd126c08985495d1:0x1f5de498b9793a15",
+    "address": "Centro Médico Quirónsalud Alameda, Alameda de Hércules, 7, Casco Antiguo, 41002 Sevilla",
+    "at": 1776800870529
+  },
+  {
+    "nameKey": "arco centro medico norte",
+    "cpPrefix": "41",
+    "nombreOriginal": "Centro Medico Arco Norte",
+    "rating": 2.9,
+    "numReviews": 406,
+    "placeId": "0xd127038071dc439:0x8690d34d944c99ac",
+    "address": "Centro Médico Arco Norte, Av. de Adolfo Suárez, 38, 41704 Dos Hermanas, Sevilla",
+    "at": 1776800870531
+  },
+  {
+    "nameKey": "cajal centro hla medico quirurgico ramon",
+    "cpPrefix": "41",
+    "nombreOriginal": "Centro Medico-quirurgico Hla Ramon y Cajal",
+    "rating": 4.7,
+    "numReviews": 2026,
+    "placeId": "0xd126fa376bbfe7d:0x32aae5ee4fdd7d88",
+    "address": "HLA Centro Médico-quirúrgico Ramón y Cajal, Av. de Ramón y Cajal, 31-35, 41005 Sevilla",
+    "at": 1776800870532
+  },
+  {
+    "nameKey": "arenal centro medico salud",
+    "cpPrefix": "41",
+    "nombreOriginal": "Centro Medico Arenal DE Salud",
+    "rating": 4.2,
+    "numReviews": 572,
+    "placeId": "0xd126c13d241ca63:0x64a6e5ef8f111e19",
+    "address": "Centro Médico Arenal, C. Pastor y Landero, 11, Casco Antiguo, 41001 Sevilla",
+    "at": 1776800886400
+  },
+  {
+    "nameKey": "angela cruz hospital santa viamed",
+    "cpPrefix": "41",
+    "nombreOriginal": "Hospital Viamed(santa Angela DE LA Cruz)",
+    "rating": 3.5,
+    "numReviews": 1897,
+    "placeId": "0xd126e19e94468f3:0xfbb0f5f1f9140a1b",
+    "address": "Hospital Viamed Sta. Angela de la Cruz, Av. de Jerez, 59, 41014 Sevilla",
+    "at": 1776800886414
+  },
+  {
+    "nameKey": "centro especialidades euclinic medicas",
+    "cpPrefix": "41",
+    "nombreOriginal": "Centro DE Especialidades Medicas Euclinic",
+    "rating": 4.3,
+    "numReviews": 147,
+    "placeId": "0xd1269423013e8a3:0xd4dccd15959ee027",
+    "address": "Euclinic. Centro Médico y Clínica Estética, Edificio Alcosa, Av. Ciudad de Chiva, Centro, 1ª planta, 41019 Sevilla",
+    "at": 1776800886403
+  },
+  {
+    "nameKey": "angeles centro medico montenquinto ntra senora",
+    "cpPrefix": "41",
+    "nombreOriginal": "Centro Medico Ntra. Señora Angeles Montenquinto",
+    "rating": 4,
+    "numReviews": 169,
+    "placeId": "0xd126fca0e5fae09:0x6d80ca1628adb03",
+    "address": "Centro Médico y Dental Nuestra Señora de los Ángeles, C. Rómulo, s/nº, 41089 Montequinto, Sevilla",
+    "at": 1776800886404
+  },
+  {
+    "nameKey": "andalus centro medico",
+    "cpPrefix": "41",
+    "nombreOriginal": "Centro Medico Al-andalus",
+    "rating": 3,
+    "numReviews": 23,
+    "placeId": "0xd126592261b080b:0xd9844c3a2c92b412",
+    "address": "Centro Médico Al-Ándalus III Alcalá de Guadaira, C. Ramón y Cajal, 5, 41500 Alcalá de Guadaíra, Sevilla",
+    "at": 1776800886418
+  },
+  {
+    "nameKey": "centro mapfre medico salud sevilla",
+    "cpPrefix": "41",
+    "nombreOriginal": "Centro Medico Mapfre Salud Sevilla",
+    "rating": 4.4,
+    "numReviews": 385,
+    "placeId": "0xd126f4668b74105:0xe8639495e8901e19",
+    "address": "Centro Médico MAPFRE Salud, C. Luis Montoto, 25, 41018 Sevilla",
+    "at": 1776800886407
+  },
+  {
+    "nameKey": "arenal clinica",
+    "cpPrefix": "41",
+    "nombreOriginal": "Clinica Arenal",
+    "rating": 4.2,
+    "numReviews": 572,
+    "placeId": "0xd126c13d241ca63:0x64a6e5ef8f111e19",
+    "address": "Centro Médico Arenal, C. Pastor y Landero, 11, Casco Antiguo, 41001 Sevilla",
+    "at": 1776800886408
+  },
+  {
+    "nameKey": "clinica isabel santa",
+    "cpPrefix": "41",
+    "nombreOriginal": "Clinica Santa Isabel",
+    "rating": 4.3,
+    "numReviews": 6722,
+    "placeId": "0xd126ea47eb30505:0xe4c1382fb6495121",
+    "address": "HLA Clínica Santa Isabel, C. Luis Montoto, 100, 41018 Sevilla",
+    "at": 1776800886409
+  },
+  {
+    "nameKey": "cajal centro hla med quirurgica ramon",
+    "cpPrefix": "41",
+    "nombreOriginal": "Hla Centro Med.quirurgica Ramon y Cajal",
+    "rating": 4.7,
+    "numReviews": 2026,
+    "placeId": "0xd126fa376bbfe7d:0x32aae5ee4fdd7d88",
+    "address": "HLA Centro Médico-quirúrgico Ramón y Cajal, Av. de Ramón y Cajal, 31-35, 41005 Sevilla",
+    "at": 1776800886411
+  },
+  {
+    "nameKey": "clinica doctores pinero",
+    "cpPrefix": "41",
+    "nombreOriginal": "Clinica Doctores Piñero",
+    "rating": 4.8,
+    "numReviews": 208,
+    "placeId": "0xd126e7efa94266f:0xc254ab7cea07e3b",
+    "address": "CLINICA PIÑERO - Centro Andaluz de Oftalmología, Glorieta Plus Ultra, 1, 41013 Sevilla",
+    "at": 1776800886412
+  },
+  {
+    "nameKey": "fatima hospital",
+    "cpPrefix": "41",
+    "nombreOriginal": "Hospital Fatima",
+    "rating": 2.9,
+    "numReviews": 1075,
+    "placeId": "0xd126c28c3343651:0x39f3fca4d6e952e9",
+    "address": "Hospital Viamed Fátima, Gta. de Méjico, 1, 41012 Sevilla",
+    "at": 1776800886413
+  },
+  {
+    "nameKey": "angeles centro los montequinto",
+    "cpPrefix": "41",
+    "nombreOriginal": "Centro N. S. Los Angeles DE Montequinto",
+    "rating": 4,
+    "numReviews": 169,
+    "placeId": "0xd126fca0e5fae09:0x6d80ca1628adb03",
+    "address": "Centro Médico y Dental Nuestra Señora de los Ángeles, C. Rómulo, s/nº, 41089 Montequinto, Sevilla",
+    "at": 1776800886416
+  },
+  {
+    "nameKey": "clinica valme virgen",
+    "cpPrefix": "41",
+    "nombreOriginal": "Clinica Virgen DE Valme",
+    "rating": 4.6,
+    "numReviews": 212,
+    "placeId": "0xd12705e9a974341:0xa4e9ea3be21ba627",
+    "address": "Clínica Dental Valme, C. Sta. María Magdalena, 28, 41701 Dos Hermanas, Sevilla",
+    "at": 1776800886417
+  },
+  {
+    "nameKey": "baviera clinica",
+    "cpPrefix": "41",
+    "nombreOriginal": "Clinica Baviera",
+    "rating": 4.7,
+    "numReviews": 497,
+    "placeId": "0xd126e80272dc2b3:0x3097b3c02e523be5",
+    "address": "Baviera, Av. de la Palmera, 37, 41013 Sevilla",
+    "at": 1776800886422
+  },
+  {
+    "nameKey": "clinica lujan virgen",
+    "cpPrefix": "41",
+    "nombreOriginal": "Clinica Virgen DE Lujan",
+    "rating": 4.4,
+    "numReviews": 149,
+    "placeId": "0xd126c3b4334f547:0x398860391875e6c5",
+    "address": "Miranza Virgen de Luján - Oftalmología en Sevilla, Gta. de las Cigarreras, 1, 41011 Sevilla",
+    "at": 1776800886424
+  },
+  {
+    "nameKey": "corazon hospital quiron sagrado",
+    "cpPrefix": "41",
+    "nombreOriginal": "Hospital Quiron Sagrado Corazon",
+    "rating": 3.7,
+    "numReviews": 2018,
+    "placeId": "0xd126e7e231bd94d:0xd79da328d74bd050",
+    "address": "Hospital Quirónsalud Sagrado Corazón, C. Rafael Salgado, 3, 41013 Sevilla",
+    "at": 1776800886425
+  },
+  {
+    "nameKey": "dios hospital juan nervion sevilla",
+    "cpPrefix": "41",
+    "nombreOriginal": "Hospital S Juan DE Dios Nervion Sevilla",
+    "rating": 3.6,
+    "numReviews": 930,
+    "placeId": "0xd126ebd8981b6b3:0x2b8280fd57ca3b01",
+    "address": "Hospital San Juan de Dios de Sevilla (Nervión), C. San Juan de Dios, 1, 41005 Sevilla",
+    "at": 1776800886426
+  },
+  {
+    "nameKey": "coruna hospital quiron salud",
+    "cpPrefix": "15",
+    "nombreOriginal": "Hospital Quiron Salud A Coruña",
+    "rating": 2.7,
+    "numReviews": 823,
+    "placeId": "0xd4228bf35bebf59:0xd2526a94c4e04f76",
+    "address": "Hospital Quirónsalud A Coruña, Rúa Londres, 2, 15009 A Coruña",
+    "at": 1776800914650
+  },
+  {
+    "nameKey": "centro coruna ojos",
+    "cpPrefix": "15",
+    "nombreOriginal": "Centro DE Ojos DE LA Coruña, S.l.",
+    "rating": 3.7,
+    "numReviews": 269,
+    "placeId": "0xd2e7c9b0144252f:0x730f6589eef4e111",
+    "address": "Centro de Ojos de La Coruña, R. Santiago Rey Fernández Latorre, 120, BAJO, 15006 A Coruña",
+    "at": 1776800914651
+  },
+  {
+    "nameKey": "burgo clinica",
+    "cpPrefix": "15",
+    "nombreOriginal": "Clinica O Burgo, S.l.",
+    "rating": 2.4,
+    "numReviews": 61,
+    "placeId": "0xd2e9237fe96fbc3:0x88be23a9d684d282",
+    "address": "Clínica O Burgo, Calle Tarragona, 0 S N ( Esq Paseo Fluvial ), 15102 Carballo, A Coruña",
+    "at": 1776800914653
+  },
+  {
+    "nameKey": "gomez instituto oftalmologico ulla",
+    "cpPrefix": "15",
+    "nombreOriginal": "Instituto Oftalmologico Gomez-ulla",
+    "rating": 4.7,
+    "numReviews": 592,
+    "placeId": "0xd2efe6bb879aebb:0x45dd00b6253535d8",
+    "address": "Miranza Instituto Gómez-Ulla - Oftalmología, Rúa de Maruja Mallo, 3, 15706 Santiago de Compostela, A Coruña",
+    "at": 1776800914654
+  },
+  {
+    "nameKey": "esperanza hospital ntra sra",
+    "cpPrefix": "15",
+    "nombreOriginal": "Hospital Ntra. Sra. DE LA Esperanza,s.l.",
+    "rating": 4.4,
+    "numReviews": 755,
+    "placeId": "0xd2efe6b11de4789:0xba6a512039fa5211",
+    "address": "Hospital HM La Esperanza, Av. das Burgas, 2, 15705 Santiago de Compostela, A Coruña",
+    "at": 1776800914656
+  },
+  {
+    "nameKey": "esperanza hospital",
+    "cpPrefix": "15",
+    "nombreOriginal": "Hospital HM LA Esperanza",
+    "rating": 4.4,
+    "numReviews": 755,
+    "placeId": "0xd2efe6b11de4789:0xba6a512039fa5211",
+    "address": "Hospital HM La Esperanza, Av. das Burgas, 2, 15705 Santiago de Compostela, A Coruña",
+    "at": 1776800946699
+  },
+  {
+    "nameKey": "centro coruna mapfre medico",
+    "cpPrefix": "15",
+    "nombreOriginal": "Centro Medico Mapfre Coruña",
+    "rating": 4.1,
+    "numReviews": 400,
+    "placeId": "0xd2e7c8a06cdc311:0x710296640c1adc8d",
+    "address": "Centro Médico MAPFRE Salud, Rúa Fernando Macías, 31, 33, 15004 A Coruña",
+    "at": 1776800946701
+  },
+  {
+    "nameKey": "clinica coruna juan ocular rodriguez tabara vision",
+    "cpPrefix": "15",
+    "nombreOriginal": "Tabara Rodriguez, Juan (clinica Ocular Coruña Vision)",
+    "rating": 4.5,
+    "numReviews": 28,
+    "placeId": "0xd2e7cf2f8d996d7:0x31a04ef87e59c587",
+    "address": "Coruña Visión ~ Clínica Ocular, Rúa Isaac Peral, 1, 15008 A Coruña",
+    "at": 1776800946702
+  },
+  {
+    "nameKey": "coruna hospital htal quironsalud santa teresa",
+    "cpPrefix": "15",
+    "nombreOriginal": "Hospital Quironsalud A Coruña (htal. Santa Teresa)",
+    "rating": 2.7,
+    "numReviews": 823,
+    "placeId": "0xd4228bf35bebf59:0xd2526a94c4e04f76",
+    "address": "Hospital Quirónsalud A Coruña, Rúa Londres, 2, 15009 A Coruña",
+    "at": 1776800946703
+  },
+  {
+    "nameKey": "centro doctora oftalmologico silva",
+    "cpPrefix": "15",
+    "nombreOriginal": "Centro Oftalmologico Doctora Silva",
+    "rating": 3.5,
+    "numReviews": 6,
+    "placeId": "0xd2f3d836433c1bd:0x9a5ed9f4d37eef6",
+    "address": "CENTRO OFTALMOLOGICO DRA SILVA, Rúa Doctor Norberto Pijuan, 5-3D, 15930 Boiro, A Coruña",
+    "at": 1776800946738
+  },
+  {
+    "nameKey": "hospital rafael san",
+    "cpPrefix": "15",
+    "nombreOriginal": "Hospital San Rafael",
+    "rating": 2.9,
+    "numReviews": 411,
+    "placeId": "0xd2e7c89380e9d0f:0xea9c3c67020b9e8a",
+    "address": "Hospital San Rafael, Avenida de las Jubias, 82, 15006 A Coruña",
+    "at": 1776800946737
+  },
+  {
+    "nameKey": "coruna instituto oftalmologico quironsalud",
+    "cpPrefix": "15",
+    "nombreOriginal": "Instituto Oftalmologico Quironsalud A Coruña",
+    "rating": 3.4,
+    "numReviews": 78,
+    "placeId": "0xd2e7c73963b1c39:0x827439862da9340e",
+    "address": "Instituto Oftalmológico Quirónsalud A Coruña, P.º Marítimo, 1, 15001 A Coruña",
+    "at": 1776800946707
+  },
+  {
+    "nameKey": "baviera clinica coruna",
+    "cpPrefix": "15",
+    "nombreOriginal": "Clínica Baviera A Coruña",
+    "rating": 4.7,
+    "numReviews": 249,
+    "placeId": "0xd2e7c87da98286f:0xfdbeaa1bb3041c4c",
+    "address": "Baviera, Praza Galicia, 2, 15004 A Coruña",
+    "at": 1776800946747
+  },
+  {
+    "nameKey": "baviera clinica compostela santiago",
+    "cpPrefix": "15",
+    "nombreOriginal": "Clínica Baviera Santiago DE Compostela",
+    "rating": 4.9,
+    "numReviews": 135,
+    "placeId": "0xd2eff221e4c90f1:0xf104d1625a61d248",
+    "address": "Baviera, R. da Rosa, 16, 15701 Santiago de Compostela, A Coruña",
+    "at": 1776800946710
+  },
+  {
+    "nameKey": "gomez instituto miranza ulla",
+    "cpPrefix": "15",
+    "nombreOriginal": "Miranza Instituto Gomez-ulla",
+    "rating": 4.7,
+    "numReviews": 592,
+    "placeId": "0xd2efe6bb879aebb:0x45dd00b6253535d8",
+    "address": "Miranza Instituto Gómez-Ulla - Oftalmología, Rúa de Maruja Mallo, 3, 15706 Santiago de Compostela, A Coruña",
+    "at": 1776800946720
+  },
+  {
+    "nameKey": "cardona hospital juan ribera",
+    "cpPrefix": "15",
+    "nombreOriginal": "Hospital Ribera Juan Cardona",
+    "rating": 4.2,
+    "numReviews": 1309,
+    "placeId": "0xd2e75eb6cf4273b:0x3a4153e92a2311d8",
+    "address": "Hospital Ribera Juan Cardona, Rúa Pardo Bazán, s/n, 15404 Ferrol, A Coruña",
+    "at": 1776800946712
+  },
+  {
+    "nameKey": "policlinico rosaleda",
+    "cpPrefix": "15",
+    "nombreOriginal": "Policlinico HM LA Rosaleda",
+    "rating": 2.5,
+    "numReviews": 795,
+    "placeId": "0xd2efe3eeea372bb:0xfc2dfece8a4f6b9",
+    "address": "Hospital HM Rosaleda (Santiago de Compostela), Rúa de Santiago León de Caracas, 1, 15701 Santiago de Compostela, A Coruña",
+    "at": 1776800946713
+  },
+  {
+    "nameKey": "coruna hospital quironsalud",
+    "cpPrefix": "15",
+    "nombreOriginal": "Hospital Quironsalud A Coruña",
+    "rating": 2.7,
+    "numReviews": 823,
+    "placeId": "0xd4228bf35bebf59:0xd2526a94c4e04f76",
+    "address": "Hospital Quirónsalud A Coruña, Rúa Londres, 2, 15009 A Coruña",
+    "at": 1776800946715
+  },
+  {
+    "nameKey": "baviera clinica",
+    "cpPrefix": "15",
+    "nombreOriginal": "Clinica Baviera",
+    "rating": 4.9,
+    "numReviews": 135,
+    "placeId": "0xd2eff221e4c90f1:0xf104d1625a61d248",
+    "address": "Baviera, R. da Rosa, 16, 15701 Santiago de Compostela, A Coruña",
+    "at": 1776800946742
+  },
+  {
+    "nameKey": "centro mapfre medico",
+    "cpPrefix": "15",
+    "nombreOriginal": "Centro Medico Mapfre",
+    "rating": 4.1,
+    "numReviews": 400,
+    "placeId": "0xd2e7c8a06cdc311:0x710296640c1adc8d",
+    "address": "Centro Médico MAPFRE Salud, Rúa Fernando Macías, 31, 33, 15004 A Coruña",
+    "at": 1776800946717
+  },
+  {
+    "nameKey": "clinica coruna ocular vision",
+    "cpPrefix": "15",
+    "nombreOriginal": "Clinica Ocular Coruña Vision",
+    "rating": 4.5,
+    "numReviews": 28,
+    "placeId": "0xd2e7cf2f8d996d7:0x31a04ef87e59c587",
+    "address": "Coruña Visión ~ Clínica Ocular, Rúa Isaac Peral, 1, 15008 A Coruña",
+    "at": 1776800946736
+  },
+  {
+    "nameKey": "amoros clinica gutierrez jose ojos",
+    "cpPrefix": "15",
+    "nombreOriginal": "Clinica DE Ojos Jose Gutierrez Amoros",
+    "rating": 4.6,
+    "numReviews": 47,
+    "placeId": "0xd2e7c88c2c6f3e3:0xc50da9974cb2f284",
+    "address": "José Gutiérrez Amorós, Pr. do Libro, 1, 15005 A Coruña",
+    "at": 1776800946721
+  },
+  {
+    "nameKey": "centro coruna mapfre medico salud",
+    "cpPrefix": "15",
+    "nombreOriginal": "Centro Medico Mapfre Salud A Coruña",
+    "rating": 4.1,
+    "numReviews": 400,
+    "placeId": "0xd2e7c8a06cdc311:0x710296640c1adc8d",
+    "address": "Centro Médico MAPFRE Salud, Rúa Fernando Macías, 31, 33, 15004 A Coruña",
+    "at": 1776800946722
+  },
+  {
+    "nameKey": "cirugia gallego instituto ocular",
+    "cpPrefix": "15",
+    "nombreOriginal": "Instituto Gallego DE Cirugia Ocular",
+    "rating": 4.6,
+    "numReviews": 266,
+    "placeId": "0xd2e761a9a836ae5:0xf648513f16e8c965",
+    "address": "Instituto Gallego de Cirugía Ocular, Calle de la Tierra, 26, 15402 Ferrol, A Coruña",
+    "at": 1776800946726
+  },
+  {
+    "nameKey": "clinica cobian",
+    "cpPrefix": "15",
+    "nombreOriginal": "Clínica Cobián",
+    "rating": 4.6,
+    "numReviews": 249,
+    "placeId": "0xd2e7c8a59ab6491:0x80da8dac1bc21e45",
+    "address": "Clínica Cobián | Ginecólogo en A Coruña, Rúa, C. Francisco Mariño, 2, 15004 A Coruña",
+    "at": 1776800946733
+  },
+  {
+    "nameKey": "clinicas fandino oftalmologicas",
+    "cpPrefix": "15",
+    "nombreOriginal": "Clinicas Oftalmologicas Dr. Fandiño",
+    "rating": 4.3,
+    "numReviews": 15,
+    "placeId": "0xd2efe46de72bc2b:0x778eace163e11e26",
+    "address": "Clínicas Oftalmológicas Dr. Fandiño, R. de Montero Rios, 6, 2º IZDA, 15701 Santiago de Compostela, A Coruña",
+    "at": 1776800946743
+  },
+  {
+    "nameKey": "centro moreiras oftalmologico",
+    "cpPrefix": "15",
+    "nombreOriginal": "Centro Oftalmologico Moreiras",
+    "rating": 4.6,
+    "numReviews": 154,
+    "placeId": "0xd2efe3846bae28b:0xa89b39887fa19e8e",
+    "address": "Clínica Moreiras (Santiago de Compostela), Rúa de Eduardo Pondal, 30. Pl, 2ª, 15702 Santiago de Compostela, A Coruña",
+    "at": 1776800946741
+  },
+  {
+    "nameKey": "clinica duran esp oftalmologicas",
+    "cpPrefix": "15",
+    "nombreOriginal": "Duran Clinica DE Esp Oftalmologicas",
+    "rating": 4.8,
+    "numReviews": 33,
+    "placeId": "0xd2efffefe9e8277:0xbbc5352bf00ea1fd",
+    "address": "Durán Clínica de Especialidades Oftalmológicas, Rúa de Alfredo Brañas, 7, 15701 Santiago de Compostela, A Coruña",
+    "at": 1776800946745
+  },
+  {
+    "nameKey": "hospital rosaleda",
+    "cpPrefix": "15",
+    "nombreOriginal": "Hospital HM Rosaleda",
+    "rating": 2.5,
+    "numReviews": 795,
+    "placeId": "0xd2efe3eeea372bb:0xfc2dfece8a4f6b9",
+    "address": "Hospital HM Rosaleda (Santiago de Compostela), Rúa de Santiago León de Caracas, 1, 15701 Santiago de Compostela, A Coruña",
+    "at": 1776800946746
+  }
+]

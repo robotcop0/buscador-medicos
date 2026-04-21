@@ -5,6 +5,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 - `npm run dev` — Next.js dev server on :3000
+- `npm run dev:gmaps` — Python sidecar (localhost:8765) que envuelve el scraper de jinef-john para ratings+reseñas de Google Maps **on-demand solo para centros** (clínicas, hospitales, policlínicos, ambulatorios). Opcional — si no está arriba, las cards de centros simplemente no muestran rating Google. Requiere `pip install -r scripts/requirements.txt` y `git clone https://github.com/jinef-john/google-maps-scraper.git ../google-maps-scraper` (o `GMAPS_SCRAPER_PATH` apuntando al clone).
 - `npm run build` / `npm run start` — production build & serve
 - `npm run lint` — Next.js ESLint
 - `npm run scrape:adeslas` — pulls ~72k docs from Adeslas' public Elastic App Search into `data/adeslas-raw.json`. Flags: `--all` (adds MUFACE/ISFAS/Senior), `--limit=N` (debug).
@@ -24,7 +25,20 @@ Next.js 14 App Router + TypeScript + Tailwind. Two data paths converge at search
 No live LLM calls at query time — Claude/AI is reserved for a future result-presentation step (not scraping, not searching).
 
 ### Types (`lib/types.ts`)
-Single canonical `Doctor` type used everywhere (UI, search, scraper output, live clients). `telefono` and `distanceKm` are optional — scrapers/live clients populate `telefono`, `distanceKm` is computed per-query from CP.
+Single canonical `Doctor` type used everywhere (UI, search, scraper output, live clients). `telefono` and `distanceKm` are optional — scrapers/live clients populate `telefono`, `distanceKm` is computed per-query from CP. Los campos `googleRating`/`googleNumReviews`/`googlePlaceId`/`googleReviews` son raw de Google Maps (ver sección Google Maps abajo); `rating`/`numReviews` del Doctor son ya el **merge ponderado** Doctoralia+Google.
+
+### Google Maps (centros)
+Enriquecimiento **solo para centros** (regex `CENTER_RE` en `lib/center.ts`): clínicas, hospitales, policlínicos, ambulatorios. Para personas el scraper devuelve basura y no se usa. Flujo:
+
+1. **Sidecar Python** (`scripts/gmaps-sidecar.py`): proceso long-running en `127.0.0.1:8765` que reutiliza el `GoogleMapsScraper` de jinef-john (Python + `httpcloak` TLS-fingerprint Chrome146). Warmup una vez, después ~1–1.5 s/query. Endpoint `/search` cae a `get_place_details` cuando el listado devuelve `review_count=0` (respuesta variable de Google).
+2. **API routes**: `/api/google-rating?nombre=&cp=&ciudad=` devuelve `{ rating, numReviews, placeId, source }`, valida con `CENTER_RE` + filtro de relevancia por tokens (`lib/google-match.ts`) para evitar que "Santander" sea la respuesta para "Hospital Santander". `/api/google-reviews?placeId=&page=` devuelve reseñas paginadas.
+3. **Persistencia**: hits en `data/google-ratings.json` (TTL 7 días), reseñas en `data/google-reviews.json`. Cache mtime idéntico al patrón de `ratings-index.ts`.
+4. **Merge** (`lib/ratings-merge.ts`): si un centro tiene rating Doctoralia Y Google, `rating` final = media ponderada por `numReviews`.
+5. **Enriquecimiento SSR-blocking global** (`lib/google-live-enrich.ts`): `lib/search.ts`, tras el merge de Doctoralia+Google cacheado, llama a `enrichCentrosLive(allDoctors)` para **todos** los centros del listado (no solo la página actual) con concurrencia 8, timeout 8s/req, 15s global. Así el sort por rating es correcto a nivel global: no se pueden colar unrated en page 2 mientras hay rated en page 4. Centros que excedan el timeout global quedan unrated y en siguientes visitas vienen desde cache. Primera carga de query nueva con muchos centros: hasta ~15s; segundas visitas (cache hit): <1s.
+6. **Loading UI** (`app/resultados/loading.tsx`): streaming fallback de Next mientras el SSR bloquea. Muestra "Buscando tu mejor médico" + barra de progreso indeterminada (`.animate-progress-sweep` en `globals.css`).
+7. **Reseñas**: `GoogleReviewsSection.tsx` (`<details>` con paginación "Ver más", gemelo de `ReviewsSection` de Doctoralia) se monta en `DoctorCard` cuando el centro tiene `googlePlaceId`.
+
+**Deploy**: el sidecar es Python y vive en local. Vercel/serverless no encajan sin adaptar (no hay uso de deploy hoy).
 
 ### Search (`lib/doctorSearch.ts` → `lib/search.ts`)
 `findDoctors()` is the single entry point and is **async**. It delegates to `filterDoctors()` which:
