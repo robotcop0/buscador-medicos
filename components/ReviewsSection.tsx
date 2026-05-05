@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import type { DoctoraliaReview } from "@/lib/types";
+import { track } from "@/lib/analytics";
 
 type Props = {
   url: string;
@@ -57,6 +58,7 @@ export default function ReviewsSection({ url }: Props) {
     const isOpen = e.currentTarget.open;
     if (!isOpen || firstOpenRef.current) return;
     firstOpenRef.current = true;
+    track("reviews_expanded", { source: "doctoralia" });
     setStatus("loading");
     const data = await fetchPage(1);
     if (!data) {

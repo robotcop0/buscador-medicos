@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import type { GoogleReview } from "@/lib/types";
+import { track } from "@/lib/analytics";
 
 type Props = {
   placeId: string;
@@ -65,6 +66,7 @@ export default function GoogleReviewsSection({ placeId }: Props) {
     const isOpen = e.currentTarget.open;
     if (!isOpen || firstOpenRef.current) return;
     firstOpenRef.current = true;
+    track("reviews_expanded", { source: "google" });
     setStatus("loading");
     const data = await fetchPage(1);
     if (!data) {

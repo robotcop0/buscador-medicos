@@ -37,11 +37,16 @@ export default function DoctorCard({ doctor, searchCp }: Props) {
   const hasRating = doctor.rating > 0;
   // Preferimos enlace a Doctoralia cuando existe; si no, a Google Maps.
   const ratingLink = doctor.doctoraliaUrl
-    ? { href: doctor.doctoraliaUrl, title: "Ver perfil en Doctoralia" }
+    ? {
+        href: doctor.doctoraliaUrl,
+        title: "Ver perfil en Doctoralia",
+        source: "doctoralia" as const,
+      }
     : effectivePlaceId
     ? {
         href: `https://www.google.com/maps/place/?q=place_id:${effectivePlaceId}`,
         title: "Ver en Google Maps",
+        source: "google" as const,
       }
     : null;
 
@@ -108,7 +113,13 @@ export default function DoctorCard({ doctor, searchCp }: Props) {
         <div className="flex-shrink-0 text-right">
           {hasRating ? (
             ratingLink ? (
-              <a
+              <TrackedAnchor
+                event="click_rating_link"
+                eventProps={{
+                  source: ratingLink.source,
+                  especialidad: doctor.especialidad,
+                  is_center: isCenter,
+                }}
                 href={ratingLink.href}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -126,7 +137,7 @@ export default function DoctorCard({ doctor, searchCp }: Props) {
                     {doctor.numReviews.toLocaleString("es-ES")} reseñas
                   </p>
                 )}
-              </a>
+              </TrackedAnchor>
             ) : (
               <>
                 <div

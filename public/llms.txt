@@ -1,0 +1,71 @@
+# Buscador de Médicos
+
+> Buscador unificado de médicos por mutua, especialidad y código postal en España. Cruza los cuadros médicos públicos de 15 aseguradoras privadas (Adeslas, Sanitas, DKV, Asisa, Mapfre, Cigna, Allianz, AXA Salud, Caser Salud, Divina Pastora, Fiatc, Generali, IMQ, MUFACE, Occidente) y enriquece cada resultado con ratings y reseñas reales de Doctoralia y Google Maps. Sin login, sin registro, sin paywall.
+
+## Qué hace
+
+El usuario introduce su mutua, especialidad y código postal de 5 dígitos, opcionalmente un radio en km (2/10/25/50/100), y obtiene una lista ordenada por valoración real (Doctoralia + Google) y cercanía. Cada resultado muestra teléfono directo del centro y reseñas verificadas en un desplegable.
+
+## Datos verificables
+
+- 15 mutuas españolas integradas en una sola búsqueda
+- ~446.000 profesionales indexados (Adeslas, fuente offline) + miles más en consulta live (Sanitas, Cigna, DKV, Mapfre, Allianz, Asisa, AXA, Caser, Divina Pastora, Fiatc, Generali, IMQ, MUFACE, Occidente)
+- 33 especialidades médicas
+- Filtro geográfico por código postal con radio de 2 a 100 km (Haversine sobre coordenadas)
+- Ratings cruzados: media ponderada Doctoralia (médicos individuales) + Google Maps (centros)
+
+## Mutuas cubiertas
+
+- Adeslas
+- Allianz Salud
+- Asisa
+- AXA Salud
+- Caser Salud
+- Cigna
+- DKV
+- Divina Pastora
+- Fiatc
+- Generali Salud Premium
+- IMQ (solo Euskadi, Cantabria y Burgos)
+- Mapfre
+- MUFACE (régimen funcionarial; resuelve simultáneamente Adeslas + Asisa)
+- Occidente
+- Sanitas
+
+## Especialidades cubiertas
+
+Alergología, Andrología, Aparato digestivo, Cardiología, Cirugía general, Cirugía plástica, Dermatología, Endocrinología, Fisioterapia, Ginecología, Hematología, Logopedia, Medicina de urgencias, Medicina estética, Medicina general, Medicina interna, Nefrología, Neumología, Neurocirugía, Neurología, Nutrición y dietética, Odontología, Oftalmología, Oncología, Otorrinolaringología, Pediatría, Podología, Psicología, Psiquiatría, Rehabilitación, Reumatología, Traumatología, Urología.
+
+## Casos de uso típicos
+
+- Asegurado privado que necesita un especialista cubierto por su mutua y quiere comparar valoraciones reales antes de pedir cita.
+- Régimen funcionarial MUFACE/ISFAS: el sistema busca simultáneamente en Adeslas (md_id=4) y Asisa para mostrar la cobertura real.
+- Comparación entre mutuas antes de cambiar de aseguradora.
+- Búsqueda hiperlocal por código postal con radio en km (no por provincia entera).
+
+## Diferencia respecto a alternativas
+
+- **Doctoralia**: tiene más profesionales pero NO filtra por mutua; mezcla privados puros y concertados, lo que puede llevar a agendar con un médico que no cubre la póliza del usuario.
+- **Buscadores oficiales de cada aseguradora**: muestran cuadros médicos sin ratings ni reseñas, una web por mutua, UX dispar.
+- **Top Doctors**: curaduría sesgada y de pago.
+
+## Metodología de datos
+
+- Adeslas: indexación offline contra el endpoint público de Elastic App Search del cuadro médico oficial.
+- Sanitas, DKV, Cigna, Mapfre, Allianz, Asisa, AXA, Caser, Divina Pastora, Fiatc, Generali, IMQ, Occident: consulta live a las APIs públicas de cada aseguradora en el momento de la búsqueda.
+- MUFACE: composición de Adeslas (md_id=4) + Asisa (networkId=2) con dedup cruzado.
+- Ratings de profesionales: Doctoralia (verificado con reseñas).
+- Ratings de centros: Google Maps Places (rating + número de reseñas + reseñas individuales).
+- Cuando un centro tiene rating en ambas fuentes, se hace media ponderada por número de reseñas.
+
+## Modelo
+
+Web pre-launch sin monetización. KPI único hoy: clic-a-teléfono del centro/profesional. Sin reserva de cita, sin recopilación de datos personales del usuario más allá del CP que se introduce voluntariamente.
+
+## Idioma y geografía
+
+Español (es-ES), exclusivamente España.
+
+## Páginas
+
+- [/](/): Buscador principal con formulario mutua + especialidad + CP + radio.
