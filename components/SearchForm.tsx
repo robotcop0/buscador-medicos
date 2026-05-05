@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect, FormEvent, KeyboardEvent } from "react";
 import { useRouter } from "next/navigation";
 import { IMQ_COVERAGE_LABEL } from "@/lib/sources/imq";
+import { track } from "@/lib/analytics";
 
 const AVAILABLE_MUTUAS = ["Adeslas", "Allianz", "Asisa", "AXA Salud", "Caser Salud", "Cigna", "DKV", "Divina Pastora", "Fiatc", "Generali", "IMQ", "Mapfre", "MUFACE", "Occidente", "Sanitas"] as const;
 const COMING_SOON_MUTUAS = [] as const;
@@ -100,6 +101,12 @@ export default function SearchForm({
     if (especialidad) params.set("especialidad", especialidad);
     if (cp) params.set("cp", cp);
     if (cp && radio) params.set("radio", radio);
+    track("search_submitted", {
+      mutua: mutua || "(todas)",
+      especialidad,
+      provincia: cp ? cp.slice(0, 2) : "(none)",
+      radio: radio || "(none)",
+    });
     router.push(`/resultados?${params.toString()}`);
   }
 

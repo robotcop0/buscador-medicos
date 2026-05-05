@@ -75,7 +75,10 @@ def _json_response(handler: BaseHTTPRequestHandler, status: int, payload) -> Non
     handler.send_response(status)
     handler.send_header("Content-Type", "application/json; charset=utf-8")
     handler.send_header("Content-Length", str(len(body)))
-    handler.send_header("Access-Control-Allow-Origin", "*")
+    # Sin Access-Control-Allow-Origin: el único cliente legítimo es el
+    # proceso Next.js que llama server-to-server por loopback. No queremos
+    # que páginas web (víctimas con el sidecar arriba) puedan consultarlo
+    # desde el navegador.
     handler.end_headers()
     handler.wfile.write(body)
 
@@ -196,9 +199,13 @@ class SidecarHandler(BaseHTTPRequestHandler):
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--host", default="127.0.0.1")
     parser.add_argument("--port", type=int, default=8765)
     args = parser.parse_args()
+    # Bind hardcodeado a loopback. El sidecar es un wrapper local del proceso
+    # Next.js, no un servicio público: si se expone a Internet con --host
+    # 0.0.0.0 (típico copy-paste), cualquiera lo usa como motor de scraping
+    # de Google Maps con TLS-fingerprint Chrome. Eliminamos la flag.
+    host = "127.0.0.1"
 
     logging.basicConfig(
         level=logging.INFO,
@@ -209,8 +216,8 @@ def main() -> None:
     # la primera petición real no pague el coste del primer handshake.
     _get_scraper()
 
-    server = ThreadingHTTPServer((args.host, args.port), SidecarHandler)
-    logger.info("gmaps-sidecar escuchando en http://%s:%d", args.host, args.port)
+    server = ThreadingHTTPServer((host, args.port), SidecarHandler)
+    logger.info("gmaps-sidecar escuchando en http://%s:%d", host, args.port)
     try:
         server.serve_forever()
     except KeyboardInterrupt:

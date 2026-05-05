@@ -1,9 +1,14 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { findDoctors } from "@/lib/doctorSearch";
 import DoctorCard from "@/components/DoctorCard";
 import SearchForm from "@/components/SearchForm";
 import { imqCoversCp, IMQ_COVERAGE_LABEL } from "@/lib/sources/imq";
 import type { Doctor } from "@/lib/types";
+
+export const metadata: Metadata = {
+  robots: { index: false, follow: true },
+};
 
 type SearchParams = {
   mutua?: string;
@@ -14,6 +19,9 @@ type SearchParams = {
 };
 
 const PAGE_SIZE = 20;
+// Tope anti-scraping: nadie con un buscador legítimo necesita más de 200
+// resultados por consulta. Si los excede, la búsqueda está mal afinada.
+const MAX_PAGES = 10;
 
 export default async function ResultadosPage({
   searchParams,
@@ -23,28 +31,42 @@ export default async function ResultadosPage({
   const params = await searchParams;
   const mutua = params.mutua ?? "";
   const especialidad = params.especialidad ?? "";
-  const cp = params.cp ?? "";
+  const cpRaw = params.cp ?? "";
   const radio = params.radio ?? "";
   const maxKm = radio ? parseInt(radio, 10) : undefined;
   const page = Math.max(1, parseInt(params.page ?? "1", 10) || 1);
 
+  // Validación server-side: el CP debe ser exactamente 5 dígitos. Sin esta
+  // restricción el server devolvía datasets sin acotar geográficamente y un
+  // scraper podía iterar `?especialidad=X&page=N` para volcar todo Adeslas.
+  // Especialidad también es obligatoria (el cliente ya lo exige; aquí lo
+  // re-aseguramos para que un curl directo no se salte la regla).
+  const cpValid = /^\d{5}$/.test(cpRaw);
+  const cp = cpValid ? cpRaw : "";
+
   let pageResults: Doctor[] = [];
   let totalFound = 0;
   let totalPages = 0;
+  let totalPagesCapped = 0;
   let error: string | null = null;
 
-  try {
-    // `findDoctors` ya hace el enriquecimiento live de TODOS los centros
-    // (no solo los de la página) y ordena globalmente antes de devolver.
-    // Aquí nos limitamos a paginar.
-    const response = await findDoctors(mutua, especialidad, cp, maxKm);
-    totalFound = response.doctors.length;
-    totalPages = Math.max(1, Math.ceil(totalFound / PAGE_SIZE));
-    const clampedPage = Math.min(page, totalPages);
-    const start = (clampedPage - 1) * PAGE_SIZE;
-    pageResults = response.doctors.slice(start, start + PAGE_SIZE);
-  } catch (err) {
-    error = err instanceof Error ? err.message : "Error en la búsqueda";
+  if (!cpValid || !especialidad) {
+    error = "Indica especialidad y un código postal de 5 dígitos.";
+  } else {
+    try {
+      // `findDoctors` ya hace el enriquecimiento live de TODOS los centros
+      // (no solo los de la página) y ordena globalmente antes de devolver.
+      // Aquí nos limitamos a paginar.
+      const response = await findDoctors(mutua, especialidad, cp, maxKm);
+      totalFound = response.doctors.length;
+      totalPages = Math.max(1, Math.ceil(totalFound / PAGE_SIZE));
+      totalPagesCapped = Math.min(totalPages, MAX_PAGES);
+      const clampedPage = Math.min(page, totalPagesCapped);
+      const start = (clampedPage - 1) * PAGE_SIZE;
+      pageResults = response.doctors.slice(start, start + PAGE_SIZE);
+    } catch (err) {
+      error = err instanceof Error ? err.message : "Error en la búsqueda";
+    }
   }
 
   // Build pagination links preserving filters.
@@ -59,9 +81,12 @@ export default async function ResultadosPage({
     return q ? `/resultados?${q}` : "/resultados";
   }
 
-  const currentPage = Math.min(page, totalPages || 1);
-  const startItem = totalFound === 0 ? 0 : (currentPage - 1) * PAGE_SIZE + 1;
-  const endItem = Math.min(currentPage * PAGE_SIZE, totalFound);
+  const effectiveTotalPages = totalPagesCapped || totalPages;
+  const currentPage = Math.min(page, effectiveTotalPages || 1);
+  const visibleTotal = Math.min(totalFound, MAX_PAGES * PAGE_SIZE);
+  const startItem = visibleTotal === 0 ? 0 : (currentPage - 1) * PAGE_SIZE + 1;
+  const endItem = Math.min(currentPage * PAGE_SIZE, visibleTotal);
+  const truncated = totalFound > visibleTotal;
 
   // Aviso de cobertura: IMQ sólo opera en 5 provincias. Si el usuario filtra
   // IMQ con un CP fuera de esa zona, mostramos el porqué en vez de un empty
@@ -120,6 +145,9 @@ export default async function ResultadosPage({
               {totalFound > 0 && (
                 <p className="text-xs text-gray-400 mt-3">
                   Mostrando {startItem}–{endItem} · valorados primero, luego por cercanía
+                  {truncated && (
+                    <span className="ml-1 text-gray-500">· afina la búsqueda para ver más</span>
+                  )}
                 </p>
               )}
 
@@ -152,10 +180,10 @@ export default async function ResultadosPage({
                   ))}
                 </section>
 
-                {totalPages > 1 && (
+                {effectiveTotalPages > 1 && (
                   <Pagination
                     current={currentPage}
-                    total={totalPages}
+                    total={effectiveTotalPages}
                     hrefFor={pageHref}
                   />
                 )}

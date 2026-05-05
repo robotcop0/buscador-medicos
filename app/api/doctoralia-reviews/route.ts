@@ -27,6 +27,10 @@ const ALLOWED_PREFIX = "https://www.doctoralia.es/";
 const TTL_MS = 24 * 60 * 60 * 1000;
 const PAGE_SIZE = 10;
 const SEED_FILE = path.join(process.cwd(), "data", "doctoralia-reviews.json");
+// Tope de cache para evitar que un cliente con URLs únicas (`?bust=1`,
+// `?bust=2`, …) infle el Map indefinidamente. FIFO via insertion order de
+// Map: si nos pasamos, tiramos la entrada más antigua.
+const MAX_CACHE_ENTRIES = 5_000;
 
 type Entry = { reviews: Review[]; at: number; total?: number };
 const pageCache: Map<string, Entry> = new Map();
@@ -35,6 +39,14 @@ let seeded = false;
 
 function cacheKey(url: string, page: number): string {
   return `${url}::p${page}`;
+}
+
+function setPageCache(key: string, entry: Entry): void {
+  if (pageCache.size >= MAX_CACHE_ENTRIES) {
+    const oldest = pageCache.keys().next().value;
+    if (oldest !== undefined) pageCache.delete(oldest);
+  }
+  pageCache.set(key, entry);
 }
 
 function seedFromDisk(): void {
@@ -49,7 +61,7 @@ function seedFromDisk(): void {
     const at = Date.now();
     for (const [url, reviews] of Object.entries(raw)) {
       if (Array.isArray(reviews) && reviews.length > 0) {
-        pageCache.set(cacheKey(url, 1), { reviews, at });
+        setPageCache(cacheKey(url, 1), { reviews, at });
       }
     }
   } catch {
@@ -63,8 +75,7 @@ export async function GET(req: Request): Promise<Response> {
   const params = new URL(req.url).searchParams;
   const url = params.get("url");
   const pageParam = parseInt(params.get("page") ?? "1", 10);
-  const page = Number.isFinite(pageParam) && pageParam >= 1 ? pageParam : 1;
-  const refresh = params.get("refresh") === "1";
+  const page = Number.isFinite(pageParam) && pageParam >= 1 && pageParam <= 50 ? pageParam : 1;
 
   if (!url || !url.startsWith(ALLOWED_PREFIX)) {
     return NextResponse.json(
@@ -75,7 +86,7 @@ export async function GET(req: Request): Promise<Response> {
 
   const key = cacheKey(url, page);
   const cached = pageCache.get(key);
-  if (!refresh && cached && Date.now() - cached.at < TTL_MS) {
+  if (cached && Date.now() - cached.at < TTL_MS) {
     const total = cached.total ?? cached.reviews.length;
     return NextResponse.json(
       {
@@ -101,7 +112,7 @@ export async function GET(req: Request): Promise<Response> {
     const total = parseReviewTotal(html) ?? reviews.length;
     const doctorId = parseDoctorId(html);
     if (doctorId) doctorIdCache.set(url, doctorId);
-    pageCache.set(key, { reviews, at: Date.now(), total });
+    setPageCache(key, { reviews, at: Date.now(), total });
     return NextResponse.json(
       {
         reviews,
@@ -126,7 +137,7 @@ export async function GET(req: Request): Promise<Response> {
       if (!pageCache.has(cacheKey(url, 1))) {
         const reviews = parseReviews(html);
         const total = parseReviewTotal(html) ?? reviews.length;
-        pageCache.set(cacheKey(url, 1), { reviews, at: Date.now(), total });
+        setPageCache(cacheKey(url, 1), { reviews, at: Date.now(), total });
       }
     }
   }
@@ -146,7 +157,7 @@ export async function GET(req: Request): Promise<Response> {
     );
   }
 
-  pageCache.set(key, { reviews: res.reviews, at: Date.now(), total: res.total });
+  setPageCache(key, { reviews: res.reviews, at: Date.now(), total: res.total });
   return NextResponse.json(
     {
       reviews: res.reviews,

@@ -19,6 +19,7 @@ const TTL_MS = 24 * 60 * 60 * 1000;
 const PAGE_SIZE = 10;
 const SIDECAR_TIMEOUT_MS = 20_000;
 const REVIEWS_FILE = path.join(process.cwd(), "data", "google-reviews.json");
+const MAX_CACHE_ENTRIES = 5_000;
 
 type Entry = { reviews: GoogleReview[]; at: number; total?: number; nextCursor?: string };
 const pageCache: Map<string, Entry> = new Map();
@@ -26,6 +27,14 @@ let seeded = false;
 
 function cacheKey(placeId: string, page: number): string {
   return `${placeId}::p${page}`;
+}
+
+function setPageCache(key: string, entry: Entry): void {
+  if (pageCache.size >= MAX_CACHE_ENTRIES) {
+    const oldest = pageCache.keys().next().value;
+    if (oldest !== undefined) pageCache.delete(oldest);
+  }
+  pageCache.set(key, entry);
 }
 
 function seedFromDisk(): void {
@@ -40,7 +49,7 @@ function seedFromDisk(): void {
     const at = Date.now();
     for (const [placeId, reviews] of Object.entries(raw)) {
       if (Array.isArray(reviews) && reviews.length > 0) {
-        pageCache.set(cacheKey(placeId, 1), { reviews, at });
+        setPageCache(cacheKey(placeId, 1), { reviews, at });
       }
     }
   } catch {
@@ -68,10 +77,11 @@ export async function GET(req: Request): Promise<Response> {
   const params = new URL(req.url).searchParams;
   const placeId = (params.get("placeId") || "").trim();
   const pageParam = parseInt(params.get("page") ?? "1", 10);
-  const page = Number.isFinite(pageParam) && pageParam >= 1 ? pageParam : 1;
-  const refresh = params.get("refresh") === "1";
+  const page = Number.isFinite(pageParam) && pageParam >= 1 && pageParam <= 50 ? pageParam : 1;
 
-  if (!placeId || !placeId.startsWith("0x")) {
+  // El placeId real de Google Maps es un par hex `0x<hi>:0x<lo>`; aceptamos
+  // sólo ese formato para evitar que se metan strings arbitrarios al sidecar.
+  if (!placeId || !/^0x[0-9a-f]+(:0x[0-9a-f]+)?$/i.test(placeId)) {
     return NextResponse.json(
       { reviews: [], page, total: 0, hasMore: false, source: "miss", error: "invalid placeId" },
       { status: 400 }
@@ -80,7 +90,7 @@ export async function GET(req: Request): Promise<Response> {
 
   const key = cacheKey(placeId, page);
   const cached = pageCache.get(key);
-  if (!refresh && cached && Date.now() - cached.at < TTL_MS) {
+  if (cached && Date.now() - cached.at < TTL_MS) {
     const total = cached.total ?? cached.reviews.length;
     return NextResponse.json(
       {
@@ -162,7 +172,7 @@ export async function GET(req: Request): Promise<Response> {
   const total = data.total ?? reviews.length;
   const nextCursor = data.next_cursor || undefined;
 
-  pageCache.set(key, { reviews, at: Date.now(), total, nextCursor });
+  setPageCache(key, { reviews, at: Date.now(), total, nextCursor });
   if (page === 1 && reviews.length > 0) persistPage1(placeId, reviews);
 
   return NextResponse.json(

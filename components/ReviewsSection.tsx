@@ -5,16 +5,10 @@ import type { DoctoraliaReview } from "@/lib/types";
 
 type Props = {
   url: string;
-  initialReviews?: DoctoraliaReview[];
-  // Total de reseñas que Doctoralia reporta en el card del doctor. Permite
-  // saber a priori si el snapshot SSR ya las contiene todas y evitar
-  // mostrar "Ver más" cuando un clic no traería nada nuevo.
-  totalReviews?: number;
 };
 
-// Mostramos 3 de entrada; cada clic en "Ver más" revela otras 3. Cuando no
-// quedan reseñas cacheadas por mostrar, pedimos la siguiente página al backend
-// (10 por página, paginadas contra el XHR de Doctoralia).
+// 3 reseñas por click; cuando se agotan las cacheadas, paginamos al backend
+// (10 por página contra el XHR de Doctoralia).
 const VISIBLE_STEP = 3;
 
 function ReviewItem({ review }: { review: DoctoraliaReview }) {
@@ -43,33 +37,17 @@ type PageResponse = {
   hasMore: boolean;
 };
 
-export default function ReviewsSection({ url, initialReviews, totalReviews }: Props) {
-  const hasInitial = !!(initialReviews && initialReviews.length > 0);
-  // Si sabemos cuántas reseñas hay en total y el snapshot ya las contiene
-  // todas, el botón "Ver más" no tiene nada que revelar: evitamos el clic
-  // fantasma que solo sirve para confirmar con un fetch inútil.
-  const snapshotIsComplete =
-    hasInitial &&
-    typeof totalReviews === "number" &&
-    totalReviews > 0 &&
-    initialReviews!.length >= totalReviews;
-
-  const [reviews, setReviews] = useState<DoctoraliaReview[] | null>(
-    hasInitial ? initialReviews! : null
-  );
-  const [status, setStatus] = useState<Status>(hasInitial ? "loaded" : "idle");
+export default function ReviewsSection({ url }: Props) {
+  const [reviews, setReviews] = useState<DoctoraliaReview[] | null>(null);
+  const [status, setStatus] = useState<Status>("idle");
   const [visible, setVisible] = useState<number>(VISIBLE_STEP);
   const [loadingMore, setLoadingMore] = useState(false);
-  // `loadedPages = 0` significa que aún no hemos hablado con el backend: el
-  // snapshot SSR (`initialReviews`) no cuenta como página fetcheada. En la
-  // primera expansión haremos page=1 con refresh=1 para traer las 10 reales.
   const [loadedPages, setLoadedPages] = useState<number>(0);
-  // `true` = puede haber más (por defecto, hasta que el backend lo confirme).
-  const [hasMorePages, setHasMorePages] = useState<boolean>(!snapshotIsComplete);
+  const [hasMorePages, setHasMorePages] = useState<boolean>(true);
   const firstOpenRef = useRef(false);
 
-  async function fetchPage(page: number, refresh = false): Promise<PageResponse | null> {
-    const qs = `url=${encodeURIComponent(url)}&page=${page}${refresh ? "&refresh=1" : ""}`;
+  async function fetchPage(page: number): Promise<PageResponse | null> {
+    const qs = `url=${encodeURIComponent(url)}&page=${page}`;
     const res = await fetch(`/api/doctoralia-reviews?${qs}`);
     if (!res.ok) return null;
     return (await res.json()) as PageResponse;
@@ -79,7 +57,6 @@ export default function ReviewsSection({ url, initialReviews, totalReviews }: Pr
     const isOpen = e.currentTarget.open;
     if (!isOpen || firstOpenRef.current) return;
     firstOpenRef.current = true;
-    if (reviews !== null) return; // ya teníamos initialReviews
     setStatus("loading");
     const data = await fetchPage(1);
     if (!data) {
@@ -97,7 +74,6 @@ export default function ReviewsSection({ url, initialReviews, totalReviews }: Pr
   async function handleVerMas() {
     if (!reviews) return;
 
-    // Reseñas ya cacheadas pero aún no visibles: simplemente reveladas.
     if (visible < reviews.length) {
       setVisible(Math.min(visible + VISIBLE_STEP, reviews.length));
       return;
@@ -105,13 +81,9 @@ export default function ReviewsSection({ url, initialReviews, totalReviews }: Pr
 
     if (!hasMorePages) return;
 
-    // Si no hemos tocado el backend todavía (solo tenemos el snapshot SSR),
-    // la primera petición es page=1 con refresh=1; a partir de ahí paginamos.
-    const isFirstFetch = loadedPages === 0;
-    const nextPage = isFirstFetch ? 1 : loadedPages + 1;
-
+    const nextPage = loadedPages + 1;
     setLoadingMore(true);
-    const data = await fetchPage(nextPage, isFirstFetch);
+    const data = await fetchPage(nextPage);
     setLoadingMore(false);
 
     if (!data) {
@@ -119,7 +91,7 @@ export default function ReviewsSection({ url, initialReviews, totalReviews }: Pr
       return;
     }
 
-    const merged = isFirstFetch ? data.reviews : [...reviews, ...data.reviews];
+    const merged = [...reviews, ...data.reviews];
     setReviews(merged);
     setLoadedPages(nextPage);
     setHasMorePages(data.hasMore);

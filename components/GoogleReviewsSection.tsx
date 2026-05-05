@@ -5,7 +5,6 @@ import type { GoogleReview } from "@/lib/types";
 
 type Props = {
   placeId: string;
-  initialReviews?: GoogleReview[];
 };
 
 const VISIBLE_STEP = 3;
@@ -46,15 +45,12 @@ function ReviewItem({ review }: { review: GoogleReview }) {
   );
 }
 
-export default function GoogleReviewsSection({ placeId, initialReviews }: Props) {
-  const hasInitial = !!(initialReviews && initialReviews.length > 0);
-  const [reviews, setReviews] = useState<GoogleReview[] | null>(
-    hasInitial ? initialReviews! : null
-  );
-  const [status, setStatus] = useState<Status>(hasInitial ? "loaded" : "idle");
+export default function GoogleReviewsSection({ placeId }: Props) {
+  const [reviews, setReviews] = useState<GoogleReview[] | null>(null);
+  const [status, setStatus] = useState<Status>("idle");
   const [visible, setVisible] = useState<number>(VISIBLE_STEP);
   const [loadingMore, setLoadingMore] = useState(false);
-  const [loadedPages, setLoadedPages] = useState<number>(hasInitial ? 1 : 0);
+  const [loadedPages, setLoadedPages] = useState<number>(0);
   const [hasMorePages, setHasMorePages] = useState<boolean>(true);
   const firstOpenRef = useRef(false);
 
@@ -69,7 +65,6 @@ export default function GoogleReviewsSection({ placeId, initialReviews }: Props)
     const isOpen = e.currentTarget.open;
     if (!isOpen || firstOpenRef.current) return;
     firstOpenRef.current = true;
-    if (reviews !== null) return;
     setStatus("loading");
     const data = await fetchPage(1);
     if (!data) {

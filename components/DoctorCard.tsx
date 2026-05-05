@@ -1,6 +1,7 @@
 import type { Doctor } from "@/lib/types";
 import ReviewsSection from "@/components/ReviewsSection";
 import GoogleReviewsSection from "@/components/GoogleReviewsSection";
+import TrackedAnchor from "@/components/TrackedAnchor";
 import { CENTER_RE } from "@/lib/center";
 
 type Props = {
@@ -72,12 +73,20 @@ export default function DoctorCard({ doctor, searchCp }: Props) {
 
           {doctor.telefono && (
             <p className="mt-1">
-              <a
+              <TrackedAnchor
+                event="click_telefono"
+                eventProps={{
+                  especialidad: doctor.especialidad,
+                  mutuas: doctor.mutuas.join(",") || "(none)",
+                  is_center: isCenter,
+                  has_rating: hasRating,
+                  num_reviews: doctor.numReviews || 0,
+                }}
                 href={`tel:${doctor.telefono}`}
                 className="text-xs text-gray-500 hover:text-gray-900 transition-colors"
               >
                 {formatPhone(doctor.telefono)}
-              </a>
+              </TrackedAnchor>
             </p>
           )}
 
@@ -144,19 +153,15 @@ export default function DoctorCard({ doctor, searchCp }: Props) {
         </div>
       </div>
 
-      {doctor.doctoraliaUrl && (
-        <ReviewsSection
-          url={doctor.doctoraliaUrl}
-          initialReviews={doctor.doctoraliaReviews}
-          totalReviews={doctor.numReviews}
-        />
-      )}
-
+      {/* Reseñas: cargadas on-demand al abrir el <details>. NO se mandan en
+          el payload RSC inicial — antes shippeábamos `doctoraliaReviews` y
+          `googleReviews` de cada doctor de la página aunque el usuario nunca
+          abriera el desplegable, lo que multiplicaba el tamaño del HTML
+          renderizado y daba a un scraper acceso al snapshot completo de
+          reseñas con un solo GET. */}
+      {doctor.doctoraliaUrl && <ReviewsSection url={doctor.doctoraliaUrl} />}
       {isCenter && effectivePlaceId && (
-        <GoogleReviewsSection
-          placeId={effectivePlaceId}
-          initialReviews={doctor.googleReviews}
-        />
+        <GoogleReviewsSection placeId={effectivePlaceId} />
       )}
     </article>
   );
