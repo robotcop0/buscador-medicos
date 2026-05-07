@@ -1,5 +1,6 @@
 import Link from "next/link";
 import SearchForm from "@/components/SearchForm";
+import SiteFooter from "@/components/SiteFooter";
 import { MUTUAS, ESPECIALIDADES } from "@/lib/slugs";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
@@ -301,18 +302,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Footer ── */}
-      <footer className="px-4 sm:px-6 py-10 border-t border-gray-100">
-        <div className="w-full max-w-2xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-          <p className="text-[11px] text-gray-400">
-            Buscador de Médicos · datos de los cuadros médicos públicos de cada
-            mutua.
-          </p>
-          <p className="text-[11px] text-gray-400">
-            Hecho en España.
-          </p>
-        </div>
-      </footer>
+      <SiteFooter />
     </main>
   );
 }

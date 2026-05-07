@@ -2,11 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import SearchForm from "@/components/SearchForm";
+import SiteFooter from "@/components/SiteFooter";
 import { findMutuaBySlug, MUTUAS, ESPECIALIDADES } from "@/lib/slugs";
 import { findProvinciaBySlug, PROVINCIAS } from "@/lib/provincias";
 import {
   getMutuaProvinciaStats,
   provinciasConMutua,
+  combinacionesProvinciaEsp,
 } from "@/lib/programmatic";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
@@ -60,6 +62,16 @@ export default async function MutuaProvinciaPage({
   const otrasProvincias = PROVINCIAS.filter(
     (p) => p.slug !== provincia.slug,
   ).filter((p) => provinciasConMutua(mutua.nombre, MIN_N).includes(p.codigo));
+
+  // Especialidades viables en esta mutua×provincia (con nivel 3 disponible)
+  const especialidadesEnProvincia = combinacionesProvinciaEsp(
+    mutua.nombre,
+    ESPECIALIDADES.map((e) => e.nombre),
+    5,
+  )
+    .filter((c) => c.provCodigo === provincia.codigo)
+    .map((c) => ESPECIALIDADES.find((x) => x.nombre === c.especialidadNombre))
+    .filter((x): x is NonNullable<typeof x> => !!x);
 
   const faq = [
     {
@@ -286,10 +298,10 @@ export default async function MutuaProvinciaPage({
             {provincia.nombre}.
           </h2>
           <ul className="flex flex-wrap gap-2">
-            {ESPECIALIDADES.map((e) => (
+            {especialidadesEnProvincia.map((e) => (
               <li key={e.slug}>
                 <Link
-                  href={`/medicos/${e.slug}/${provincia.slug}`}
+                  href={`/cuadro-medico/${mutua.slug}/${provincia.slug}/${e.slug}`}
                   className="inline-block text-xs text-gray-700 bg-white border border-gray-200 rounded-full px-3 py-1 hover:border-gray-400 hover:text-gray-900 transition-colors"
                 >
                   {e.nombre}
@@ -363,21 +375,24 @@ export default async function MutuaProvinciaPage({
         </div>
       </section>
 
-      {/* ── Footer ── */}
-      <footer className="px-4 sm:px-6 py-10 border-t border-gray-100">
-        <div className="w-full max-w-2xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-          <p className="text-[11px] text-gray-400">
-            <Link href="/" className="hover:text-gray-700">Buscador de Médicos</Link>
+      <SiteFooter
+        breadcrumb={
+          <>
+            <Link href="/" className="hover:text-gray-700">
+              Buscador de Médicos
+            </Link>
             {" · "}
-            <Link href={`/cuadro-medico/${mutua.slug}`} className="hover:text-gray-700">
+            <Link
+              href={`/cuadro-medico/${mutua.slug}`}
+              className="hover:text-gray-700"
+            >
               {mutua.nombre}
             </Link>
             {" · "}
             {provincia.nombre}
-          </p>
-          <p className="text-[11px] text-gray-400">Hecho en España.</p>
-        </div>
-      </footer>
+          </>
+        }
+      />
     </main>
   );
 }

@@ -214,3 +214,89 @@ export function provinciasConEspecialidad(
     .filter(([, n]) => n >= minN)
     .map(([p]) => p);
 }
+
+/* ─── Nivel 3: mutua × provincia × especialidad ────────────────────── */
+
+export type MutuaProvinciaEspStats = {
+  total: number;
+  topCentros: {
+    nombre: string;
+    ciudad: string;
+    direccion: string;
+    rating: number;
+    numReviews: number;
+  }[];
+  topCiudades: { name: string; count: number }[];
+};
+
+export function getMutuaProvinciaEspStats(
+  mutuaNombre: string,
+  provCodigo: string,
+  especialidadNombre: string,
+): MutuaProvinciaEspStats | null {
+  const all = getAllDoctors();
+  const matches = all.filter(
+    (d) =>
+      d.mutuas.includes(mutuaNombre) &&
+      d.cp &&
+      d.cp.slice(0, 2) === provCodigo &&
+      matchesEspecialidad(d.especialidad, especialidadNombre),
+  );
+  if (matches.length === 0) return null;
+
+  const ciudades = new Map<string, number>();
+  for (const d of matches) {
+    if (d.ciudad) ciudades.set(d.ciudad, (ciudades.get(d.ciudad) ?? 0) + 1);
+  }
+
+  const topCentros = matches
+    .slice()
+    .sort((a, b) => {
+      if (b.rating !== a.rating) return b.rating - a.rating;
+      return (b.numReviews ?? 0) - (a.numReviews ?? 0);
+    })
+    .slice(0, 20)
+    .map((d) => ({
+      nombre: d.nombre,
+      ciudad: d.ciudad ?? "",
+      direccion: d.direccion ?? "",
+      rating: d.rating,
+      numReviews: d.numReviews ?? 0,
+    }));
+
+  return {
+    total: matches.length,
+    topCiudades: topN(ciudades, 10),
+    topCentros,
+  };
+}
+
+/** Devuelve (provCodigo, espNombre) viables para una mutua con dataset offline. */
+export function combinacionesProvinciaEsp(
+  mutuaNombre: string,
+  especialidades: string[],
+  minN = 5,
+): { provCodigo: string; especialidadNombre: string; total: number }[] {
+  const all = getAllDoctors();
+  const counts = new Map<string, { p: string; e: string; n: number }>();
+
+  for (const d of all) {
+    if (!d.mutuas.includes(mutuaNombre) || !d.cp) continue;
+    const p = d.cp.slice(0, 2);
+    for (const esp of especialidades) {
+      if (!matchesEspecialidad(d.especialidad, esp)) continue;
+      const key = `${esp}|${p}`;
+      const cur = counts.get(key);
+      if (cur) cur.n++;
+      else counts.set(key, { p, e: esp, n: 1 });
+    }
+  }
+
+  return Array.from(counts.values())
+    .filter((x) => x.n >= minN)
+    .map((x) => ({
+      provCodigo: x.p,
+      especialidadNombre: x.e,
+      total: x.n,
+    }));
+}

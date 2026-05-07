@@ -4,6 +4,7 @@ import { PROVINCIAS } from "@/lib/provincias";
 import {
   provinciasConMutua,
   provinciasConEspecialidad,
+  combinacionesProvinciaEsp,
 } from "@/lib/programmatic";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
@@ -19,6 +20,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
   ];
+
+  const legales = ["sobre", "aviso-legal", "privacidad", "cookies"].map(
+    (slug) => ({
+      url: `${SITE_URL}/${slug}`,
+      lastModified: now,
+      changeFrequency: "yearly" as const,
+      priority: 0.3,
+    }),
+  );
 
   const hubsMutua = MUTUAS.map((m) => ({
     url: `${SITE_URL}/cuadro-medico/${m.slug}`,
@@ -66,5 +76,34 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }),
   );
 
-  return [...home, ...hubsMutua, ...hubsEspecialidad, ...mutuaProvincia, ...espProvincia];
+  // Nivel 3: mutua × provincia × especialidad (solo Adeslas, N≥5)
+  const mutuaProvinciaEsp = MUTUAS.filter((m) => m.hasOfflineData).flatMap((m) =>
+    combinacionesProvinciaEsp(
+      m.nombre,
+      ESPECIALIDADES.map((e) => e.nombre),
+      5,
+    ).flatMap((c) => {
+      const prov = PROVINCIAS.find((x) => x.codigo === c.provCodigo);
+      const esp = ESPECIALIDADES.find((x) => x.nombre === c.especialidadNombre);
+      if (!prov || !esp) return [];
+      return [
+        {
+          url: `${SITE_URL}/cuadro-medico/${m.slug}/${prov.slug}/${esp.slug}`,
+          lastModified: now,
+          changeFrequency: "weekly" as const,
+          priority: 0.5,
+        },
+      ];
+    }),
+  );
+
+  return [
+    ...home,
+    ...legales,
+    ...hubsMutua,
+    ...hubsEspecialidad,
+    ...mutuaProvincia,
+    ...espProvincia,
+    ...mutuaProvinciaEsp,
+  ];
 }

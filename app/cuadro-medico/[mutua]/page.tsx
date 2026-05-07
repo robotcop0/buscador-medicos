@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import SearchForm from "@/components/SearchForm";
+import SiteFooter from "@/components/SiteFooter";
 import { MUTUAS, ESPECIALIDADES, findMutuaBySlug } from "@/lib/slugs";
 import { getMutuaStats } from "@/lib/programmatic";
 
@@ -313,18 +314,16 @@ export default async function CuadroMedicoPage({
         </div>
       </section>
 
-      {/* ── Footer ── */}
-      <footer className="px-4 sm:px-6 py-10 border-t border-gray-100">
-        <div className="w-full max-w-2xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-          <p className="text-[11px] text-gray-400">
+      <SiteFooter
+        breadcrumb={
+          <>
             <Link href="/" className="hover:text-gray-700">
               Buscador de Médicos
             </Link>{" "}
             · datos del cuadro médico público de {mutua.nombre}.
-          </p>
-          <p className="text-[11px] text-gray-400">Hecho en España.</p>
-        </div>
-      </footer>
+          </>
+        }
+      />
     </main>
   );
 }
