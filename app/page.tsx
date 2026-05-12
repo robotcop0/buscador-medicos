@@ -1,5 +1,4 @@
 import Link from "next/link";
-import SearchForm from "@/components/SearchForm";
 import ChatWidget from "@/components/ChatWidget";
 import SiteFooter from "@/components/SiteFooter";
 import { MUTUAS, ESPECIALIDADES } from "@/lib/slugs";
@@ -107,22 +106,21 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      {/* ── Hero + buscador (primer fold) ── */}
-      <section className="min-h-screen flex flex-col justify-center px-4 sm:px-6 py-12 sm:py-20 md:py-24">
-        <div className="w-full max-w-2xl mx-auto">
-          <div className="flex items-baseline justify-between mb-8 sm:mb-12">
+      {/* ── Hero + chat (primer fold) ── */}
+      <section className="px-4 sm:px-6 pt-8 sm:pt-12 pb-16 sm:pb-24">
+        <div className="w-full max-w-4xl mx-auto">
+          <div className="flex items-baseline justify-between mb-6 sm:mb-8">
             <p className="text-xs tracking-widest text-gray-400 uppercase">
               Buscador de Médicos
             </p>
-            <Link
-              href="/blog"
-              className="text-xs tracking-widest text-gray-400 uppercase hover:text-gray-600 transition-colors"
-            >
-              Blog
-            </Link>
+            <nav className="flex gap-4 text-xs tracking-widest text-gray-400 uppercase">
+              <Link href="/blog" className="hover:text-gray-600 transition-colors">
+                Blog
+              </Link>
+            </nav>
           </div>
 
-          <header className="mb-8 sm:mb-10">
+          <header className="mb-5 sm:mb-7">
             <h1 className="text-3xl sm:text-4xl md:text-5xl leading-tight tracking-tight text-gray-900">
               <span className="font-light">Encuentra </span>
               <span className="font-bold">tu mejor médico.</span>
@@ -132,14 +130,13 @@ export default function Home() {
             </p>
           </header>
 
-          <SearchForm />
           <ChatWidget />
         </div>
       </section>
 
       {/* ── Qué es ── */}
       <section className="px-4 sm:px-6 py-16 sm:py-24 border-t border-gray-100">
-        <div className="w-full max-w-2xl mx-auto">
+        <div className="w-full max-w-4xl mx-auto">
           <p className="text-[10px] tracking-widest text-gray-400 uppercase mb-4">
             Qué es
           </p>
@@ -177,7 +174,7 @@ export default function Home() {
 
       {/* ── Mutuas cubiertas ── */}
       <section className="px-4 sm:px-6 py-16 sm:py-24 border-t border-gray-100">
-        <div className="w-full max-w-2xl mx-auto">
+        <div className="w-full max-w-4xl mx-auto">
           <p className="text-[10px] tracking-widest text-gray-400 uppercase mb-4">
             Mutuas cubiertas
           </p>
@@ -212,7 +209,7 @@ export default function Home() {
 
       {/* ── Especialidades ── */}
       <section className="px-4 sm:px-6 py-16 sm:py-24 border-t border-gray-100">
-        <div className="w-full max-w-2xl mx-auto">
+        <div className="w-full max-w-4xl mx-auto">
           <p className="text-[10px] tracking-widest text-gray-400 uppercase mb-4">
             Especialidades médicas
           </p>
@@ -240,7 +237,7 @@ export default function Home() {
 
       {/* ── Cómo funciona ── */}
       <section className="px-4 sm:px-6 py-16 sm:py-24 border-t border-gray-100">
-        <div className="w-full max-w-2xl mx-auto">
+        <div className="w-full max-w-4xl mx-auto">
           <p className="text-[10px] tracking-widest text-gray-400 uppercase mb-4">
             Cómo funciona
           </p>
@@ -281,7 +278,7 @@ export default function Home() {
 
       {/* ── FAQ ── */}
       <section className="px-4 sm:px-6 py-16 sm:py-24 border-t border-gray-100">
-        <div className="w-full max-w-2xl mx-auto">
+        <div className="w-full max-w-4xl mx-auto">
           <p className="text-[10px] tracking-widest text-gray-400 uppercase mb-4">
             Preguntas frecuentes
           </p>

@@ -112,6 +112,18 @@ export async function POST(req: Request): Promise<Response> {
         messages: convo,
       });
 
+      if (process.env.NODE_ENV !== "production") {
+        const u = response.usage;
+        // Si `cacheRead` sigue a 0 en peticiones repetidas seguidas, el prefijo (tools+system)
+        // no llega al mínimo cacheable de Haiku 4.5 (~4096 tok): hay que alargar el system prompt.
+        console.log("[chat]", {
+          in: u.input_tokens,
+          cacheWrite: u.cache_creation_input_tokens ?? 0,
+          cacheRead: u.cache_read_input_tokens ?? 0,
+          out: u.output_tokens,
+        });
+      }
+
       const text = extractText(response.content);
       const toolUses = response.content.filter(
         (b): b is Anthropic.Messages.ToolUseBlock => b.type === "tool_use",

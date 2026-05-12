@@ -118,11 +118,10 @@ export async function buscarMedicos(rawInput: unknown): Promise<string> {
     });
   }
 
-  // Si hemos resuelto el CP a partir de la ciudad, no aplicamos radio (buscamos a nivel provincia).
-  const radioKm =
-    !ciudadResuelta && typeof input.radio_km === "number" && input.radio_km > 0
-      ? input.radio_km
-      : undefined;
+  // Radio en km si se ha indicado (>0). Funciona también con el CP resuelto desde una
+  // ciudad: el filtro es Haversine desde ese CP. Si no hay radio, `findDoctors` cae a
+  // match por provincia (cp.slice(0,2)).
+  const radioKm = typeof input.radio_km === "number" && input.radio_km > 0 ? input.radio_km : undefined;
 
   let doctorList;
   try {
@@ -152,7 +151,7 @@ export async function buscarMedicos(rawInput: unknown): Promise<string> {
   if (mutua) params.set("mutua", mutua);
   params.set("especialidad", especialidad);
   params.set("cp", cp);
-  if (!ciudadResuelta && radioKm) params.set("radio", String(radioKm));
+  if (radioKm) params.set("radio", String(radioKm));
 
   return JSON.stringify({
     totalFound: doctorList.length,
