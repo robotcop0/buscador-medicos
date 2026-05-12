@@ -1,5 +1,6 @@
 import Link from "next/link";
 import SearchForm from "@/components/SearchForm";
+import ChatWidget from "@/components/ChatWidget";
 import SiteFooter from "@/components/SiteFooter";
 import { MUTUAS, ESPECIALIDADES } from "@/lib/slugs";
 
@@ -109,9 +110,17 @@ export default function Home() {
       {/* ── Hero + buscador (primer fold) ── */}
       <section className="min-h-screen flex flex-col justify-center px-4 sm:px-6 py-12 sm:py-20 md:py-24">
         <div className="w-full max-w-2xl mx-auto">
-          <p className="text-xs tracking-widest text-gray-400 uppercase mb-8 sm:mb-12">
-            Buscador de Médicos
-          </p>
+          <div className="flex items-baseline justify-between mb-8 sm:mb-12">
+            <p className="text-xs tracking-widest text-gray-400 uppercase">
+              Buscador de Médicos
+            </p>
+            <Link
+              href="/blog"
+              className="text-xs tracking-widest text-gray-400 uppercase hover:text-gray-600 transition-colors"
+            >
+              Blog
+            </Link>
+          </div>
 
           <header className="mb-8 sm:mb-10">
             <h1 className="text-3xl sm:text-4xl md:text-5xl leading-tight tracking-tight text-gray-900">
@@ -124,6 +133,7 @@ export default function Home() {
           </header>
 
           <SearchForm />
+          <ChatWidget />
         </div>
       </section>
 
