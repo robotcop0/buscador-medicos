@@ -190,7 +190,7 @@ export default function ChatWidget() {
       {open && (
         <div className="mt-2 rounded-2xl border border-gray-200 bg-white overflow-hidden animate-fade-up">
           {/* Mensajes */}
-          <div ref={scrollRef} className="max-h-[26rem] overflow-y-auto px-4 py-4 space-y-3">
+          <div ref={scrollRef} className="min-h-[22rem] max-h-[65vh] sm:max-h-[38rem] overflow-y-auto px-4 py-4 space-y-3">
             {display.map((it, idx) => {
               if (it.kind === "user") {
                 return (
