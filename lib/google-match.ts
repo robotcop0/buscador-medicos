@@ -1,8 +1,9 @@
 /**
- * Filtro de relevancia compartido entre `/api/google-rating/route.ts` y
- * `lib/google-live-enrich.ts`. Protege contra resultados irrelevantes del
- * scraper de Google (p.ej. devolver "Santander" para "Hospital Santander":
- * misma palabra de ciudad, pero el resultado no es el hospital).
+ * Filtro de relevancia usado por `/api/google-rating/route.ts` — la ruta que
+ * `components/ResultsList.tsx` consulta on-demand. Protege contra resultados
+ * irrelevantes del scraper de Google (p.ej. devolver "Santander" para
+ * "Hospital Santander": misma palabra de ciudad, pero el resultado no es el
+ * hospital).
  *
  * Regla: al menos 1 token significativo en común entre el nombre buscado
  * y el resultado, descartando stop-words genéricas (centro, clínica,

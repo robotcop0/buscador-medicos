@@ -18,7 +18,6 @@ import { enrichWithDoctoralia } from "@/lib/ratings-index";
 import { enrichWithGoogle } from "@/lib/google-ratings-index";
 import { mergeRatings } from "@/lib/ratings-merge";
 import { sortByRating } from "@/lib/ratings-sort";
-import { enrichCentrosLive } from "@/lib/google-live-enrich";
 import type { Doctor } from "@/lib/types";
 
 function normalize(s: string): string {
@@ -134,19 +133,8 @@ export async function filterDoctors(
     .map(enrichWithGoogle)
     .map(mergeRatings);
 
-  // Enriquecimiento live de TODOS los centros sin rating cacheado (no solo
-  // los de la página actual). Necesario para que el sort global respete
-  // orden por rating merged: si live-enrichamos solo una página, centros
-  // rated aparecen tanto arriba como abajo y el usuario ve pages vacías
-  // intercaladas. Concurrencia 8, timeout global 10 s: centros que no
-  // respondan en ese presupuesto quedan "unrated" y van al final del
-  // listado (consistente con el split rated/unrated); en siguientes
-  // visitas se sirven desde cache persistente y esta etapa es <100 ms.
-  const liveEnriched = await enrichCentrosLive(enriched, {
-    concurrency: 8,
-    perRequestTimeoutMs: 8_000,
-    globalTimeoutMs: 10_000,
-  });
-
-  return sortByRating(liveEnriched);
+  // Los ratings de Google de los centros que falten se resuelven on-demand
+  // desde el cliente (`components/ResultsList.tsx` → `/api/google-rating`).
+  // Aquí solo ordenamos con lo que haya cacheado en `data/google-ratings.json`.
+  return sortByRating(enriched);
 }
