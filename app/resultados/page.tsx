@@ -171,7 +171,16 @@ export default async function ResultadosPage({
             {/* Results */}
             {pageResults.length > 0 ? (
               <>
-                <ResultsList doctors={pageResults} searchCp={cp} />
+                {/* `key` fuerza el remontaje de ResultsList cuando cambia la
+                    búsqueda o la página: ResultsList guarda el listado en
+                    estado (para el enriquecimiento on-demand), así que sin
+                    esto seguiría mostrando los doctores de la navegación
+                    anterior tras un cambio de filtro/paginación. */}
+                <ResultsList
+                  key={`${mutua}|${especialidad}|${cp}|${radio}|${currentPage}`}
+                  doctors={pageResults}
+                  searchCp={cp}
+                />
 
                 {effectiveTotalPages > 1 && (
                   <Pagination

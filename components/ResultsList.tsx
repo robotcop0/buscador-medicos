@@ -18,6 +18,11 @@
  * el prior bayesiano sobre esas 20 → el color de algún pill puede variar de
  * forma casi imperceptible. En la segunda visita todo está cacheado y el SSR
  * lo coloca/colorea bien a nivel global.
+ *
+ * El listado vive en `useState` (lo necesita para ir rellenando ratings), así
+ * que el padre (`app/resultados/page.tsx`) DEBE pasar un `key` que cambie con
+ * la búsqueda/página; si no, tras navegar (cambiar radio, paginar…) este
+ * componente seguiría mostrando los doctores anteriores.
  */
 import { useEffect, useState } from "react";
 import type { Doctor } from "@/lib/types";

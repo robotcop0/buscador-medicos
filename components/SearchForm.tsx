@@ -89,6 +89,15 @@ export default function SearchForm({
     if (clean.length < 5) setRadio("");
   }
 
+  function buildSearchUrl(radioValue: string): string {
+    const params = new URLSearchParams();
+    if (mutua) params.set("mutua", mutua);
+    if (especialidad) params.set("especialidad", especialidad);
+    if (cp) params.set("cp", cp);
+    if (cp && radioValue) params.set("radio", radioValue);
+    return `/resultados?${params.toString()}`;
+  }
+
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
     if (cp && cp.length !== 5) {
@@ -96,18 +105,31 @@ export default function SearchForm({
       return;
     }
     if (!especialidad) return;
-    const params = new URLSearchParams();
-    if (mutua) params.set("mutua", mutua);
-    if (especialidad) params.set("especialidad", especialidad);
-    if (cp) params.set("cp", cp);
-    if (cp && radio) params.set("radio", radio);
     track("search_submitted", {
       mutua: mutua || "(todas)",
       especialidad,
       provincia: cp ? cp.slice(0, 2) : "(none)",
       radio: radio || "(none)",
     });
-    router.push(`/resultados?${params.toString()}`);
+    router.push(buildSearchUrl(radio));
+  }
+
+  // En modo compacto (página de resultados) el formulario es "editar la
+  // búsqueda actual": cambiar el radio debe re-buscar al momento, sin tener
+  // que volver a pulsar "Buscar". En la home (no compact) solo actualizamos el
+  // estado local — allí el flujo es elegir y luego enviar.
+  function applyRadio(value: string) {
+    const next = radio === value ? "" : value;
+    setRadio(next);
+    if (compact && cp.length === 5 && especialidad) {
+      track("search_radio_changed", {
+        mutua: mutua || "(todas)",
+        especialidad,
+        provincia: cp.slice(0, 2),
+        radio: next || "(none)",
+      });
+      router.push(buildSearchUrl(next));
+    }
   }
 
   const cpComplete = cp.length === 5;
@@ -194,7 +216,7 @@ export default function SearchForm({
                 <button
                   key={value}
                   type="button"
-                  onClick={() => setRadio(radio === value ? "" : value)}
+                  onClick={() => applyRadio(value)}
                   className={`px-3 py-1 text-xs rounded-full border transition-all focus:outline-none ${
                     radio === value
                       ? "bg-gray-900 text-white border-gray-900"
@@ -208,7 +230,7 @@ export default function SearchForm({
               {radio && (
                 <button
                   type="button"
-                  onClick={() => setRadio("")}
+                  onClick={() => applyRadio(radio)}
                   className="px-3 py-1 text-xs text-gray-400 hover:text-gray-600"
                 >
                   Quitar
@@ -268,7 +290,7 @@ export default function SearchForm({
                 <button
                   key={value}
                   type="button"
-                  onClick={() => setRadio(radio === value ? "" : value)}
+                  onClick={() => applyRadio(value)}
                   className={`px-3 py-1.5 text-xs rounded-full border transition-all ${
                     radio === value
                       ? "bg-gray-900 text-white border-gray-900"
