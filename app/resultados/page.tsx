@@ -22,6 +22,9 @@ const PAGE_SIZE = 20;
 // Tope anti-scraping: nadie con un buscador legítimo necesita más de 200
 // resultados por consulta. Si los excede, la búsqueda está mal afinada.
 const MAX_PAGES = 10;
+// Por debajo de esto, si hay un radio activo, sugerimos ampliarlo (simétrico
+// al aviso de "afina la búsqueda" cuando hay demasiados).
+const FEW_RESULTS_HINT = 8;
 
 export default async function ResultadosPage({
   searchParams,
@@ -147,6 +150,9 @@ export default async function ResultadosPage({
                   Mostrando {startItem}–{endItem} · valorados primero, luego por cercanía
                   {truncated && (
                     <span className="ml-1 text-gray-500">· afina la búsqueda para ver más</span>
+                  )}
+                  {!truncated && !!radio && totalFound < FEW_RESULTS_HINT && (
+                    <span className="ml-1 text-gray-500">· amplía el radio para ver más médicos (y más valoraciones)</span>
                   )}
                 </p>
               )}
