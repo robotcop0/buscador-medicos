@@ -19,7 +19,9 @@
     "@anthropic-ai/sdk": "^0.88.0",
     "next": "^16.2.3",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-markdown": "^10.1.0",
+    "remark-gfm": "^4.0.1"
   },
   "devDependencies": {
     "@types/cheerio": "^0.22.35",
