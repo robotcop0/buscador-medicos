@@ -66,7 +66,11 @@ def _get_scraper():
     from scraper import GoogleMapsScraper  # type: ignore
 
     _SCRAPER = GoogleMapsScraper(lang="es", gl="es")
-    logger.info("Scraper inicializado (lang=es, gl=es, path=%s)", scraper_dir)
+    # Crea el cliente httpcloak y hace el warmup TLS. Sin esto, search() /
+    # get_place_details() / get_reviews() lanzan RuntimeError("Scraper not
+    # started") (la API del scraper de jinef-john pasó a exigir start()).
+    _SCRAPER.start()
+    logger.info("Scraper inicializado y arrancado (lang=es, gl=es, path=%s)", scraper_dir)
     return _SCRAPER
 
 
@@ -105,19 +109,29 @@ def _handle_search(handler: BaseHTTPRequestHandler, params: dict) -> None:
     top = results[0]
     rating = float(top.get("rating", 0) or 0)
     review_count = int(top.get("review_count", 0) or 0)
+    place_id = top.get("place_id", "") or ""
 
-    # La vista de lista de Google a veces devuelve rating pero review_count=0.
-    # Cuando pasa, tiramos de get_place_details para rellenar. Cuesta +1
-    # request (~0.5 s) y solo se paga en el miss.
-    if rating > 0 and review_count == 0 and top.get("place_id"):
+    # La vista de lista de Google es errática: a veces devuelve rating sin
+    # review_count, a veces ninguno de los dos. Si falta cualquiera de los dos
+    # tiramos de la ficha del sitio (get_place) para rellenar. Cuesta +1
+    # request (~1 s) y solo se paga cuando el listado vino incompleto.
+    if place_id and (review_count == 0 or rating == 0):
         try:
-            details = _get_scraper().get_place_details(top["place_id"])
-            if details and getattr(details, "review_count", 0):
-                review_count = int(details.review_count)
-                if not rating and getattr(details, "rating", 0):
-                    rating = float(details.rating)
+            details = _get_scraper().get_place(
+                place_id,
+                lat=float(top.get("lat", 0.0) or 0.0),
+                lng=float(top.get("lng", 0.0) or 0.0),
+                query=q,
+            )
+            if details:
+                d_rc = int(getattr(details, "review_count", 0) or 0)
+                d_r = float(getattr(details, "rating", 0.0) or 0.0)
+                if d_rc:
+                    review_count = d_rc
+                if d_r:
+                    rating = d_r
         except Exception as e:
-            logger.warning("place_details fallback failed: %s", e)
+            logger.warning("get_place fallback failed: %s", e)
 
     _json_response(
         handler,

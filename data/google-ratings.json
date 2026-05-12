@@ -2578,5 +2578,45 @@
     "placeId": "0xd2efe3eeea372bb:0xfc2dfece8a4f6b9",
     "address": "Hospital HM Rosaleda (Santiago de Compostela), Rúa de Santiago León de Caracas, 1, 15701 Santiago de Compostela, A Coruña",
     "at": 1776800946746
+  },
+  {
+    "nameKey": "centre granollers medic",
+    "cpPrefix": "08",
+    "nombreOriginal": "Centre Medic Granollers",
+    "rating": 2,
+    "numReviews": 199,
+    "placeId": "0x12a4c7c63ec26005:0x65c005effbcf30b5",
+    "address": "Centre Mèdic Granollers, Plaça de l'Església, 9, 3ª planta, 08401 Granollers, Barcelona",
+    "at": 1778612461114
+  },
+  {
+    "nameKey": "activita centre medic",
+    "cpPrefix": "08",
+    "nombreOriginal": "Centre Medic Activita",
+    "rating": 2.6,
+    "numReviews": 365,
+    "placeId": "0x12a4c7ce7e84cbe1:0x65a3d2582dbf5613",
+    "address": "Activita Centre Mèdic, Carrer de Joan Prim, 136, 146, 08402 Granollers, Barcelona",
+    "at": 1778612461345
+  },
+  {
+    "nameKey": "centre granollers medic medical valban",
+    "cpPrefix": "08",
+    "nombreOriginal": "EV Medical Granollers (centre Medic Valban)",
+    "rating": 2.1,
+    "numReviews": 7,
+    "placeId": "0x12a4c7c8daf3ffff:0xfeb5b6e8aa82d2a2",
+    "address": "Centre Mèdic Vallban, Carrer de Josep Torras I Bages, 31, 08401 Granollers, Barcelona",
+    "at": 1778612461820
+  },
+  {
+    "nameKey": "centro especialidades granollers medicas",
+    "cpPrefix": "08",
+    "nombreOriginal": "Centro Especialidades Medicas Granollers",
+    "rating": 2.5,
+    "numReviews": 10,
+    "placeId": "0x12a4c7c251630e2d:0xee40ac67bc0b0e32",
+    "address": "CENTRO DE ESPECIALIDADES MEDICAS GRANOLLERS, S.L., Carrer de Mariano Álvarez de Castro, 41, 08402 Granollers, Barcelona",
+    "at": 1778612462796
   }
 ]
