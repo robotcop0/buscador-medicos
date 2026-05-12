@@ -8,6 +8,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `npm run dev:gmaps` — Python sidecar (localhost:8765) que envuelve el scraper de jinef-john para ratings+reseñas de Google Maps **on-demand solo para centros** (clínicas, hospitales, policlínicos, ambulatorios). Opcional — si no está arriba, las cards de centros simplemente no muestran rating Google. Requiere `pip install -r scripts/requirements.txt` y `git clone https://github.com/jinef-john/google-maps-scraper.git ../google-maps-scraper` (o `GMAPS_SCRAPER_PATH` apuntando al clone).
 - `npm run build` / `npm run start` — production build & serve
 - `npm run lint` — Next.js ESLint
+- `ANTHROPIC_API_KEY` (variable de entorno en `.env.local`, ver `.env.example`) — habilita el chatbot de la home (`/api/chat`, modelo `claude-haiku-4-5`). **Opcional**: sin ella el route responde con un error controlado y el resto de la web (buscador clásico incluido) sigue funcionando. La key vive solo en el servidor; nunca llega al bundle de cliente.
 - `npm run scrape:adeslas` — pulls ~72k docs from Adeslas' public Elastic App Search into `data/adeslas-raw.json`. Flags: `--all` (adds MUFACE/ISFAS/Senior), `--limit=N` (debug).
 - `npm run scrape:occident` — optional offline scrape of Occident (not wired into UI; the UI hits Occident live).
 - `npx tsx scraper/build-doctors.ts` — converts raw JSONs → `data/doctors.json` (consumed by UI) + shim `data/doctors.ts`.
@@ -39,6 +40,19 @@ Enriquecimiento **solo para centros** (regex `CENTER_RE` en `lib/center.ts`): cl
 7. **Reseñas**: `GoogleReviewsSection.tsx` (`<details>` con paginación "Ver más", gemelo de `ReviewsSection` de Doctoralia) se monta en `DoctorCard` cuando el centro tiene `googlePlaceId`.
 
 **Deploy**: el sidecar es Python y vive en local. Vercel/serverless no encajan sin adaptar (no hay uso de deploy hoy).
+
+### Chatbot asistente (home)
+Una "ventanita" de chat plegable en `app/page.tsx`, montada justo debajo de `<SearchForm />` en el hero (`components/ChatWidget.tsx`). El usuario pregunta en lenguaje natural ("el mejor cardiólogo de Adeslas cerca del 28013"); el bot pide los datos que falten con **botones (chips)** y devuelve un top 3–5 de médicos en Markdown + enlace a `/resultados` con los filtros ya aplicados. Es opcional: sin `ANTHROPIC_API_KEY` el widget muestra "asistente no disponible" y nada más se rompe.
+
+1. **Route `app/api/chat/route.ts`** (`POST`, `runtime = "nodejs"`, `dynamic = "force-dynamic"`): bucle agéntico **manual** sobre `@anthropic-ai/sdk` (modelo `claude-haiku-4-5`, `max_tokens` 2048, sin `thinking`/`effort` — Haiku no los acepta). `system` cacheado con `cache_control: ephemeral`. Recibe `{ messages: ChatMessage[] }`, devuelve `ChatApiResponse`. Rate-limit best-effort en memoria por IP (20 msgs / 10 min) y tope de longitud de conversación (24 turnos). Errores de la API se mapean con las clases tipadas (`Anthropic.RateLimitError`, `Anthropic.APIError`).
+2. **Tools (`lib/chatbot/tools.ts`)**:
+   - `buscar_medicos` — envuelve `findDoctors(mutua, especialidad, cp, radio_km)`. Si llega `ciudad` sin `cp`, resuelve un CP representativo con `lib/chatbot/city-lookup.ts` (ciudad→CP más frecuente en `data/doctors`) y busca a nivel provincia. Devuelve JSON con `totalFound`, los `top` 5 (nombre, especialidad, dirección, ciudad, valoración=`rankScore`, nº reseñas, distancia, teléfono) y `resultadosUrl`.
+   - `solicitar_seleccion` — pausa el bucle: el route devuelve un `pendingSelection` al cliente; `ChatWidget` lo pinta como chips (+ "Otro…" libre si `permite_personalizado`); la elección del usuario vuelve como `tool_result` referenciando ese `tool_use_id` y el bucle continúa. Mismo mecanismo para mutua, especialidad, ubicación y radio.
+3. **System prompt** (`lib/chatbot/system-prompt.ts`) + **catálogo** (`lib/chatbot/catalog.ts`, espejo de las listas de `SearchForm`): reglas de "no buscar sin mutua+especialidad+ubicación", "pedir lo que falta de uno en uno", "para el radio ofrecer siempre 2/10/25/50/100 km + Toda la provincia + custom", "no inventar médicos", formato Markdown del resultado, y disclaimer de que no reserva citas.
+4. **Cliente (`components/ChatWidget.tsx`)**: client component. Mantiene dos arrays — `apiMessages` (lo exacto que va/viene de `/api/chat`) y `display` (lo que se renderiza) — persistidos en `localStorage` (`buscador-chatbot-v1`; botón "Reiniciar"). Renderiza el Markdown del asistente con `react-markdown` + `remark-gfm`. Mensaje de bienvenida fijo (no consume API).
+5. **Tipos** en `lib/chatbot/types.ts` (`ChatMessage` = `Anthropic.MessageParam`, `PendingSelection`, `ChatApiResponse`).
+
+**Deploy**: igual que el sidecar, hoy no hay deploy; la key iría como variable de entorno del servidor.
 
 ### Search (`lib/doctorSearch.ts` → `lib/search.ts`)
 `findDoctors()` is the single entry point and is **async**. It delegates to `filterDoctors()` which:
