@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { findDoctors } from "@/lib/doctorSearch";
-import DoctorCard from "@/components/DoctorCard";
+import ResultsList from "@/components/ResultsList";
 import SearchForm from "@/components/SearchForm";
 import { imqCoversCp, IMQ_COVERAGE_LABEL } from "@/lib/sources/imq";
 import type { Doctor } from "@/lib/types";
@@ -54,9 +54,9 @@ export default async function ResultadosPage({
     error = "Indica especialidad y un código postal de 5 dígitos.";
   } else {
     try {
-      // `findDoctors` ya hace el enriquecimiento live de TODOS los centros
-      // (no solo los de la página) y ordena globalmente antes de devolver.
-      // Aquí nos limitamos a paginar.
+      // `findDoctors` ordena el listado (valorados primero) usando solo los
+      // ratings de Google cacheados; los que falten los rellena `ResultsList`
+      // on-demand en cliente. Aquí nos limitamos a paginar.
       const response = await findDoctors(mutua, especialidad, cp, maxKm);
       totalFound = response.doctors.length;
       totalPages = Math.max(1, Math.ceil(totalFound / PAGE_SIZE));
@@ -171,14 +171,7 @@ export default async function ResultadosPage({
             {/* Results */}
             {pageResults.length > 0 ? (
               <>
-                <section
-                  aria-label="Médicos encontrados"
-                  className="bg-white rounded-2xl border border-gray-200 px-4 sm:px-6 animate-fade-up"
-                >
-                  {pageResults.map((doctor) => (
-                    <DoctorCard key={doctor.id} doctor={doctor} searchCp={cp} />
-                  ))}
-                </section>
+                <ResultsList doctors={pageResults} searchCp={cp} />
 
                 {effectiveTotalPages > 1 && (
                   <Pagination
