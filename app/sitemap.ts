@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { MUTUAS, ESPECIALIDADES } from "@/lib/slugs";
 import { PROVINCIAS } from "@/lib/provincias";
+import { BLOG_POSTS } from "@/lib/blog";
 import {
   provinciasConMutua,
   provinciasConEspecialidad,
@@ -29,6 +30,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.3,
     }),
   );
+
+  const blog = [
+    {
+      url: `${SITE_URL}/blog`,
+      lastModified: now,
+      changeFrequency: "weekly" as const,
+      priority: 0.5,
+    },
+    ...BLOG_POSTS.map((p) => ({
+      url: `${SITE_URL}/blog/${p.slug}`,
+      lastModified: new Date(p.date),
+      changeFrequency: "yearly" as const,
+      priority: 0.5,
+    })),
+  ];
 
   const hubsMutua = MUTUAS.map((m) => ({
     url: `${SITE_URL}/cuadro-medico/${m.slug}`,
@@ -100,6 +116,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     ...home,
     ...legales,
+    ...blog,
     ...hubsMutua,
     ...hubsEspecialidad,
     ...mutuaProvincia,

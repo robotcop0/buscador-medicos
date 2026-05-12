@@ -2618,5 +2618,15 @@
     "placeId": "0x12a4c7c251630e2d:0xee40ac67bc0b0e32",
     "address": "CENTRO DE ESPECIALIDADES MEDICAS GRANOLLERS, S.L., Carrer de Mariano Álvarez de Castro, 41, 08402 Granollers, Barcelona",
     "at": 1778612462796
+  },
+  {
+    "nameKey": "clinic institut valles",
+    "cpPrefix": "08",
+    "nombreOriginal": "Institut Clinic Valles",
+    "rating": 1.7,
+    "numReviews": 344,
+    "placeId": "0x12a4c7cf7d42de2f:0xaee9658eef7aabff",
+    "address": "Institut Clínic Vallès, Carrer d'Agustí Viñamata, 7, 11, 08402 Granollers, Barcelona",
+    "at": 1778612875449
   }
 ]

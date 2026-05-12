@@ -31,7 +31,7 @@ Single canonical `Doctor` type used everywhere (UI, search, scraper output, live
 ### Google Maps (centros)
 Enriquecimiento **solo para centros** (regex `CENTER_RE` en `lib/center.ts`): clínicas/clínic, hospitales, policlínicos/policlinic, ambulatorios, laboratorios, institutos/institut, "mèdic"/"medic", "medical", "asistencial" — incluye las variantes catalanas (sin vocal final) porque Occident/IMQ/Fiatc usan nomenclatura catalana. Para personas el scraper devuelve basura y no se usa. Flujo:
 
-1. **Sidecar Python** (`scripts/gmaps-sidecar.py`): proceso long-running en `127.0.0.1:8765` que reutiliza el `GoogleMapsScraper` de jinef-john (Python + `httpcloak` TLS-fingerprint Chrome146). Warmup una vez, después ~1–1.5 s/query. Endpoint `/search` cae a `get_place_details` cuando el listado devuelve `review_count=0` (respuesta variable de Google).
+1. **Sidecar Python** (`scripts/gmaps-sidecar.py`): proceso long-running en `127.0.0.1:8765` que reutiliza el `GoogleMapsScraper` de jinef-john (Python + `httpcloak` TLS-fingerprint Chrome146). Warmup una vez (`GoogleMapsScraper.start()` — la API actual lo exige tras instanciar). Después ~1–1.5 s/query. Endpoint `/search` cae a `get_place(place_id)` cuando el listado devuelve `review_count=0` o `rating=0` (respuesta variable de Google).
 2. **API routes**: `/api/google-rating?nombre=&cp=&ciudad=` devuelve `{ rating, numReviews, placeId, source }`, valida con `CENTER_RE` + filtro de relevancia por tokens (`lib/google-match.ts`) para evitar que "Santander" sea la respuesta para "Hospital Santander". `/api/google-reviews?placeId=&page=` devuelve reseñas paginadas.
 3. **Persistencia**: hits en `data/google-ratings.json` (TTL 7 días), reseñas en `data/google-reviews.json`. Cache mtime idéntico al patrón de `ratings-index.ts`.
 4. **Merge** (`lib/ratings-merge.ts`): si un centro tiene rating Doctoralia Y Google, `rating` final = media ponderada por `numReviews`.
@@ -69,6 +69,9 @@ Server component. Paginates 20 results/page via `?page=N`, preserving all other 
 
 ### Search form (`components/SearchForm.tsx`)
 Custom `Combobox` (not native `<select>`) with internal search, 5-row scroll, and disabled state for "En desarrollo" mutuas. `AVAILABLE_MUTUAS` currently = `["Adeslas", "Occidente"]`; everything else rendered with an amber construction icon and badge.
+
+### Blog (`app/blog/`)
+Sección editorial estática. `lib/blog.ts` es el registro: `BLOG_POSTS` (metadata `slug/title/description/excerpt/date/readingMinutes`) + `Body`, un componente por artículo en `app/blog/_posts/<slug>.tsx` (importado estáticamente al final de `lib/blog.ts`). `app/blog/page.tsx` = índice (lista ordenada por fecha↓). `app/blog/[slug]/page.tsx` = artículo, con `generateStaticParams`, `generateMetadata` y JSON-LD `BlogPosting`. Las dos páginas usan la estética del resto del sitio (`<SiteFooter>`, breadcrumb, eyebrow). Enlace discreto a `/blog` solo en la home (fila flex con el eyebrow "Buscador de Médicos"). `app/sitemap.ts` añade `/blog` + las URLs de los artículos. Sin MDX, sin RSS, sin categorías — añadir un artículo = crear el `.tsx` en `_posts/` + una entrada en `BLOG_POSTS`. **Nota Next 16**: `params` en `[slug]/page.tsx` es `Promise` — hay que `await`.
 
 ### Scraper (`scraper/`)
 Standalone `tsx` pipeline, not part of the Next build.
