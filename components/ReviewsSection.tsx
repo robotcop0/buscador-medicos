@@ -118,16 +118,6 @@ export default function ReviewsSection({ url }: Props) {
           </span>
           Ver reseñas
         </span>
-        <a
-          href={url}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={(e) => e.stopPropagation()}
-          className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 hover:underline"
-        >
-          Doctoralia
-          <span aria-hidden="true">→</span>
-        </a>
       </summary>
 
       {status === "loading" && (

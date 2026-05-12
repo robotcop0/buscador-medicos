@@ -109,8 +109,6 @@ export default function GoogleReviewsSection({ placeId }: Props) {
     reviews !== null &&
     (visible < reviews.length || hasMorePages);
 
-  const mapsUrl = `https://www.google.com/maps/place/?q=place_id:${placeId}`;
-
   return (
     <details className="mt-3 group/details" onToggle={handleToggle}>
       <summary className="list-none cursor-pointer text-[11px] inline-flex items-center gap-3 select-none">
@@ -121,18 +119,8 @@ export default function GoogleReviewsSection({ placeId }: Props) {
           >
             ▶
           </span>
-          Ver reseñas Google
+          Ver reseñas
         </span>
-        <a
-          href={mapsUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={(e) => e.stopPropagation()}
-          className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 hover:underline"
-        >
-          Google Maps
-          <span aria-hidden="true">→</span>
-        </a>
       </summary>
 
       {status === "loading" && (

@@ -35,6 +35,11 @@ export default function DoctorCard({ doctor, searchCp }: Props) {
 
   // Tiene rating? Puede venir de Doctoralia (merge) o de Google (merge).
   const hasRating = doctor.rating > 0;
+  // El pill (número y color) muestra el score bayesiano de ranking, no la nota
+  // cruda, para que coincida con el orden del listado: un 5,0 con 1 reseña
+  // aparece más abajo que un 4,9 con miles, así que también se muestra más bajo.
+  // Ver lib/ratings-sort.ts. (El nº de reseñas debajo da el contexto.)
+  const displayScore = doctor.rankScore ?? doctor.rating;
   // Preferimos enlace a Doctoralia cuando existe; si no, a Google Maps.
   const ratingLink = doctor.doctoraliaUrl
     ? {
@@ -127,9 +132,9 @@ export default function DoctorCard({ doctor, searchCp }: Props) {
                 className="group/rating inline-block"
               >
                 <div
-                  className={`inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full border text-sm font-semibold tabular-nums transition-colors ${ratingStyle(doctor.rating)} group-hover/rating:border-gray-400`}
+                  className={`inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full border text-sm font-semibold tabular-nums transition-colors ${ratingStyle(displayScore)} group-hover/rating:border-gray-400`}
                 >
-                  {doctor.rating.toFixed(1)}
+                  {displayScore.toFixed(1)}
                   <span aria-hidden="true">★</span>
                 </div>
                 {doctor.numReviews > 0 && (
@@ -141,9 +146,9 @@ export default function DoctorCard({ doctor, searchCp }: Props) {
             ) : (
               <>
                 <div
-                  className={`inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full border text-sm font-semibold tabular-nums ${ratingStyle(doctor.rating)}`}
+                  className={`inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full border text-sm font-semibold tabular-nums ${ratingStyle(displayScore)}`}
                 >
-                  {doctor.rating.toFixed(1)}
+                  {displayScore.toFixed(1)}
                   <span aria-hidden="true">★</span>
                 </div>
                 {doctor.numReviews > 0 && (

@@ -33,6 +33,9 @@ export type Doctor = {
   googlePlaceId?: string;
   googleReviews?: GoogleReview[];
   distanceKm?: number | null;
+  // Score bayesiano usado para ordenar (y para el color del pill de rating).
+  // Lo calcula `sortByRating`; undefined en no valorados. Ver lib/ratings-sort.ts.
+  rankScore?: number;
 };
 
 export type SearchResponse = {
