@@ -1,3 +1,5 @@
+"use client";
+
 import type { Doctor } from "@/lib/types";
 import ReviewsSection from "@/components/ReviewsSection";
 import GoogleReviewsSection from "@/components/GoogleReviewsSection";
@@ -7,6 +9,7 @@ import { CENTER_RE } from "@/lib/center";
 type Props = {
   doctor: Doctor;
   searchCp?: string;
+  loading?: boolean;
 };
 
 function ratingStyle(rating: number): string {
@@ -20,7 +23,7 @@ function formatPhone(tel: string): string {
   return tel;
 }
 
-export default function DoctorCard({ doctor, searchCp }: Props) {
+export default function DoctorCard({ doctor, searchCp, loading }: Props) {
   const distance =
     searchCp && doctor.distanceKm != null
       ? doctor.distanceKm === 0
@@ -29,8 +32,9 @@ export default function DoctorCard({ doctor, searchCp }: Props) {
       : null;
 
   const isCenter = CENTER_RE.test(doctor.nombre);
-  // El SSR ya resolvió todos los ratings (Doctoralia + Google) vía
-  // `enrichCentrosLive` en `app/resultados/page.tsx`. El card solo lee.
+  // El rating de Doctoralia y los de Google ya cacheados los resuelve el SSR;
+  // los de Google que falten los rellena `ResultsList` on-demand y nos llega
+  // `loading` mientras tanto. El card solo lee y pinta.
   const effectivePlaceId = doctor.googlePlaceId;
 
   // Tiene rating? Puede venir de Doctoralia (merge) o de Google (merge).
@@ -158,6 +162,12 @@ export default function DoctorCard({ doctor, searchCp }: Props) {
                 )}
               </>
             )
+          ) : loading ? (
+            <span
+              aria-hidden="true"
+              title="Buscando valoración…"
+              className="inline-block h-6 w-14 rounded-full bg-gray-100 animate-pulse"
+            />
           ) : (
             <span
               title="Este médico aún no tiene reseñas en nuestras fuentes"
