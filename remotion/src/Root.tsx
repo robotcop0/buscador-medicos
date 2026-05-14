@@ -2,23 +2,24 @@ import { Composition, registerRoot } from "remotion";
 import "./shared/fonts";
 import { INTER_FAMILY } from "./shared/fonts";
 import { COLORS, HEIGHT, WIDTH } from "./shared/theme";
+import { Pill } from "./shared/Pill";
 
 const Placeholder: React.FC = () => (
   <div
     style={{
       width: "100%",
       height: "100%",
-      background: COLORS.panel,
+      background: COLORS.bg,
       display: "flex",
+      flexDirection: "column",
       alignItems: "center",
       justifyContent: "center",
+      gap: 24,
       fontFamily: INTER_FAMILY,
-      fontSize: 48,
-      fontWeight: 600,
-      color: COLORS.text,
     }}
   >
-    Inter font loaded
+    <Pill variant="outline">🩺 Nuevo</Pill>
+    <Pill variant="solid" fontSize={16}>🩺 buscador-medicos.com</Pill>
   </div>
 );
 
