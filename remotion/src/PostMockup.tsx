@@ -45,7 +45,7 @@ export const PostMockup: React.FC = () => (
     }}
   >
     {/* TOP pill */}
-    <Pill variant="solid" fontSize={16}>
+    <Pill variant="solid" fontSize={16} style={{ alignSelf: "center" }}>
       🩺 buscador-medicos.com
     </Pill>
 
