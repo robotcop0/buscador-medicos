@@ -27,6 +27,7 @@ export const Pill: React.FC<Props> = ({
     padding: "6px 14px",
     borderRadius: RADIUS.pill,
     lineHeight: 1,
+    alignSelf: "flex-start",
   };
 
   if (variant === "outline") {
