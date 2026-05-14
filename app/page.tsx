@@ -1,5 +1,6 @@
 import Link from "next/link";
 import ChatWidget from "@/components/ChatWidget";
+import ContactForm from "@/components/ContactForm";
 import SiteFooter from "@/components/SiteFooter";
 import Reveal from "@/components/Reveal";
 import FAQItem from "@/components/FAQItem";
@@ -118,6 +119,9 @@ export default function Home() {
             <nav className="flex gap-4 text-xs tracking-widest text-gray-400 uppercase">
               <Link href="/blog" className="hover:text-gray-600 transition-colors">
                 Blog
+              </Link>
+              <Link href="/contacto" className="hover:text-gray-600 transition-colors">
+                Contacto
               </Link>
             </nav>
           </div>
@@ -309,6 +313,27 @@ export default function Home() {
             ))}
           </ul>
         </div>
+        </Reveal>
+      </section>
+
+      {/* ── Contacto ── */}
+      <section
+        id="contacto"
+        className="px-4 sm:px-6 py-12 sm:py-16 border-t border-gray-100 scroll-mt-12"
+      >
+        <Reveal>
+          <div className="w-full max-w-2xl mx-auto">
+            <p className="text-[10px] tracking-widest text-gray-400 uppercase mb-3">
+              Contacto
+            </p>
+            <h2 className="text-xl sm:text-2xl font-light tracking-tight text-gray-900 leading-snug">
+              <span className="font-bold">Escríbenos.</span>
+            </h2>
+
+            <div className="mt-6">
+              <ContactForm />
+            </div>
+          </div>
         </Reveal>
       </section>
 

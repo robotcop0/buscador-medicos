@@ -6,9 +6,8 @@ export const dynamic = "force-dynamic";
 const TO_EMAIL = "damecorreospapa@gmail.com";
 // Por defecto el sandbox público de Resend (no requiere verificar dominio,
 // pero impone que el destinatario sea el dueño de la cuenta). Cuando se
-// verifique systray.cat se puede sobrescribir con CONTACT_FROM_EMAIL.
-const FROM_EMAIL =
-  process.env.CONTACT_FROM_EMAIL ?? "Buscador de Médicos <onboarding@resend.dev>";
+// verifique un dominio se puede sobrescribir con CONTACT_FROM_EMAIL.
+const FROM_EMAIL_FALLBACK = "Buscador de Médicos <onboarding@resend.dev>";
 
 // ── Caps ─────────────────────────────────────────────────────────────────
 const MAX_BODY_BYTES = 8 * 1024;
@@ -147,7 +146,8 @@ export async function POST(req: Request): Promise<Response> {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: FROM_EMAIL,
+        // `||` (no `??`) para tratar también el string vacío como "no configurado".
+        from: process.env.CONTACT_FROM_EMAIL || FROM_EMAIL_FALLBACK,
         to: [TO_EMAIL],
         reply_to: emailClean,
         subject,
