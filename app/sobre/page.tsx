@@ -200,8 +200,12 @@ export default function SobrePage() {
           </h2>
           <p className="text-sm text-gray-600 leading-relaxed">
             Si eres profesional o centro y deseas corregir o retirar tu
-            información, o si detectas un error en los datos, escríbenos al
-            correo indicado en el{" "}
+            información, o si detectas un error en los datos, puedes
+            escribirnos desde el{" "}
+            <Link href="/contacto" className="text-blue-600 hover:underline">
+              formulario de contacto
+            </Link>{" "}
+            o al correo indicado en el{" "}
             <Link href="/aviso-legal" className="text-blue-600 hover:underline">
               aviso legal
             </Link>

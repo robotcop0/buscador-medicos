@@ -28,7 +28,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
-  const legales = ["sobre", "aviso-legal", "privacidad", "cookies"].map(
+  const legales = ["sobre", "contacto", "aviso-legal", "privacidad", "cookies"].map(
     (slug) => ({
       url: `${SITE_URL}/${slug}`,
       lastModified: now,

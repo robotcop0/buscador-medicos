@@ -24,6 +24,9 @@ export default function SiteFooter({ breadcrumb }: Props) {
           <Link href="/sobre" className="hover:text-gray-700">
             Sobre
           </Link>
+          <Link href="/contacto" className="hover:text-gray-700">
+            Contacto
+          </Link>
           <Link href="/aviso-legal" className="hover:text-gray-700">
             Aviso legal
           </Link>

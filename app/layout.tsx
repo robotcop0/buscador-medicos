@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import Analytics from "@/components/Analytics";
+import BackButton from "@/components/BackButton";
 import "./globals.css";
 
 const inter = Inter({
@@ -46,6 +47,7 @@ export default function RootLayout({
   return (
     <html lang="es" className={inter.variable}>
       <body className="bg-[#f7f6f3] text-gray-900 font-sans antialiased">
+        <BackButton />
         {children}
         <Analytics />
       </body>

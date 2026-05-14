@@ -9,6 +9,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `npm run build` / `npm run start` — production build & serve
 - `npm run lint` — Next.js ESLint
 - `ANTHROPIC_API_KEY` (variable de entorno en `.env.local`, ver `.env.example`) — habilita el chatbot de la home (`/api/chat`, modelo `claude-haiku-4-5`). **Opcional**: sin ella el route responde con un error controlado y el resto de la web (buscador clásico incluido) sigue funcionando. La key vive solo en el servidor; nunca llega al bundle de cliente.
+- `RESEND_API_KEY` + `CONTACT_FROM_EMAIL` (opcional) — habilitan el formulario de contacto (`/contacto` → `/api/contact` → email a `damecorreospapa@gmail.com` vía API HTTP de Resend, sin SDK). Sin la key, el route responde 503 con un error controlado. Por defecto el `from` usa el sandbox `onboarding@resend.dev` (Resend exige que el destinatario sea el dueño de la cuenta hasta verificar un dominio); para producción se sobreescribe con `CONTACT_FROM_EMAIL`.
 - `npm run scrape:adeslas` — pulls ~72k docs from Adeslas' public Elastic App Search into `data/adeslas-raw.json`. Flags: `--all` (adds MUFACE/ISFAS/Senior), `--limit=N` (debug).
 - `npm run scrape:occident` — optional offline scrape of Occident (not wired into UI; the UI hits Occident live).
 - `npx tsx scraper/build-doctors.ts` — converts raw JSONs → `data/doctors.json` (consumed by UI) + shim `data/doctors.ts`.
@@ -53,6 +54,9 @@ Enriquecimiento **solo para centros** (regex `CENTER_RE` en `lib/center.ts`): cl
 5. **Tipos** en `lib/chatbot/types.ts` (`ChatMessage` = `Anthropic.MessageParam`, `PendingSelection`, `ChatApiResponse`).
 
 **Deploy**: igual que el sidecar, hoy no hay deploy; la key iría como variable de entorno del servidor.
+
+### Formulario de contacto (`/contacto`)
+Página estática en `app/contacto/page.tsx` + `components/ContactForm.tsx` (client component con estado idle/sending/ok/error, validación HTML5 + servidor, honeypot oculto `website` y contador de caracteres). El submit pega a `app/api/contact/route.ts` (`POST`, `runtime = "nodejs"`, `dynamic = "force-dynamic"`): rate-limit en memoria (5/15min y 20/24h por IP, mismo patrón que `/api/chat`), cap de body 8 KB, validación con `EMAIL_RE`, escapado HTML y envío vía **fetch directo** a `https://api.resend.com/emails` (sin SDK — son 5 líneas). Destinatario fijo `damecorreospapa@gmail.com`; `Reply-To` = email del usuario para que respondas directamente. `from` configurable por env: por defecto el sandbox `onboarding@resend.dev` (Resend solo deja enviar al dueño de la cuenta hasta verificar dominio). Enlazado desde el footer (`SiteFooter`), desde la sección Contacto de `/sobre` y desde el sitemap.
 
 ### Search (`lib/doctorSearch.ts` → `lib/search.ts`)
 `findDoctors()` is the single entry point and is **async**. It delegates to `filterDoctors()` which:

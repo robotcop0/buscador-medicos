@@ -42,3 +42,27 @@ select {
 .animate-progress-sweep {
   animation: progress-sweep 1.8s ease-in-out infinite;
 }
+
+/* Reveal: fade + slight rise cuando entra en viewport (data attribute toggled
+   por components/Reveal.tsx, vía IntersectionObserver). */
+[data-reveal] {
+  transition: opacity 700ms ease-out, transform 700ms ease-out;
+  will-change: opacity, transform;
+}
+[data-reveal][data-visible="false"] {
+  opacity: 0;
+  transform: translateY(24px);
+}
+[data-reveal][data-visible="true"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    transition: none;
+  }
+  [data-reveal][data-visible="false"] {
+    opacity: 1;
+    transform: none;
+  }
+}

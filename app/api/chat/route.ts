@@ -13,10 +13,26 @@ const MAX_TOKENS = 2048;
 const MAX_TOOL_ITERATIONS = 5;
 const MAX_CONVERSATION_TURNS = 24;
 
-// Rate-limit best-effort en memoria (se reinicia con el proceso). 20 msgs / 10 min por IP.
-const RATE_WINDOW_MS = 10 * 60 * 1000;
-const RATE_MAX = 20;
+// ── Anti-abuso ────────────────────────────────────────────────────────────
+// Defensa en capas contra agotar la cuota de Anthropic:
+//  1. Cap del body crudo (32 KB) → corta el ataque de "messages" inflados.
+//  2. Cap por mensaje (4 KB) y validación de forma → no aceptamos basura.
+//  3. Burst per IP (12 / 10 min) → cliente real no se acerca.
+//  4. Daily per IP (80 / 24h) → atacante con 1 IP no quema cuota completa.
+//  5. Kill-switch global opcional vía env (CHAT_DAILY_GLOBAL_MAX) → tope duro
+//     del proceso, off por defecto.
+// Todo in-memory: best-effort, se pierde con el restart. Para más rigor habría
+// que mover a Redis/Upstash en deploy.
+const MAX_BODY_BYTES = 32 * 1024;
+const MAX_TEXT_PER_MESSAGE = 4 * 1024;
+const RATE_BURST_WINDOW_MS = 10 * 60 * 1000;
+const RATE_DAILY_WINDOW_MS = 24 * 60 * 60 * 1000;
+const RATE_BURST_MAX = 12;
+const RATE_DAILY_MAX = 80;
 const rateLog = new Map<string, number[]>();
+
+let globalDayCount = 0;
+let globalDayStart = Date.now();
 
 function clientIp(req: Request): string {
   const xff = req.headers.get("x-forwarded-for");
@@ -24,16 +40,64 @@ function clientIp(req: Request): string {
   return req.headers.get("x-real-ip") ?? "unknown";
 }
 
-function rateLimited(ip: string): boolean {
+/** Devuelve null si OK, o el motivo si está limitado. */
+function rateLimited(ip: string): "burst" | "daily" | null {
   const now = Date.now();
-  const arr = (rateLog.get(ip) ?? []).filter((t) => now - t < RATE_WINDOW_MS);
+  const arr = (rateLog.get(ip) ?? []).filter((t) => now - t < RATE_DAILY_WINDOW_MS);
   arr.push(now);
   rateLog.set(ip, arr);
-  // Limpieza oportunista para no crecer sin límite.
   if (rateLog.size > 5000) {
-    for (const [k, v] of rateLog) if (v.every((t) => now - t >= RATE_WINDOW_MS)) rateLog.delete(k);
+    for (const [k, v] of rateLog) if (v.every((t) => now - t >= RATE_DAILY_WINDOW_MS)) rateLog.delete(k);
   }
-  return arr.length > RATE_MAX;
+  if (arr.length > RATE_DAILY_MAX) return "daily";
+  const burstCount = arr.reduce((n, t) => (now - t < RATE_BURST_WINDOW_MS ? n + 1 : n), 0);
+  if (burstCount > RATE_BURST_MAX) return "burst";
+  return null;
+}
+
+/** Tope duro del proceso, off si la env no está. */
+function globalKillSwitchTripped(): boolean {
+  const cap = parseInt(process.env.CHAT_DAILY_GLOBAL_MAX ?? "", 10);
+  if (!Number.isFinite(cap) || cap <= 0) return false;
+  const now = Date.now();
+  if (now - globalDayStart > RATE_DAILY_WINDOW_MS) {
+    globalDayStart = now;
+    globalDayCount = 0;
+  }
+  globalDayCount++;
+  return globalDayCount > cap;
+}
+
+function isValidContentBlock(b: unknown): boolean {
+  if (!b || typeof b !== "object") return false;
+  const o = b as Record<string, unknown>;
+  if (o.type === "text") {
+    return typeof o.text === "string" && o.text.length <= MAX_TEXT_PER_MESSAGE;
+  }
+  if (o.type === "tool_use") {
+    return (
+      typeof o.id === "string" &&
+      typeof o.name === "string" &&
+      o.input !== null &&
+      typeof o.input === "object"
+    );
+  }
+  if (o.type === "tool_result") {
+    if (typeof o.tool_use_id !== "string") return false;
+    if (typeof o.content === "string") return o.content.length <= MAX_TEXT_PER_MESSAGE;
+    if (Array.isArray(o.content)) return o.content.every(isValidContentBlock);
+    return false;
+  }
+  return false;
+}
+
+function isValidMessage(m: unknown): boolean {
+  if (!m || typeof m !== "object") return false;
+  const o = m as Record<string, unknown>;
+  if (o.role !== "user" && o.role !== "assistant") return false;
+  if (typeof o.content === "string") return o.content.length <= MAX_TEXT_PER_MESSAGE;
+  if (Array.isArray(o.content)) return o.content.every(isValidContentBlock);
+  return false;
 }
 
 function json(body: ChatApiResponse, status = 200) {
@@ -78,14 +142,33 @@ export async function POST(req: Request): Promise<Response> {
   }
 
   const ip = clientIp(req);
-  if (rateLimited(ip)) {
+  const limited = rateLimited(ip);
+  if (limited === "burst") {
     return json({ ok: false, error: "Has hecho muchas preguntas seguidas. Espera un momento y vuelve a intentarlo." }, 429);
+  }
+  if (limited === "daily") {
+    return json({ ok: false, error: "Has alcanzado el límite diario del asistente. Vuelve mañana o usa el buscador." }, 429);
+  }
+  if (globalKillSwitchTripped()) {
+    return json({ ok: false, error: "El asistente está temporalmente fuera de servicio. Usa el buscador, por favor." }, 503);
+  }
+
+  // Cap del body crudo ANTES de parsear: corta el ataque de "messages" enorme.
+  let raw: string;
+  try {
+    raw = await req.text();
+  } catch {
+    return json({ ok: false, error: "Petición inválida." }, 400);
+  }
+  if (raw.length > MAX_BODY_BYTES) {
+    return json({ ok: false, error: "Petición demasiado grande." }, 413);
   }
 
   let messages: ChatMessage[];
   try {
-    const body = await req.json();
+    const body = JSON.parse(raw);
     if (!body || !Array.isArray(body.messages)) throw new Error("bad body");
+    if (!body.messages.every(isValidMessage)) throw new Error("bad message shape");
     messages = body.messages as ChatMessage[];
   } catch {
     return json({ ok: false, error: "Petición inválida." }, 400);

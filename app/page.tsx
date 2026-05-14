@@ -1,6 +1,8 @@
 import Link from "next/link";
 import ChatWidget from "@/components/ChatWidget";
 import SiteFooter from "@/components/SiteFooter";
+import Reveal from "@/components/Reveal";
+import FAQItem from "@/components/FAQItem";
 import { MUTUAS, ESPECIALIDADES } from "@/lib/slugs";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
@@ -108,7 +110,7 @@ export default function Home() {
 
       {/* ── Hero + chat (primer fold) ── */}
       <section className="px-4 sm:px-6 pt-8 sm:pt-12 pb-16 sm:pb-24">
-        <div className="w-full max-w-4xl mx-auto">
+        <div className="w-full max-w-4xl mx-auto animate-fade-up">
           <div className="flex items-baseline justify-between mb-6 sm:mb-8">
             <p className="text-xs tracking-widest text-gray-400 uppercase">
               Buscador de Médicos
@@ -137,20 +139,26 @@ export default function Home() {
       {/* ── Qué es ── */}
       <section className="px-4 sm:px-6 py-16 sm:py-24 border-t border-gray-100">
         <div className="w-full max-w-4xl mx-auto">
-          <p className="text-[10px] tracking-widest text-gray-400 uppercase mb-4">
-            Qué es
-          </p>
-          <h2 className="text-2xl sm:text-3xl font-light tracking-tight text-gray-900 leading-snug">
-            Un único formulario para los cuadros médicos de{" "}
-            <span className="font-bold">15 mutuas</span> privadas españolas.
-          </h2>
-          <p className="mt-5 text-sm text-gray-600 leading-relaxed">
-            Cruzamos los buscadores oficiales de cada aseguradora y enriquecemos
-            cada resultado con valoraciones reales de Doctoralia y Google Maps.
-            Indica tu mutua, la especialidad y el código postal, y obtén una
-            lista ordenada por valoración y cercanía. Sin registro, sin login,
-            sin paywall.
-          </p>
+          <Reveal>
+            <p className="text-[10px] tracking-widest text-gray-400 uppercase mb-4">
+              Qué es
+            </p>
+          </Reveal>
+          <Reveal delay={80}>
+            <h2 className="text-2xl sm:text-3xl font-light tracking-tight text-gray-900 leading-snug">
+              Un único formulario para los cuadros médicos de{" "}
+              <span className="font-bold">15 mutuas</span> privadas españolas.
+            </h2>
+          </Reveal>
+          <Reveal delay={160}>
+            <p className="mt-5 text-sm text-gray-600 leading-relaxed">
+              Cruzamos los buscadores oficiales de cada aseguradora y enriquecemos
+              cada resultado con valoraciones reales de Doctoralia y Google Maps.
+              Indica tu mutua, la especialidad y el código postal, y obtén una
+              lista ordenada por valoración y cercanía. Sin registro, sin login,
+              sin paywall.
+            </p>
+          </Reveal>
 
           <dl className="mt-10 grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-4">
             {[
@@ -158,15 +166,17 @@ export default function Home() {
               { n: "446k+", l: "profesionales indexados" },
               { n: "33", l: "especialidades" },
               { n: "2–100 km", l: "radio de búsqueda" },
-            ].map(({ n, l }) => (
-              <div key={l}>
-                <dt className="text-2xl sm:text-3xl font-bold text-gray-900 tabular-nums">
-                  {n}
-                </dt>
-                <dd className="mt-1 text-xs text-gray-400 leading-relaxed">
-                  {l}
-                </dd>
-              </div>
+            ].map(({ n, l }, i) => (
+              <Reveal key={l} delay={240 + i * 80}>
+                <div>
+                  <dt className="text-2xl sm:text-3xl font-bold text-gray-900 tabular-nums">
+                    {n}
+                  </dt>
+                  <dd className="mt-1 text-xs text-gray-400 leading-relaxed">
+                    {l}
+                  </dd>
+                </div>
+              </Reveal>
             ))}
           </dl>
         </div>
@@ -174,6 +184,7 @@ export default function Home() {
 
       {/* ── Mutuas cubiertas ── */}
       <section className="px-4 sm:px-6 py-16 sm:py-24 border-t border-gray-100">
+        <Reveal>
         <div className="w-full max-w-4xl mx-auto">
           <p className="text-[10px] tracking-widest text-gray-400 uppercase mb-4">
             Mutuas cubiertas
@@ -205,10 +216,12 @@ export default function Home() {
             simultáneamente Adeslas y Asisa.
           </p>
         </div>
+        </Reveal>
       </section>
 
       {/* ── Especialidades ── */}
       <section className="px-4 sm:px-6 py-16 sm:py-24 border-t border-gray-100">
+        <Reveal>
         <div className="w-full max-w-4xl mx-auto">
           <p className="text-[10px] tracking-widest text-gray-400 uppercase mb-4">
             Especialidades médicas
@@ -233,10 +246,12 @@ export default function Home() {
             ))}
           </ul>
         </div>
+        </Reveal>
       </section>
 
       {/* ── Cómo funciona ── */}
       <section className="px-4 sm:px-6 py-16 sm:py-24 border-t border-gray-100">
+        <Reveal>
         <div className="w-full max-w-4xl mx-auto">
           <p className="text-[10px] tracking-widest text-gray-400 uppercase mb-4">
             Cómo funciona
@@ -274,10 +289,12 @@ export default function Home() {
             ))}
           </ol>
         </div>
+        </Reveal>
       </section>
 
       {/* ── FAQ ── */}
       <section className="px-4 sm:px-6 py-16 sm:py-24 border-t border-gray-100">
+        <Reveal>
         <div className="w-full max-w-4xl mx-auto">
           <p className="text-[10px] tracking-widest text-gray-400 uppercase mb-4">
             Preguntas frecuentes
@@ -288,25 +305,11 @@ export default function Home() {
 
           <ul className="divide-y divide-gray-200 border-y border-gray-200">
             {FAQ_ITEMS.map(({ q, a }) => (
-              <li key={q}>
-                <details className="group">
-                  <summary className="list-none cursor-pointer py-5 flex items-start justify-between gap-4 text-sm font-medium text-gray-900">
-                    <span>{q}</span>
-                    <span
-                      aria-hidden="true"
-                      className="flex-shrink-0 mt-0.5 text-gray-400 transition-transform group-open:rotate-45 text-lg leading-none"
-                    >
-                      +
-                    </span>
-                  </summary>
-                  <p className="pb-5 -mt-1 text-sm text-gray-600 leading-relaxed pr-8">
-                    {a}
-                  </p>
-                </details>
-              </li>
+              <FAQItem key={q} q={q} a={a} />
             ))}
           </ul>
         </div>
+        </Reveal>
       </section>
 
       <SiteFooter />
