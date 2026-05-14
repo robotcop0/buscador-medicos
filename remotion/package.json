@@ -1,0 +1,27 @@
+{
+  "name": "buscador-medicos-remotion",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Remotion subproject — renders LinkedIn launch stills for buscador-medicos.",
+  "scripts": {
+    "studio": "remotion studio --port 3001",
+    "render:split": "remotion still src/Root.tsx PostSplit out/post-split.png",
+    "render:mockup": "remotion still src/Root.tsx PostMockup out/post-mockup.png",
+    "render:tipo": "remotion still src/Root.tsx PostTipo out/post-tipo.png",
+    "render:all": "npm run render:split && npm run render:mockup && npm run render:tipo"
+  },
+  "dependencies": {
+    "@remotion/bundler": "^4.0.0",
+    "@remotion/cli": "^4.0.0",
+    "@remotion/google-fonts": "^4.0.0",
+    "@remotion/renderer": "^4.0.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "remotion": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "typescript": "^5.4.0"
+  }
+}
