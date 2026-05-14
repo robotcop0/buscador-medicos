@@ -1,20 +1,24 @@
 import { Composition, registerRoot } from "remotion";
+import "./shared/fonts";
+import { INTER_FAMILY } from "./shared/fonts";
+import { COLORS, HEIGHT, WIDTH } from "./shared/theme";
 
 const Placeholder: React.FC = () => (
   <div
     style={{
       width: "100%",
       height: "100%",
-      background: "#f8fafc",
+      background: COLORS.panel,
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      fontFamily: "sans-serif",
+      fontFamily: INTER_FAMILY,
       fontSize: 48,
-      color: "#0f172a",
+      fontWeight: 600,
+      color: COLORS.text,
     }}
   >
-    Placeholder OK
+    Inter font loaded
   </div>
 );
 
@@ -24,8 +28,8 @@ const RemotionRoot: React.FC = () => (
     component={Placeholder}
     durationInFrames={1}
     fps={30}
-    width={1080}
-    height={1080}
+    width={WIDTH}
+    height={HEIGHT}
   />
 );
 
