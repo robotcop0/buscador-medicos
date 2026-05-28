@@ -1,5 +1,6 @@
 import Link from "next/link";
-import ChatWidget from "@/components/ChatWidget";
+import SearchForm from "@/components/SearchForm";
+import ChatLauncher from "@/components/ChatLauncher";
 import ContactForm from "@/components/ContactForm";
 import SiteFooter from "@/components/SiteFooter";
 import Reveal from "@/components/Reveal";
@@ -132,11 +133,14 @@ export default function Home() {
               <span className="font-bold">tu mejor médico.</span>
             </h1>
             <p className="mt-3 text-sm text-gray-400 font-light">
-              Búsqueda en tiempo real en toda España.
+              Selecciona mutua, especialidad y código postal.{" "}
+              <span className="hidden sm:inline">
+                ¿Prefieres preguntar en lenguaje natural? Usa el asistente ↘
+              </span>
             </p>
           </header>
 
-          <ChatWidget />
+          <SearchForm />
         </div>
       </section>
 
@@ -338,6 +342,7 @@ export default function Home() {
       </section>
 
       <SiteFooter />
+      <ChatLauncher />
     </main>
   );
 }
