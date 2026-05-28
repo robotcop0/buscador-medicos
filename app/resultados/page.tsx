@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { findDoctors } from "@/lib/doctorSearch";
+import ChatLauncher from "@/components/ChatLauncher";
 import ResultsList from "@/components/ResultsList";
 import SearchForm from "@/components/SearchForm";
 import { imqCoversCp, IMQ_COVERAGE_LABEL } from "@/lib/sources/imq";
@@ -222,6 +223,7 @@ export default async function ResultadosPage({
           </>
         )}
       </div>
+      <ChatLauncher />
     </main>
   );
 }
