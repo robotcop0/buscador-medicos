@@ -67,7 +67,11 @@ function SendIcon({ className }: { className?: string }) {
 const CHIP_CLASS =
   "px-3.5 py-1.5 text-xs rounded-full border border-gray-300 text-gray-600 bg-transparent hover:bg-black/[0.04] hover:text-gray-900 transition-colors disabled:opacity-50";
 
-export default function ChatWidget() {
+type ChatWidgetProps = {
+  variant?: "hero" | "panel";
+};
+
+export default function ChatWidget({ variant = "hero" }: ChatWidgetProps) {
   const [apiMessages, setApiMessages] = useState<ChatMessage[]>([]);
   const [display, setDisplay] = useState<DisplayItem[]>(initialDisplay);
   const [input, setInput] = useState("");
@@ -224,9 +228,16 @@ export default function ChatWidget() {
   }
 
   return (
-    <div>
+    <div className={variant === "panel" ? "flex flex-col h-full" : ""}>
       {/* Mensajes — sin caja: fluyen sobre el fondo de la página */}
-      <div ref={scrollRef} className="min-h-[34rem] max-h-[82vh] sm:max-h-[54rem] overflow-y-auto pr-1 space-y-5">
+      <div
+        ref={scrollRef}
+        className={
+          variant === "panel"
+            ? "flex-1 min-h-0 overflow-y-auto pr-1 space-y-5"
+            : "min-h-[34rem] max-h-[82vh] sm:max-h-[54rem] overflow-y-auto pr-1 space-y-5"
+        }
+      >
         {display.map((it, idx) => {
           if (it.kind === "user") {
             return (
@@ -332,7 +343,7 @@ export default function ChatWidget() {
       {/* Input — píldora flotante sobre el fondo de la página */}
       <form
         onSubmit={submitText}
-        className="mt-5 flex items-center gap-2 rounded-full border border-gray-300 bg-transparent pl-5 pr-1.5 py-1.5 transition-colors focus-within:border-gray-500"
+        className={`${variant === "panel" ? "mt-3 flex-shrink-0" : "mt-5"} flex items-center gap-2 rounded-full border border-gray-300 bg-transparent pl-5 pr-1.5 py-1.5 transition-colors focus-within:border-gray-500`}
       >
         <input
           value={input}
