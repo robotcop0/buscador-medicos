@@ -20,12 +20,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly" as const,
       priority: 1,
     },
-    {
-      url: `${SITE_URL}/manual`,
-      lastModified: now,
-      changeFrequency: "monthly" as const,
-      priority: 0.7,
-    },
   ];
 
   const legales = ["sobre", "contacto", "aviso-legal", "privacidad", "cookies"].map(
