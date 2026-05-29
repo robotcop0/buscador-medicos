@@ -14,8 +14,13 @@ export function generateStaticParams(): Params[] {
   return ESPECIALIDADES.map((e) => ({ especialidad: e.slug }));
 }
 
-export function generateMetadata({ params }: { params: Params }): Metadata {
-  const e = findEspecialidadBySlug(params.especialidad);
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<Params>;
+}): Promise<Metadata> {
+  const { especialidad } = await params;
+  const e = findEspecialidadBySlug(especialidad);
   if (!e) return {};
   const title = `${e.nombre} por mutua — encuentra tu especialista`;
   const description = `Directorio de especialistas en ${e.nombre} cubiertos por las grandes mutuas privadas españolas. Búsqueda por código postal con valoraciones reales y teléfono directo.`;

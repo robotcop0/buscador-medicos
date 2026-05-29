@@ -111,7 +111,7 @@ export default function Home() {
       />
 
       {/* ── Hero + chat (primer fold) ── */}
-      <section className="px-4 sm:px-6 pt-8 sm:pt-12 pb-16 sm:pb-24">
+      <section className="relative z-20 px-4 sm:px-6 pt-8 sm:pt-12 pb-16 sm:pb-24">
         <div className="w-full max-w-4xl mx-auto animate-fade-up">
           <div className="flex items-baseline justify-between mb-6 sm:mb-8">
             <p className="text-xs tracking-widest text-gray-400 uppercase">

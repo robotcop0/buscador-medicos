@@ -28,9 +28,14 @@ export function generateStaticParams(): Params[] {
   return params;
 }
 
-export function generateMetadata({ params }: { params: Params }): Metadata {
-  const e = findEspecialidadBySlug(params.especialidad);
-  const p = findProvinciaBySlug(params.provincia);
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<Params>;
+}): Promise<Metadata> {
+  const { especialidad, provincia } = await params;
+  const e = findEspecialidadBySlug(especialidad);
+  const p = findProvinciaBySlug(provincia);
   if (!e || !p) return {};
   const title = `${e.nombre} en ${p.nombre} por mutua — encuentra tu especialista`;
   const description = `Especialistas en ${e.nombre.toLowerCase()} en ${p.nombre} cubiertos por las grandes mutuas privadas. Búsqueda por código postal con valoraciones reales y teléfono directo.`;

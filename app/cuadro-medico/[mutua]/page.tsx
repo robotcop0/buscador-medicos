@@ -14,8 +14,13 @@ export function generateStaticParams(): Params[] {
   return MUTUAS.map((m) => ({ mutua: m.slug }));
 }
 
-export function generateMetadata({ params }: { params: Params }): Metadata {
-  const m = findMutuaBySlug(params.mutua);
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<Params>;
+}): Promise<Metadata> {
+  const { mutua } = await params;
+  const m = findMutuaBySlug(mutua);
   if (!m) return {};
   const title = `Cuadro médico de ${m.nombre} — directorio de profesionales y centros`;
   const description = `Directorio del cuadro médico de ${m.nombre}: especialidades, profesionales y centros con teléfono y valoraciones reales. Búsqueda por código postal en toda España.`;
