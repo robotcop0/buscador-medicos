@@ -40,8 +40,8 @@ export default function ComoElegirMedicoMutua() {
             No te quedes en <span className="font-bold">la categoría grande</span>.
           </h2>
           <p className="text-sm text-gray-600 leading-relaxed mb-4">
-            "Cardiología" no es lo mismo que "Cardiología Infantil". "Cirugía
-            General" engloba aparato digestivo, mama, pared abdominal… y un
+            “Cardiología” no es lo mismo que “Cardiología Infantil”. “Cirugía
+            General” engloba aparato digestivo, mama, pared abdominal… y un
             traumatólogo de columna no opera lo mismo que uno de rodilla. Antes
             de filtrar, ten claro qué subespecialidad necesitas —y, si tienes
             un informe o un volante, mira exactamente cómo lo nombra tu médico
@@ -49,7 +49,7 @@ export default function ComoElegirMedicoMutua() {
           </p>
           <p className="text-sm text-gray-600 leading-relaxed">
             En este buscador la especialidad hace coincidencia parcial e
-            ignora acentos: si eliges "Cardiología" salen también las
+            ignora acentos: si eliges “Cardiología” salen también las
             subespecialidades. Empieza amplio para ver el panorama y afina
             después.
           </p>
@@ -68,7 +68,7 @@ export default function ComoElegirMedicoMutua() {
             Para una consulta puntual da igual cruzar la ciudad. Pero un
             tratamiento de fisioterapia son diez sesiones; un seguimiento de
             embarazo, una visita al mes; una rehabilitación, semanas. Lo que a
-            la primera parece "un poco lejos" se convierte en el motivo por el
+            la primera parece “un poco lejos” se convierte en el motivo por el
             que abandonas el tratamiento a medias.
           </p>
           <p className="text-sm text-gray-600 leading-relaxed">
@@ -105,7 +105,7 @@ export default function ComoElegirMedicoMutua() {
             juzgues por ti mismo.
           </p>
           <p className="text-sm text-gray-600 leading-relaxed">
-            Cuando no hay opiniones, lo decimos: "Sin valoraciones". Mejor eso
+            Cuando no hay opiniones, lo decimos: “Sin valoraciones”. Mejor eso
             que inventarse una.
           </p>
         </div>
@@ -141,7 +141,7 @@ export default function ComoElegirMedicoMutua() {
           <ul className="text-sm text-gray-600 leading-relaxed space-y-2 list-disc pl-5">
             <li>
               Quedarse con el primer nombre del cuadro médico oficial porque
-              "ya está cubierto", sin mirar valoración ni distancia.
+              “ya está cubierto”, sin mirar valoración ni distancia.
             </li>
             <li>
               Fiarse de una nota altísima sin mirar cuántas reseñas la
