@@ -5,8 +5,10 @@ import { useRouter } from "next/navigation";
 import { IMQ_COVERAGE_LABEL } from "@/lib/sources/imq";
 import { track } from "@/lib/analytics";
 
-const AVAILABLE_MUTUAS = ["Adeslas", "Allianz", "Asisa", "AXA Salud", "Caser Salud", "Cigna", "DKV", "Divina Pastora", "Fiatc", "Generali", "IMQ", "Mapfre", "MUFACE", "Occidente", "Sanitas"] as const;
-const COMING_SOON_MUTUAS = [] as const;
+const AVAILABLE_MUTUAS = ["Adeslas", "Allianz", "Asisa", "AXA Salud", "Caser Salud", "Cigna", "DKV", "Divina Pastora", "Fiatc", "IMQ", "Mapfre", "MUFACE", "Occidente"] as const;
+// Sanitas requiere SANITAS_APIKEY (no disponible) y devuelve 0; Generali delega
+// en Sanitas, así que cae con ella. Hasta tener la key se muestran "En desarrollo".
+const COMING_SOON_MUTUAS = ["Generali", "Sanitas"] as const;
 
 type MutuaItem = { name: string; available: boolean };
 const MUTUAS: MutuaItem[] = [
