@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "dev:gmaps": "python scripts/gmaps-sidecar.py",
+    "dev:gmaps": "python3 scripts/gmaps-sidecar.py",
     "build": "next build",
     "start": "next start",
     "lint": "eslint app components lib",
