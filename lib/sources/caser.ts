@@ -221,10 +221,20 @@ function extractCentros(html: string): Array<{
     // (no tiene lat/lng ni CP reales).
     const lat = extractSpan(block, "lat");
     if (!lat) continue;
-    const nombreMatch = block.match(
-      /<a[^>]*class="[^"]*\bnombre\b[^"]*"[^>]*title="([^"]*)"/i
-    );
-    const nombre = decodeHtmlEntities(nombreMatch?.[1] ?? extractSpan(block, "nombre"));
+    // El nombre del centro vive en el texto interior de <a class="nombre">…</a>.
+    // Caser usó en su día un atributo title= en ese <a> y, más atrás, un
+    // <span class="nombre">; los conservamos como fallback por si revierten el
+    // markup. El orden importa: texto del <a> es la fuente actual.
+    const nombreTitle = block.match(
+      /<a[^>]*class="[^"]*\bnombre\b[^"]*"[^>]*\btitle="([^"]*)"/i
+    )?.[1];
+    const nombreAnchor = block.match(
+      /<a[^>]*class="[^"]*\bnombre\b[^"]*"[^>]*>([\s\S]*?)<\/a>/i
+    )?.[1];
+    const nombre =
+      stripTags(nombreAnchor ?? "") ||
+      (nombreTitle ? decodeHtmlEntities(nombreTitle.trim()) : "") ||
+      extractSpan(block, "nombre");
     if (!nombre) continue;
     const direccion = extractSpan(block, "direccion");
     const cp = extractSpan(block, "cp");
