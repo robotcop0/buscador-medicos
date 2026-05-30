@@ -2628,5 +2628,205 @@
     "placeId": "0x12a4c7cf7d42de2f:0xaee9658eef7aabff",
     "address": "Institut Clínic Vallès, Carrer d'Agustí Viñamata, 7, 11, 08402 Granollers, Barcelona",
     "at": 1778612875449
+  },
+  {
+    "nameKey": "balboa centro mapfre medico nunez salud",
+    "cpPrefix": "28",
+    "nombreOriginal": "Centro Medico Mapfre Salud Nuñez DE Balboa",
+    "rating": 3.6,
+    "numReviews": 501,
+    "placeId": "0xd4228be1d13f91b:0x8352bea38be17d68",
+    "address": "Centro Médico MAPFRE Salud, Calle de Núñez de Balboa, 71, Salamanca, 28001 Madrid",
+    "at": 1780156707759
+  },
+  {
+    "nameKey": "centro velazquez",
+    "cpPrefix": "28",
+    "nombreOriginal": "Centro Velázquez",
+    "rating": 4.6,
+    "numReviews": 136,
+    "placeId": "0xd422895e8b0bd2d:0x3e89ce76a7c73c68",
+    "address": "Centro Velázquez 76, Calle Velázquez, 76, 1° Izq, Salamanca, 28001 Madrid",
+    "at": 1780156710163
+  },
+  {
+    "nameKey": "clinica hermosilla",
+    "cpPrefix": "28",
+    "nombreOriginal": "Clínica Hermosilla",
+    "rating": 3.8,
+    "numReviews": 286,
+    "placeId": "0xd4228bb72300e09:0xafc44fe31cc17d3",
+    "address": "Clinica Hermosilla S.l. Podología Deportiva Madrid, C. de Hermosilla, 84, Salamanca, 28001 Madrid",
+    "at": 1780156712127
+  },
+  {
+    "nameKey": "centros gestion mapfre medicos",
+    "cpPrefix": "28",
+    "nombreOriginal": "Gestión Centros Médicos Mapfre",
+    "rating": 3.6,
+    "numReviews": 501,
+    "placeId": "0xd4228be1d13f91b:0x8352bea38be17d68",
+    "address": "Centro Médico MAPFRE Salud, Calle de Núñez de Balboa, 71, Salamanca, 28001 Madrid",
+    "at": 1780156714317
+  },
+  {
+    "nameKey": "del hospital ntra rosario sanatorio sra",
+    "cpPrefix": "28",
+    "nombreOriginal": "Hospital Sanatorio Ntra. Sra. del Rosario",
+    "rating": 2.8,
+    "numReviews": 1502,
+    "placeId": "0xd4228c0e5bdf009:0xf1933265615a8312",
+    "address": "Hospital Universitario Nuestra Señora del Rosario, Calle del Príncipe de Vergara, 53, Salamanca, 28006 Madrid",
+    "at": 1780156716884
+  },
+  {
+    "nameKey": "analisis echevarne laboratorio",
+    "cpPrefix": "28",
+    "nombreOriginal": "Laboratorio Dr. Echevarne Análisis",
+    "rating": 3.3,
+    "numReviews": 289,
+    "placeId": "0xd422899ea699385:0xb335b6b56e339f95",
+    "address": "Laboratorio Echevarne, C. de Villanueva, 9, Salamanca, 28001 Madrid",
+    "at": 1780156719072
+  },
+  {
+    "nameKey": "gabinete policlinica velazquez",
+    "cpPrefix": "28",
+    "nombreOriginal": "Policlinica HM Gabinete Velazquez",
+    "rating": 2.2,
+    "numReviews": 178,
+    "placeId": "0xd4228978177a305:0x6064b96ae0f45308",
+    "address": "Policlínico HM Gabinete Velazquez, Calle Velázquez, 25, C. de Jorge Juan, 19, 28001 Madrid",
+    "at": 1780156722204
+  },
+  {
+    "nameKey": "gabinete medico policlinico velazquez",
+    "cpPrefix": "28",
+    "nombreOriginal": "Policlinico HM Gabinete Medico Velazquez",
+    "rating": 2.2,
+    "numReviews": 178,
+    "placeId": "0xd4228978177a305:0x6064b96ae0f45308",
+    "address": "Policlínico HM Gabinete Velazquez, Calle Velázquez, 25, C. de Jorge Juan, 19, 28001 Madrid",
+    "at": 1780156724085
+  },
+  {
+    "nameKey": "gabinete policlinico velazquez",
+    "cpPrefix": "28",
+    "nombreOriginal": "Policlinico HM Gabinete Velazquez",
+    "rating": 2.2,
+    "numReviews": 178,
+    "placeId": "0xd4228978177a305:0x6064b96ae0f45308",
+    "address": "Policlínico HM Gabinete Velazquez, Calle Velázquez, 25, C. de Jorge Juan, 19, 28001 Madrid",
+    "at": 1780156727206
+  },
+  {
+    "nameKey": "auramed clinicas medicas",
+    "cpPrefix": "28",
+    "nombreOriginal": "Auramed Clinicas Medicas",
+    "rating": 3.3,
+    "numReviews": 616,
+    "placeId": "0xd422908e5167133:0x759fc9fcc9f987db",
+    "address": "Clínicas Auramed, C/ de Hortaleza, 65, 2a planta, Centro, 28004 Madrid",
+    "at": 1780156728750
+  },
+  {
+    "nameKey": "cardiologia corsalutem del hospital nuestra rosario senora",
+    "cpPrefix": "28",
+    "nombreOriginal": "Cardiologia Hospital Nuestra Señora del Rosario (corsalutem)",
+    "rating": 2.8,
+    "numReviews": 1502,
+    "placeId": "0xd4228c0e5bdf009:0xf1933265615a8312",
+    "address": "Hospital Universitario Nuestra Señora del Rosario, Calle del Príncipe de Vergara, 53, Salamanca, 28006 Madrid",
+    "at": 1780156730758
+  },
+  {
+    "nameKey": "centro clinico zurbano",
+    "cpPrefix": "28",
+    "nombreOriginal": "Centro Clinico Zurbano",
+    "rating": 3.3,
+    "numReviews": 82,
+    "placeId": "0xd42288d70dcace3:0xad5404579a7cd396",
+    "address": "CENTRO CLINICO ZURBANO, Calle de Zurbano, 29, Chamberí, 28010 Madrid",
+    "at": 1780156733184
+  },
+  {
+    "nameKey": "asisa caracas centro medico",
+    "cpPrefix": "28",
+    "nombreOriginal": "Centro Medico Asisa Caracas",
+    "rating": 4.7,
+    "numReviews": 3894,
+    "placeId": "0xd42288d9901db25:0x92be708b6cc6a45e",
+    "address": "Centro Médico ASISA Caracas, C. de Caracas, 12, Chamberí, 28010 Madrid",
+    "at": 1780156735370
+  },
+  {
+    "nameKey": "centro magarinos medico",
+    "cpPrefix": "28",
+    "nombreOriginal": "Centro Medico Magariños",
+    "rating": 4.4,
+    "numReviews": 36,
+    "placeId": "0xd4228e8ec8f7583:0x6fd411b961d66648",
+    "address": "Centro Médico Magariños, C. de Serrano, 129, Chamartín, 28006 Madrid",
+    "at": 1780156737316
+  },
+  {
+    "nameKey": "centro medico radiologico",
+    "cpPrefix": "28",
+    "nombreOriginal": "Centro Medico Radiologico",
+    "rating": 3.7,
+    "numReviews": 21,
+    "placeId": "0xd4228b78184ebef:0x957a5c223a3de755",
+    "address": "Centro Médico Radiológico, C. de Montesa, 18, Salamanca, 28006 Madrid",
+    "at": 1780156739771
+  },
+  {
+    "nameKey": "auramed clinica",
+    "cpPrefix": "28",
+    "nombreOriginal": "Clinica Auramed",
+    "rating": 3.3,
+    "numReviews": 616,
+    "placeId": "0xd422908e5167133:0x759fc9fcc9f987db",
+    "address": "Clínicas Auramed, C/ de Hortaleza, 65, 2a planta, Centro, 28004 Madrid",
+    "at": 1780156743357
+  },
+  {
+    "nameKey": "cardiologica clinica internacional",
+    "cpPrefix": "28",
+    "nombreOriginal": "Clínica Cardiológica Internacional",
+    "rating": 5,
+    "numReviews": 117,
+    "placeId": "0xd42290d258e8035:0xc67944dd906ca088",
+    "address": "Clínica Cardiológica Internacional, Calle de Don Ramón de la Cruz, 88, bajo 2, Salamanca, 28006 Madrid",
+    "at": 1780156745607
+  },
+  {
+    "nameKey": "bernardo clinica san",
+    "cpPrefix": "28",
+    "nombreOriginal": "Clínica San Bernardo",
+    "rating": 3,
+    "numReviews": 52,
+    "placeId": "0xd4228605ad6ef81:0x79700b80912049f2",
+    "address": "Centro Médico San Bernardo, Calle de Jerónimo de la Quintana, 8, Chamberí, 28010 Madrid",
+    "at": 1780156747760
+  },
+  {
+    "nameKey": "hospital milagrosa",
+    "cpPrefix": "28",
+    "nombreOriginal": "Hospital LA Milagrosa",
+    "rating": 4,
+    "numReviews": 2778,
+    "placeId": "0xd4228f3b9410bd1:0x2f119a97660df47b",
+    "address": "Hospital Universitario Vithas Madrid La Milagrosa, Calle de Modesto Lafuente, 14, Chamberí, 28010 Madrid",
+    "at": 1780156758101
+  },
+  {
+    "nameKey": "bravo hospital juan quironsalud ruber",
+    "cpPrefix": "28",
+    "nombreOriginal": "Hospital Quironsalud Ruber Juan Bravo",
+    "rating": 3.5,
+    "numReviews": 1184,
+    "placeId": "0xd4228bf356e2ca7:0x50cb0ed8b1a336ba",
+    "address": "Hospital Universitario Ruber Juan Bravo (C/ Juan Bravo, 39), Calle de Juan Bravo, 39, Salamanca, 28006 Madrid",
+    "at": 1780156763630
   }
 ]
