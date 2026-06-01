@@ -9,6 +9,7 @@
     "start": "next start",
     "lint": "eslint app components lib",
     "test:mutuas": "node --env-file-if-exists=.env.local --import tsx scripts/test-mutuas.ts",
+    "test:all-mutuas": "node --env-file-if-exists=.env.local --import tsx scripts/test-all-mutuas.ts",
     "scrape": "tsx scraper/scrape.ts",
     "scrape:doctoralia": "tsx scraper/scrape-doctoralia-ratings.ts",
     "scrape:doctoralia-reviews": "tsx scraper/scrape-doctoralia-reviews.ts",

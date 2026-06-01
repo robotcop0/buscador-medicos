@@ -80,8 +80,8 @@ function resolveEspecialidadId(especialidad: string): string {
   return match?.[0] ?? "";
 }
 
-async function getSession(): Promise<{ pAuth: string; cookies: string } | null> {
-  if (sessionCache && Date.now() - sessionCache.at < SESSION_TTL_MS) {
+async function getSession(forceRefresh = false): Promise<{ pAuth: string; cookies: string } | null> {
+  if (!forceRefresh && sessionCache && Date.now() - sessionCache.at < SESSION_TTL_MS) {
     return { pAuth: sessionCache.pAuth, cookies: sessionCache.cookies };
   }
   try {
@@ -189,10 +189,6 @@ export async function searchAxa(cp: string, especialidad: string): Promise<Docto
   const espId = resolveEspecialidadId(especialidad);
   // AXA tolera especialidad vacía: devuelve todo lo del CP.
 
-  const session = await getSession();
-  if (!session) return [];
-
-  const url = `${BASE}${PATH}?p_p_id=${PORTLET_ID}&p_p_lifecycle=1&p_p_state=normal&p_p_mode=view&${NS}javax.portlet.action=sendSearchHealth&p_auth=${session.pAuth}`;
   const body = new URLSearchParams({
     [`${NS}populationField`]: "",
     [`${NS}provField`]: "",
@@ -215,27 +211,43 @@ export async function searchAxa(cp: string, especialidad: string): Promise<Docto
     [`${NS}clinicField`]: "",
     [`${NS}locationSearch`]: "true",
     [`${NS}clienteType`]: "AXA",
-  });
+  }).toString();
 
-  let html: string;
-  try {
-    const r = await fetch(url, {
-      method: "POST",
-      headers: {
-        "content-type": "application/x-www-form-urlencoded",
-        accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-        ...(session.cookies ? { cookie: session.cookies } : {}),
-      },
-      body: body.toString(),
-      cache: "no-store",
-    });
-    if (!r.ok) return [];
-    html = await r.text();
-  } catch {
-    return [];
+  // Una pasada: obtiene sesión (cacheada o fresca), hace el POST y parsea.
+  // Devuelve null para señalar "fallo recuperable" (POST !ok / 0 tarjetas), que
+  // probablemente es un p_auth+cookie de sesión caducados pero aún en caché.
+  async function attempt(forceRefresh: boolean): Promise<ReturnType<typeof extractCards> | null> {
+    const session = await getSession(forceRefresh);
+    if (!session) return null;
+    const url = `${BASE}${PATH}?p_p_id=${PORTLET_ID}&p_p_lifecycle=1&p_p_state=normal&p_p_mode=view&${NS}javax.portlet.action=sendSearchHealth&p_auth=${session.pAuth}`;
+    try {
+      const r = await fetch(url, {
+        method: "POST",
+        headers: {
+          "content-type": "application/x-www-form-urlencoded",
+          accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+          ...(session.cookies ? { cookie: session.cookies } : {}),
+        },
+        body,
+        cache: "no-store",
+      });
+      if (!r.ok) return null;
+      const cards = extractCards(await r.text());
+      return cards.length > 0 ? cards : null;
+    } catch {
+      return null;
+    }
   }
 
-  const cards = extractCards(html);
+  // El p_auth+cookies se cachean 20 min, pero la sesión puede morir server-side
+  // antes: con el original, un token cacheado muerto devolvía [] en TODAS las
+  // búsquedas de AXA hasta que expiraba el TTL. Reintentamos UNA vez con sesión
+  // fresca si la cacheada falla. NB: AXA limita por IP y responde con HTML vacío
+  // (no error) cuando te pasas — por eso NO insistimos más de un reintento: más
+  // tiros solo aceleran el rate-limit sin recuperar resultados.
+  const cards = (await attempt(false)) ?? (await attempt(true));
+  if (!cards) return [];
+
   // IDs > 5e8 para no chocar con Adeslas/Occident/Allianz/Mapfre/Sanitas.
   return cards.map((c, i) => ({
     id: 500_000_000 + i,
