@@ -15,7 +15,7 @@ import { normNameKey } from "@/lib/ratings-index";
 import { isCenter } from "@/lib/center";
 import { persistGoogleRating, type GoogleRatingRecord } from "@/lib/google-ratings-index";
 import { resultLooksRelevant } from "@/lib/google-match";
-import { coordsFromCP, haversineKm } from "@/lib/coordinates";
+import { coordsFromCP, haversineKm, normalizeCp } from "@/lib/coordinates";
 
 export { persistGoogleRating };
 export type { GoogleRatingRecord };
@@ -61,7 +61,9 @@ function maxKmForCp(cp: string): number {
   //   ^\d{2}   → prefijo de provincia (2 dígitos)
   //   0(0[1-9]|1[0-9]|20)$ → sufijos 001–009, 010–019, 020
   const CAPITAL_RE = /^\d{2}0(0[1-9]|1[0-9]|20)$/;
-  return CAPITAL_RE.test(cp) ? 8 : 25;
+  // Normalizamos primero: algunas fuentes live emiten CPs de 4 dígitos (8001
+  // en vez de 08001) y el patrón exige los 5 caracteres.
+  return CAPITAL_RE.test(normalizeCp(cp)) ? 8 : 25;
 }
 
 /**
@@ -70,11 +72,12 @@ function maxKmForCp(cp: string): number {
  * resultado no es suficientemente relevante.
  *
  * Clasificación own/center:
- *   - own:    el input ES el centro (isCenter(nombre)) O el nombre del hit coincide
- *             directamente con el buscado (resultLooksRelevant).
+ *   - own:    el nombre del hit coincide con el buscado (resultLooksRelevant) —
+ *             vale para centros y para personas con listing propio en Google.
  *   - center: el input es una persona Y Google devolvió una clínica/hospital cercanos.
  *             Se acepta solo si el hit tiene coordenadas y está a ≤ maxKm del CP.
- *   - null:   no encaja en ninguna categoría (descartado).
+ *   - null:   no encaja en ninguna categoría (descartado) — incluye un centro cuyo
+ *             resultado de Google no es relevante (no le colgamos la nota de otro).
  */
 export async function resolveGoogleRating(
   input: ResolveInput
@@ -119,10 +122,12 @@ export async function resolveGoogleRating(
   let kind: "own" | "center";
   let centerName: string | undefined;
 
-  if (inputIsCenter || nameMatches) {
-    // El resultado ES la entidad que buscábamos (el centro o el médico en Doctoralia).
+  if (nameMatches) {
+    // El resultado coincide con lo buscado (centro o médico) → nota propia.
+    // Exigimos relevancia también para centros: si Google devuelve un centro
+    // distinto, mejor descartar que colgarle una nota ajena.
     kind = "own";
-  } else if (isCenter(data.name)) {
+  } else if (!inputIsCenter && isCenter(data.name)) {
     // Google devolvió una clínica/hospital en vez del médico → fallback-centro.
     // Solo aceptamos si el centro está suficientemente cerca del CP del médico.
     const userCoords = coordsFromCP(cp);
