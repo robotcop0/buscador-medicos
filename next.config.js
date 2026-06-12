@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  outputFileTracingIncludes: { "/**": ["./data/*.json"] },
   async headers() {
     return [
       {

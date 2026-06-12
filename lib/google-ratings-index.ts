@@ -114,8 +114,12 @@ export function persistGoogleRating(rec: GoogleRatingRecord): void {
   const idx = existing.findIndex((r) => `${r.nameKey}::${r.cpPrefix}` === key);
   if (idx >= 0) existing[idx] = rec;
   else existing.push(rec);
-  fs.mkdirSync(path.dirname(RATINGS_FILE), { recursive: true });
-  fs.writeFileSync(RATINGS_FILE, JSON.stringify(existing, null, 2), "utf-8");
+  try {
+    fs.mkdirSync(path.dirname(RATINGS_FILE), { recursive: true });
+    fs.writeFileSync(RATINGS_FILE, JSON.stringify(existing, null, 2), "utf-8");
+  } catch {
+    // FS de solo lectura (serverless): seguimos sirviendo desde memoria/JSON commiteado.
+  }
   indexCache = null; // forzamos relectura a la próxima
   indexMtime = 0;
 }

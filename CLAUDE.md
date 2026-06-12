@@ -40,7 +40,7 @@ Enriquecimiento **solo para centros** (regex `CENTER_RE` en `lib/center.ts`): cl
 6. **Loading UI** (`app/resultados/loading.tsx`): streaming fallback de Next mientras el SSR resuelve las fuentes live (Occident, etc.). Muestra "Buscando tu mejor médico" + barra de progreso indeterminada (`.animate-progress-sweep` en `globals.css`).
 7. **Reseñas**: `GoogleReviewsSection.tsx` (`<details>` con paginación "Ver más", gemelo de `ReviewsSection` de Doctoralia) se monta en `DoctorCard` cuando el centro tiene `googlePlaceId`.
 
-**Deploy**: el sidecar es Python y vive en local. Vercel/serverless no encajan sin adaptar (no hay uso de deploy hoy).
+**Deploy**: producción lee solo el JSON commiteado (`data/google-ratings.json`, `data/google-reviews.json`) — no necesita el sidecar en Vercel. Para refrescar ratings: ejecutar `npm run enrich:google` + el scrape de Doctoralia en local cada 1–3 meses y commitear los JSONs actualizados. Variables de entorno del servidor (mutua secrets, `GMAPS_SIDECAR_URL`) van en el panel de Vercel → Environment Variables, **no** en `.env.local` (que no se despliega).
 
 ### Chatbot asistente
 
