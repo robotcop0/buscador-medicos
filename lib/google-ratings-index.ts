@@ -1,11 +1,10 @@
 /**
- * Índice en memoria con los ratings de Google Maps para centros médicos
- * (clínicas, hospitales, policlínicos, ambulatorios, centros médicos…).
+ * Índice en memoria con los ratings de Google Maps.
  *
- * No operamos sobre personas: el test con el scraper de jinef-john demostró
- * que para nombres propios Google devuelve resultados muy inconsistentes
- * (hospitales random, la ciudad pelada, etc.). Para centros el match es
- * casi perfecto y hay cientos/miles de reseñas útiles.
+ * Cubre tanto centros (clínicas, hospitales, policlínicos…) como personas.
+ * Para personas, el registro puede tener kind:"own" (listing propio en Google)
+ * o kind:"center" (fallback al centro donde ejerce — el campo centerName
+ * identifica el centro). mergeRatings decide qué hacer con esta info.
  *
  * Clave: `normNameKey(nombre)::cp.slice(0,2)` — misma convención que
  * `ratings-index.ts` para Doctoralia.
@@ -78,15 +77,12 @@ function getIndex(): Map<string, GoogleRatingRecord> {
 }
 
 export function lookupGoogle(nombre: string, cp: string): GoogleRatingRecord | null {
-  if (!isCenter(nombre)) return null;
   if (!cp || cp.length < 2) return null;
   const key = `${normNameKey(nombre)}::${cp.slice(0, 2)}`;
   return getIndex().get(key) ?? null;
 }
 
 export function enrichWithGoogle(doctor: Doctor): Doctor {
-  // No-op para personas; solo centros.
-  if (!isCenter(doctor.nombre)) return doctor;
   // Si ya lo tenía (p.ej. inyectado en runtime), no lo pisamos.
   if (doctor.googleRating && doctor.googleRating > 0) return doctor;
 
