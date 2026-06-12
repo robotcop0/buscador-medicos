@@ -34,6 +34,8 @@ export type GoogleRatingRecord = {
   address?: string;
   at: number;
   kind?: "own" | "center";
+  /** Nombre del centro en Google Maps cuando kind === "center" (fallback-centro). */
+  centerName?: string;
 };
 
 const RATINGS_FILE = path.join(process.cwd(), "data", "google-ratings.json");
@@ -96,6 +98,12 @@ export function enrichWithGoogle(doctor: Doctor): Doctor {
     googleRating: hit.rating,
     googleNumReviews: hit.numReviews,
     googlePlaceId: hit.placeId,
+    // Propagamos la clasificación own/center y la fuente para la UI.
+    ratingKind: hit.kind ?? "own",
+    ratingSource: "google",
+    ...(hit.kind === "center" && hit.centerName
+      ? { ratingCenterName: hit.centerName }
+      : {}),
   };
 }
 

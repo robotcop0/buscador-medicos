@@ -2,7 +2,9 @@
  * Lógica compartida de resolución de Google Maps:
  *   1. Construye la query (centros → `nombre ciudad`; personas → `Dr nombre especialidad ciudad`).
  *   2. Llama al sidecar Python en `GMAPS_SIDECAR_URL` (default `http://127.0.0.1:8765`).
- *   3. Valida la relevancia con `resultLooksRelevant`.
+ *   3. Clasifica el resultado como `kind:"own"` (el médico/centro es la entidad buscada)
+ *      o `kind:"center"` (Google devolvió la clínica donde trabaja el médico —
+ *      fallback-centro guardado con proximidad).
  *   4. Devuelve un `GoogleRatingRecord` listo para persistir, o `null` si no hay match.
  *
  * Usada por:
@@ -13,6 +15,7 @@ import { normNameKey } from "@/lib/ratings-index";
 import { isCenter } from "@/lib/center";
 import { persistGoogleRating, type GoogleRatingRecord } from "@/lib/google-ratings-index";
 import { resultLooksRelevant } from "@/lib/google-match";
+import { coordsFromCP, haversineKm } from "@/lib/coordinates";
 
 export { persistGoogleRating };
 export type { GoogleRatingRecord };
@@ -34,20 +37,52 @@ type SidecarResult = {
   rating: number;
   review_count: number;
   address: string;
+  /** Coordenadas del lugar en Google Maps (devueltas por el sidecar). */
+  lat?: number;
+  lng?: number;
 };
+
+/**
+ * Heurística de zona urbana/rural para limitar el radio de fallback-centro.
+ *
+ * CP "capital de provincia": los 2 primeros dígitos identifican la provincia;
+ * los 3 últimos son el código local. Los CPs de capitales de provincia tienen
+ * códigos locales bajos (001–020): p.ej. 28001–28020 (Madrid), 08001–08020
+ * (Barcelona), 41001–41020 (Sevilla), etc. Cualquier otro CP se trata como
+ * rural/periférico. No pretende ser exacto al 100 %; es un desempate razonable.
+ *
+ * Umbral:
+ *   - Capital (urbano): 8 km  — las clínicas están concentradas, false-positives
+ *                               distantes son raros pero más costosos.
+ *   - Resto (rural):   25 km  — el médico puede operar en el pueblo más cercano.
+ */
+function maxKmForCp(cp: string): number {
+  // El patrón captura CPs cuyo sufijo local sea 001–020:
+  //   ^\d{2}   → prefijo de provincia (2 dígitos)
+  //   0(0[1-9]|1[0-9]|20)$ → sufijos 001–009, 010–019, 020
+  const CAPITAL_RE = /^\d{2}0(0[1-9]|1[0-9]|20)$/;
+  return CAPITAL_RE.test(cp) ? 8 : 25;
+}
 
 /**
  * Llama al sidecar de Google Maps y devuelve un `GoogleRatingRecord` listo
  * para persistir, o `null` si el sidecar está caído, no devuelve datos, o el
  * resultado no es suficientemente relevante.
+ *
+ * Clasificación own/center:
+ *   - own:    el input ES el centro (isCenter(nombre)) O el nombre del hit coincide
+ *             directamente con el buscado (resultLooksRelevant).
+ *   - center: el input es una persona Y Google devolvió una clínica/hospital cercanos.
+ *             Se acepta solo si el hit tiene coordenadas y está a ≤ maxKm del CP.
+ *   - null:   no encaja en ninguna categoría (descartado).
  */
 export async function resolveGoogleRating(
   input: ResolveInput
 ): Promise<GoogleRatingRecord | null> {
   const { nombre, cp, ciudad, especialidad } = input;
 
-  const center = isCenter(nombre);
-  const q = center
+  const inputIsCenter = isCenter(nombre);
+  const q = inputIsCenter
     ? [nombre, ciudad].filter(Boolean).join(" ")
     : ["Dr", nombre, especialidad, ciudad].filter(Boolean).join(" ");
 
@@ -78,7 +113,32 @@ export async function resolveGoogleRating(
     return null;
   }
 
-  if (!resultLooksRelevant(nombre, data.name)) {
+  // — Clasificación own/center —
+  const nameMatches = resultLooksRelevant(nombre, data.name);
+
+  let kind: "own" | "center";
+  let centerName: string | undefined;
+
+  if (inputIsCenter || nameMatches) {
+    // El resultado ES la entidad que buscábamos (el centro o el médico en Doctoralia).
+    kind = "own";
+  } else if (isCenter(data.name)) {
+    // Google devolvió una clínica/hospital en vez del médico → fallback-centro.
+    // Solo aceptamos si el centro está suficientemente cerca del CP del médico.
+    const userCoords = coordsFromCP(cp);
+    if (!userCoords) return null; // sin coordenadas no podemos verificar proximidad
+
+    // El sidecar puede no devolver lat/lng en todas las respuestas.
+    if (typeof data.lat !== "number" || typeof data.lng !== "number") return null;
+
+    const dist = haversineKm(userCoords, { lat: data.lat, lng: data.lng });
+    const maxKm = maxKmForCp(cp);
+    if (dist > maxKm) return null; // demasiado lejos → descartamos
+
+    kind = "center";
+    centerName = data.name;
+  } else {
+    // Ni el input ni el hit es un centro, y los nombres no coinciden → descartamos.
     return null;
   }
 
@@ -91,7 +151,8 @@ export async function resolveGoogleRating(
     placeId: data.place_id,
     address: data.address,
     at: Date.now(),
-    kind: "own",
+    kind,
+    ...(kind === "center" && centerName ? { centerName } : {}),
   };
 
   return record;
