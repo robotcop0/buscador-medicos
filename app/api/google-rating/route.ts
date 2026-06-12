@@ -14,17 +14,14 @@
  * devolvemos source:"miss" con 200 para que la UI no rompa.
  */
 import { NextResponse } from "next/server";
-import { normNameKey } from "@/lib/ratings-index";
 import {
   CENTER_RE,
   lookupGoogle,
   persistGoogleRating,
 } from "@/lib/google-ratings-index";
-import { resultLooksRelevant } from "@/lib/google-match";
+import { resolveGoogleRating } from "@/lib/google-resolve";
 
-const SIDECAR_URL = process.env.GMAPS_SIDECAR_URL || "http://127.0.0.1:8765";
 const TTL_MS = 7 * 24 * 60 * 60 * 1000; // 7 días
-const SIDECAR_TIMEOUT_MS = 15_000;
 
 type Ok = {
   rating: number;
@@ -38,6 +35,7 @@ export async function GET(req: Request): Promise<Response> {
   const nombre = (params.get("nombre") || "").trim();
   const cp = (params.get("cp") || "").trim();
   const ciudad = (params.get("ciudad") || "").trim();
+  const especialidad = (params.get("especialidad") || "").trim();
 
   if (!nombre || !cp || cp.length < 2) {
     return NextResponse.json(
@@ -53,9 +51,6 @@ export async function GET(req: Request): Promise<Response> {
     );
   }
 
-  const cpPrefix = cp.slice(0, 2);
-  const nameKey = normNameKey(nombre);
-
   // Cache hit (≤7 días)
   const cached = lookupGoogle(nombre, cp);
   if (cached && Date.now() - cached.at < TTL_MS && cached.rating > 0) {
@@ -70,69 +65,22 @@ export async function GET(req: Request): Promise<Response> {
     });
   }
 
-  // Llamada al sidecar
-  const q = [nombre, ciudad].filter(Boolean).join(" ");
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), SIDECAR_TIMEOUT_MS);
-  let sidecarResp: Response | null = null;
-  try {
-    sidecarResp = await fetch(`${SIDECAR_URL}/search?q=${encodeURIComponent(q)}`, {
-      signal: controller.signal,
-    });
-  } catch {
-    // sidecar caído o timeout
-    return NextResponse.json(
-      { rating: 0, numReviews: 0, placeId: "", source: "miss" },
-      { status: 200 }
-    );
-  } finally {
-    clearTimeout(timer);
-  }
+  // Resolución vía sidecar (lógica compartida con el batch offline)
+  const record = await resolveGoogleRating({ nombre, cp, ciudad, especialidad });
 
-  if (!sidecarResp.ok) {
+  if (!record) {
     return NextResponse.json(
       { rating: 0, numReviews: 0, placeId: "", source: "miss" },
       { status: 200 }
     );
   }
 
-  const data = (await sidecarResp.json()) as {
-    place_id: string;
-    name: string;
-    rating: number;
-    review_count: number;
-    address: string;
-  } | null;
-
-  if (!data || !data.place_id || !data.rating || !data.review_count) {
-    return NextResponse.json(
-      { rating: 0, numReviews: 0, placeId: "", source: "miss" },
-      { status: 200 }
-    );
-  }
-
-  if (!resultLooksRelevant(nombre, data.name)) {
-    return NextResponse.json(
-      { rating: 0, numReviews: 0, placeId: "", source: "miss", note: "irrelevant" },
-      { status: 200 }
-    );
-  }
-
-  persistGoogleRating({
-    nameKey,
-    cpPrefix,
-    nombreOriginal: nombre,
-    rating: data.rating,
-    numReviews: data.review_count,
-    placeId: data.place_id,
-    address: data.address,
-    at: Date.now(),
-  });
+  persistGoogleRating(record);
 
   const body: Ok = {
-    rating: data.rating,
-    numReviews: data.review_count,
-    placeId: data.place_id,
+    rating: record.rating,
+    numReviews: record.numReviews,
+    placeId: record.placeId,
     source: "live",
   };
   return NextResponse.json(body, {

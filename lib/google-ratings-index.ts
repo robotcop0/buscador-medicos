@@ -33,6 +33,7 @@ export type GoogleRatingRecord = {
   placeId: string;
   address?: string;
   at: number;
+  kind?: "own" | "center";
 };
 
 const RATINGS_FILE = path.join(process.cwd(), "data", "google-ratings.json");
