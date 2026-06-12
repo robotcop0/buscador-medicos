@@ -2828,5 +2828,105 @@
     "placeId": "0xd4228bf356e2ca7:0x50cb0ed8b1a336ba",
     "address": "Hospital Universitario Ruber Juan Bravo (C/ Juan Bravo, 39), Calle de Juan Bravo, 39, Salamanca, 28006 Madrid",
     "at": 1780156763630
+  },
+  {
+    "nameKey": "centro dental medico parets",
+    "cpPrefix": "08",
+    "nombreOriginal": "Centro Medico y Dental Parets",
+    "rating": 3.4,
+    "numReviews": 264,
+    "placeId": "0x12a4b8b1b17845eb:0x3d4c06e90419af20",
+    "address": "Centro Médico y Dental Parets | Centro médico para toda la familia, Av. de Catalunya, 153-155, bajos, 08150 Parets del Vallès, Barcelona",
+    "at": 1780483027766
+  },
+  {
+    "nameKey": "centre medic mollet",
+    "cpPrefix": "08",
+    "nombreOriginal": "Centre Medic Mollet",
+    "rating": 4.1,
+    "numReviews": 441,
+    "placeId": "0x12a4bf23c00c3c53:0x5c808216ba1284b1",
+    "address": "Centro Médico Mollet, Avinguda de Rivoli, 11, 08100 Mollet del Vallès, Barcelona",
+    "at": 1780483028542
+  },
+  {
+    "nameKey": "centre doctor medic valls",
+    "cpPrefix": "08",
+    "nombreOriginal": "Centre Medic Doctor Valls",
+    "rating": 4.2,
+    "numReviews": 316,
+    "placeId": "0x12a4c5953c2a0fdf:0x5c55b13dd9ec17d7",
+    "address": "Centro médico Dr. Valls, Ctra. Nova, 125, 08530 La Garriga, Barcelona",
+    "at": 1780483028802
+  },
+  {
+    "nameKey": "centre francesc macia medic mollet",
+    "cpPrefix": "08",
+    "nombreOriginal": "Centre Medic Mollet (francesc Macia)",
+    "rating": 4,
+    "numReviews": 208,
+    "placeId": "0x12a4bed0b33ff501:0xb4ca2b2f2733ca64",
+    "address": "Centre Mèdic Mollet, Carrer de Francesc Macià, 41, 08100 Mollet del Vallès, Barcelona",
+    "at": 1780483028832
+  },
+  {
+    "nameKey": "centro doctor klein medico",
+    "cpPrefix": "08",
+    "nombreOriginal": "Centro Medico Doctor Klein",
+    "rating": 3.5,
+    "numReviews": 153,
+    "placeId": "0x12a4c9a0cb7528ad:0xe0b6df697144ab39",
+    "address": "CLÍNICA DR. KLEIN, Carrer de la Mare de Déu del Pilar, 41, 08440 Cardedeu, Barcelona",
+    "at": 1780483028914
+  },
+  {
+    "nameKey": "delfos hospital nou",
+    "cpPrefix": "08",
+    "nombreOriginal": "Hospital HM Nou Delfos",
+    "rating": 3.4,
+    "numReviews": 1648,
+    "placeId": "0x12a49807a9fa1203:0x5438c8a022212aa4",
+    "address": "Hospital HM Nou Delfos, Av. de Vallcarca, 151, Gràcia, 08023 Barcelona",
+    "at": 1780483066373
+  },
+  {
+    "nameKey": "hospital pilar",
+    "cpPrefix": "08",
+    "nombreOriginal": "Hospital EL Pilar",
+    "rating": 3.5,
+    "numReviews": 2159,
+    "placeId": "0x12a4a29f4f64406d:0x63c13dc384302c9d",
+    "address": "Hospital El Pilar, Carrer de Balmes, 271, Sarrià-Sant Gervasi, 08006 Barcelona",
+    "at": 1780483067800
+  },
+  {
+    "nameKey": "centro medico paidos",
+    "cpPrefix": "28",
+    "nombreOriginal": "Centro Medico Paidos",
+    "rating": 3.4,
+    "numReviews": 109,
+    "placeId": "0xd4175d891efdc07:0xe4f014f8c9357336",
+    "address": "Centro Médico Paidos, C. de la Ramona, 17, 28260 Galapagar, Madrid",
+    "at": 1781258357986
+  },
+  {
+    "nameKey": "clinica moralzarzal",
+    "cpPrefix": "28",
+    "nombreOriginal": "Clinica RM Moralzarzal",
+    "rating": 2.9,
+    "numReviews": 323,
+    "placeId": "0xd4171740e92d3dd:0xec70a69ebc2898ba",
+    "address": "Clínica RM Moralzarzal, C. Pico Martillo, 22, 28411 Moralzarzal, Madrid",
+    "at": 1781258358603
+  },
+  {
+    "nameKey": "centro medico torrelodones",
+    "cpPrefix": "28",
+    "nombreOriginal": "Centro Medico Torrelodones",
+    "rating": 4.3,
+    "numReviews": 59,
+    "placeId": "0xd4177c36a658667:0x394c82f7b9e1b151",
+    "address": "Consulta Médica Torrelodones, C. los Ángeles, 16, 28250 Torrelodones, Madrid",
+    "at": 1781258359106
   }
 ]
