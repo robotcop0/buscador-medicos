@@ -120,48 +120,78 @@ export default function DoctorCard({ doctor, searchCp, loading }: Props) {
 
         {/* Rating */}
         <div className="flex-shrink-0 text-right">
-          {hasRating ? (
-            ratingLink ? (
-              <TrackedAnchor
-                event="click_rating_link"
-                eventProps={{
-                  source: ratingLink.source,
-                  especialidad: doctor.especialidad,
-                  is_center: isCenter,
-                }}
-                href={ratingLink.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                title={ratingLink.title}
-                className="group/rating inline-block"
-              >
-                <div
-                  className={`inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full border text-sm font-semibold tabular-nums transition-colors ${ratingStyle(displayScore)} group-hover/rating:border-gray-400`}
+          {hasRating && doctor.ratingKind === "center" ? (
+            /* ── Center-fallback pill: muted gray, no semáforo ── */
+            <div className="inline-block">
+              <div className="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full border text-sm font-semibold tabular-nums bg-gray-100 text-gray-500 border-gray-200">
+                {displayScore.toFixed(1)}
+                <span aria-hidden="true">★</span>
+              </div>
+              <p className="text-[11px] text-gray-400 mt-1 whitespace-nowrap">
+                Sin valoración propia
+              </p>
+              <p className="text-[11px] text-gray-400 mt-0.5 whitespace-nowrap">
+                {doctor.ratingCenterName
+                  ? `Centro ${doctor.ratingCenterName}: ${doctor.rating.toLocaleString("es-ES", { minimumFractionDigits: 1, maximumFractionDigits: 1 })}★`
+                  : `Valoración del centro: ${doctor.rating.toLocaleString("es-ES", { minimumFractionDigits: 1, maximumFractionDigits: 1 })}★`}
+              </p>
+              {doctor.numReviews > 0 && (
+                <p className="tabular-nums text-[11px] text-gray-400 mt-0.5 whitespace-nowrap">
+                  Google · {doctor.numReviews.toLocaleString("es-ES")}
+                </p>
+              )}
+            </div>
+          ) : hasRating ? (
+            /* ── Own-rating pill: colored semáforo ── */
+            (() => {
+              const provenanceLabel =
+                doctor.ratingSource === "doctoralia"
+                  ? "Doctoralia"
+                  : doctor.ratingSource === "google"
+                  ? "Google"
+                  : doctor.ratingSource === "both"
+                  ? "Doctoralia + Google"
+                  : null;
+              const pillContent = (
+                <>
+                  <div
+                    className={`inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full border text-sm font-semibold tabular-nums transition-colors ${ratingStyle(displayScore)}${ratingLink ? " group-hover/rating:border-gray-400" : ""}`}
+                  >
+                    {displayScore.toFixed(1)}
+                    <span aria-hidden="true">★</span>
+                  </div>
+                  {doctor.numReviews > 0 && (
+                    <p className={`tabular-nums text-[11px] text-gray-400 mt-1${ratingLink ? " group-hover/rating:text-gray-600 transition-colors" : ""}`}>
+                      {doctor.numReviews.toLocaleString("es-ES")} reseñas
+                    </p>
+                  )}
+                  {provenanceLabel && (
+                    <p className="text-[10px] text-gray-400 mt-0.5 whitespace-nowrap">
+                      {provenanceLabel}
+                    </p>
+                  )}
+                </>
+              );
+              return ratingLink ? (
+                <TrackedAnchor
+                  event="click_rating_link"
+                  eventProps={{
+                    source: ratingLink.source,
+                    especialidad: doctor.especialidad,
+                    is_center: isCenter,
+                  }}
+                  href={ratingLink.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title={ratingLink.title}
+                  className="group/rating inline-block"
                 >
-                  {displayScore.toFixed(1)}
-                  <span aria-hidden="true">★</span>
-                </div>
-                {doctor.numReviews > 0 && (
-                  <p className="tabular-nums text-[11px] text-gray-400 mt-1 group-hover/rating:text-gray-600 transition-colors">
-                    {doctor.numReviews.toLocaleString("es-ES")} reseñas
-                  </p>
-                )}
-              </TrackedAnchor>
-            ) : (
-              <>
-                <div
-                  className={`inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full border text-sm font-semibold tabular-nums ${ratingStyle(displayScore)}`}
-                >
-                  {displayScore.toFixed(1)}
-                  <span aria-hidden="true">★</span>
-                </div>
-                {doctor.numReviews > 0 && (
-                  <p className="tabular-nums text-[11px] text-gray-400 mt-1">
-                    {doctor.numReviews.toLocaleString("es-ES")} reseñas
-                  </p>
-                )}
-              </>
-            )
+                  {pillContent}
+                </TrackedAnchor>
+              ) : (
+                <div className="inline-block">{pillContent}</div>
+              );
+            })()
           ) : loading ? (
             <span
               aria-hidden="true"
@@ -173,7 +203,7 @@ export default function DoctorCard({ doctor, searchCp, loading }: Props) {
               title="Este médico aún no tiene reseñas en nuestras fuentes"
               className="text-[11px] text-gray-400 italic whitespace-nowrap"
             >
-              Sin valoraciones
+              Aún sin reseñas online
             </span>
           )}
         </div>
