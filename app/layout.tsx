@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import Analytics from "@/components/Analytics";
+import CookieConsent from "@/components/CookieConsent";
 import BackButton from "@/components/BackButton";
 import "./globals.css";
 
@@ -50,6 +51,7 @@ export default function RootLayout({
         <BackButton />
         {children}
         <Analytics />
+        <CookieConsent />
       </body>
     </html>
   );
