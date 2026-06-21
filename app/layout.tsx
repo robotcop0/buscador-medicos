@@ -31,6 +31,11 @@ export const metadata: Metadata = {
     type: "website",
     locale: "es_ES",
   },
+  verification: {
+    // Verificación de propiedad en Google Search Console (método etiqueta HTML).
+    // Next lo emite como <meta name="google-site-verification"> en el <head>.
+    google: "VpZe5VQw7OVjXJmV5XWx2BAdVAIpaWiQqI2w9-t7jYs",
+  },
 };
 
 export const viewport: Viewport = {
