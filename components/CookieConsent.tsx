@@ -39,13 +39,10 @@ export default function CookieConsent() {
       <div className="mx-auto max-w-3xl rounded-2xl border border-gray-200 bg-white/95 shadow-lg backdrop-blur p-4 sm:p-5">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-[13px] leading-relaxed text-gray-600">
-            Usamos cookies de <strong className="text-gray-800">Google
-            Analytics</strong> para medir de forma anónima el uso del sitio y
-            mejorarlo. No se instalan hasta que las aceptas. Consulta la{" "}
+            Usamos cookies para analizar el tráfico.{" "}
             <Link href="/cookies" className="text-blue-600 hover:underline">
-              política de cookies
+              Más información
             </Link>
-            .
           </p>
           <div className="flex shrink-0 gap-2">
             <button
