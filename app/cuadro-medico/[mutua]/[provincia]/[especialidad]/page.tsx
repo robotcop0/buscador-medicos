@@ -15,7 +15,7 @@ import {
   combinacionesProvinciaEsp,
 } from "@/lib/programmatic";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+import { SITE_URL } from "@/lib/site-url";
 
 const MIN_N = 5;
 
@@ -45,10 +45,15 @@ export function generateStaticParams(): Params[] {
   return params;
 }
 
-export function generateMetadata({ params }: { params: Params }): Metadata {
-  const m = findMutuaBySlug(params.mutua);
-  const p = findProvinciaBySlug(params.provincia);
-  const e = findEspecialidadBySlug(params.especialidad);
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<Params>;
+}): Promise<Metadata> {
+  const { mutua, provincia, especialidad } = await params;
+  const m = findMutuaBySlug(mutua);
+  const p = findProvinciaBySlug(provincia);
+  const e = findEspecialidadBySlug(especialidad);
   if (!m || !p || !e) return {};
   const title = `${e.nombre} de ${m.nombre} en ${p.nombre} — directorio con teléfono`;
   const description = `Especialistas en ${e.nombre.toLowerCase()} del cuadro médico de ${m.nombre} en ${p.nombre}, con teléfono y valoraciones reales. Filtra por código postal y radio en km.`;

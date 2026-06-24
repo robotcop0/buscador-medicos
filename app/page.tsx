@@ -6,8 +6,8 @@ import SiteFooter from "@/components/SiteFooter";
 import Reveal from "@/components/Reveal";
 import FAQItem from "@/components/FAQItem";
 import { MUTUAS, ESPECIALIDADES } from "@/lib/slugs";
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+import { getTotalIndexed } from "@/lib/programmatic";
+import { SITE_URL } from "@/lib/site-url";
 
 const FAQ_ITEMS: { q: string; a: string }[] = [
   {
@@ -103,6 +103,11 @@ const jsonLd = {
 };
 
 export default function Home() {
+  // Cifra real del índice offline, redondeada a la baja al millar. Evita el
+  // antiguo "446k+" (heredado del universo de la API de Adeslas, no de lo que
+  // realmente está indexado) — un mismatch que daña la confianza/E-E-A-T.
+  const indexadosLabel = `${(Math.floor(getTotalIndexed() / 1000) * 1000).toLocaleString("es-ES")}+`;
+
   return (
     <main>
       <script
@@ -171,7 +176,7 @@ export default function Home() {
           <dl className="mt-10 grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-4">
             {[
               { n: "15", l: "mutuas integradas" },
-              { n: "446k+", l: "profesionales indexados" },
+              { n: indexadosLabel, l: "profesionales indexados" },
               { n: "33", l: "especialidades" },
               { n: "2–100 km", l: "radio de búsqueda" },
             ].map(({ n, l }, i) => (

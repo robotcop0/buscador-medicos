@@ -10,7 +10,7 @@ import {
   provinciasConEspecialidad,
 } from "@/lib/programmatic";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+import { SITE_URL } from "@/lib/site-url";
 
 const MIN_N = 5;
 

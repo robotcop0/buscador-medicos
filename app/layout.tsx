@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import Analytics from "@/components/Analytics";
 import CookieConsent from "@/components/CookieConsent";
 import BackButton from "@/components/BackButton";
+import { SITE_URL } from "@/lib/site-url";
 import "./globals.css";
 
 const inter = Inter({
@@ -12,7 +13,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
+  metadataBase: new URL(SITE_URL),
   title: "Buscador de Médicos — Encuentra tu especialista por mutua y zona",
   description:
     "Busca médicos por mutua, especialidad y código postal. Compara ratings y reseñas para encontrar el mejor especialista cerca de ti.",
