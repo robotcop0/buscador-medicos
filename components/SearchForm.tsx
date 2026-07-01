@@ -6,9 +6,11 @@ import { IMQ_COVERAGE_LABEL } from "@/lib/sources/imq";
 import { track } from "@/lib/analytics";
 
 const AVAILABLE_MUTUAS = ["Adeslas", "Allianz", "Asisa", "AXA Salud", "Caser Salud", "Cigna", "DKV", "Divina Pastora", "Fiatc", "Generali", "IMQ", "Mapfre", "MUFACE", "Occidente", "Sanitas"] as const;
-// Sin mutuas "En desarrollo" hoy: las 15 de AVAILABLE_MUTUAS están operativas
-// (Sanitas/Generali requieren SANITAS_APIKEY, ya configurada en .env.local).
-const COMING_SOON_MUTUAS = [] as const;
+// Aseguradoras de salud españolas aún no integradas: aparecen en el desplegable
+// deshabilitadas con badge "En mantenimiento". Cada una requiere investigar su
+// cuadro médico público (ver "Methodology — adding a new mutua" en CLAUDE.md)
+// antes de pasar a AVAILABLE_MUTUAS.
+const COMING_SOON_MUTUAS = ["Aegon", "HNA", "Nueva Mutua Sanitaria", "PSN", "Assistència Sanitària", "MGC Mútua"] as const;
 
 type MutuaItem = { name: string; available: boolean };
 const MUTUAS: MutuaItem[] = [
@@ -339,7 +341,7 @@ function MutuaCombobox({ value, onChange, mobile }: ComboboxProps) {
         value: m.name,
         label: m.name,
         disabled: !m.available,
-        badge: m.available ? null : "En desarrollo",
+        badge: m.available ? null : "En mantenimiento",
       }))}
       mobile={mobile}
     />
