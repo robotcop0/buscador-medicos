@@ -72,6 +72,7 @@ const jsonLd = {
       "@id": `${SITE_URL}/#organization`,
       name: "Buscador de Médicos",
       url: SITE_URL,
+      logo: `${SITE_URL}/logo-cuadrado.svg`,
       areaServed: { "@type": "Country", name: "España" },
     },
     {
