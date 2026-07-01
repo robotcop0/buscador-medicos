@@ -25,21 +25,6 @@ type DisplayItem =
   | { kind: "selection"; pending: PendingSelection; answered: boolean }
   | { kind: "error"; text: string };
 
-type Persisted = { apiMessages: ChatMessage[]; display: DisplayItem[] };
-
-function loadPersisted(): Persisted | null {
-  if (typeof window === "undefined") return null;
-  try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
-    if (!raw) return null;
-    const p = JSON.parse(raw) as Persisted;
-    if (!Array.isArray(p.apiMessages) || !Array.isArray(p.display)) return null;
-    return p;
-  } catch {
-    return null;
-  }
-}
-
 function initialDisplay(): DisplayItem[] {
   return [{ kind: "assistant", markdown: WELCOME_TEXT }];
 }
@@ -81,7 +66,6 @@ export default function ChatWidget({ variant = "hero" }: ChatWidgetProps) {
   const [inputFocused, setInputFocused] = useState(false);
   const [placeholder, setPlaceholder] = useState(PLACEHOLDER_FALLBACK);
   const scrollRef = useRef<HTMLDivElement>(null);
-  const hydrated = useRef(false);
 
   // Placeholder "máquina de escribir": cicla por SUGGESTIONS escribiéndolas y borrándolas,
   // mientras el input no esté enfocado y la conversación esté vacía. Al enfocar para, al
@@ -126,25 +110,16 @@ export default function ChatWidget({ variant = "hero" }: ChatWidgetProps) {
     return () => clearTimeout(timer);
   }, [typewriterActive]);
 
-  // Hidratar de localStorage al montar.
+  // El chat NO persiste: arranca limpio en cada carga de página. Purgamos cualquier
+  // hilo guardado por versiones anteriores para que no se quede pegado.
   useEffect(() => {
-    const p = loadPersisted();
-    if (p) {
-      setApiMessages(p.apiMessages);
-      setDisplay(p.display.length ? p.display : initialDisplay());
-    }
-    hydrated.current = true;
-  }, []);
-
-  // Persistir cuando cambie el estado (solo tras hidratar, para no pisar lo guardado).
-  useEffect(() => {
-    if (!hydrated.current || typeof window === "undefined") return;
+    if (typeof window === "undefined") return;
     try {
-      window.localStorage.setItem(STORAGE_KEY, JSON.stringify({ apiMessages, display }));
+      window.localStorage.removeItem(STORAGE_KEY);
     } catch {
-      /* localStorage lleno o no disponible: ignoramos */
+      /* localStorage no disponible: ignoramos */
     }
-  }, [apiMessages, display]);
+  }, []);
 
   // Auto-scroll al fondo cuando hay novedades.
   useEffect(() => {
