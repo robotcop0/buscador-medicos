@@ -58,7 +58,9 @@ export default function AvisoLegalPage() {
                 </li>
                 <li>
                   <strong>Correo electrónico de contacto:</strong>{" "}
-                  [CONFIRMAR — email]
+                  <a href="mailto:soporte@buscatumedico.es" className="underline hover:text-gray-700">
+                    soporte@buscatumedico.es
+                  </a>
                 </li>
               </ul>
             </section>

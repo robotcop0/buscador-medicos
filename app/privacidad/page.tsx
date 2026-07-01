@@ -40,8 +40,10 @@ export default function PrivacidadPage() {
               </h2>
               <p className="text-sm leading-relaxed">
                 Responsable: [CONFIRMAR — nombre completo o razón social]. NIF /
-                CIF: [CONFIRMAR]. Domicilio: [CONFIRMAR]. Correo de contacto:
-                [CONFIRMAR — email].
+                CIF: [CONFIRMAR]. Domicilio: [CONFIRMAR]. Correo de contacto:{" "}
+                <a href="mailto:soporte@buscatumedico.es" className="underline hover:text-gray-700">
+                  soporte@buscatumedico.es
+                </a>.
               </p>
             </section>
 
