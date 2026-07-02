@@ -36,6 +36,12 @@ export type Doctor = {
   // Score bayesiano usado para ordenar (y para el color del pill de rating).
   // Lo calcula `sortByRating`; undefined en no valorados. Ver lib/ratings-sort.ts.
   rankScore?: number;
+  /** Quién posee la nota mostrada: propia del médico/centro, o prestada del centro. */
+  ratingKind?: "own" | "center";
+  /** Fuente de la nota propia (para el subtítulo de la card). */
+  ratingSource?: "doctoralia" | "google" | "both";
+  /** Nombre del centro cuando ratingKind === "center". */
+  ratingCenterName?: string;
 };
 
 export type SearchResponse = {

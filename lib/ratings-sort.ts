@@ -38,51 +38,69 @@ function median(values: number[]): number {
 const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v));
 
 /**
- * Orden estándar del listado:
- * - Valorados (rating > 0 && numReviews > 0) primero, por **score bayesiano↓**
- *   y, en empate, por **distancia↑** (más cerca mejor). Si no hay CP, desempata
- *   por nº reseñas↓ (más reseñas = señal más robusta).
- * - No valorados después, por distancia↑ (o por nombre si no hay CP).
+ * Orden estándar del listado — tres tramos estrictos:
+ *
+ * 0. **Nota propia** (`rating > 0 && ratingKind !== "center"`): por score
+ *    bayesiano↓, luego distancia↑, luego nº reseñas↓.
+ * 1. **Nota heredada del centro** (`ratingKind === "center"`): misma fórmula
+ *    pero SIEMPRE por debajo de cualquier resultado del tramo 0. Un médico con
+ *    nota propia baja supera a cualquier médico con nota prestada alta.
+ * 2. **Sin valoración** (rating 0): por distancia↑ y nombre.
+ *
+ * El bayesianScore se calcula sobre **todos** los que tienen rating > 0 (tramos
+ * 0 y 1 juntos) para que el prior C y el peso m sean representativos del listado
+ * completo. Los tramos se separan solo al ordenar.
  */
 export function sortByRating(doctors: Doctor[]): Doctor[] {
-  const rated: Doctor[] = [];
-  const unrated: Doctor[] = [];
+  const tierOwn: Doctor[] = [];    // tramo 0: nota propia
+  const tierCenter: Doctor[] = []; // tramo 1: nota heredada del centro
+  const tierNone: Doctor[] = [];   // tramo 2: sin valoración
+
   for (const d of doctors) {
-    if (d.numReviews > 0 && d.rating > 0) rated.push(d);
-    else unrated.push(d);
+    if (d.numReviews > 0 && d.rating > 0) {
+      if (d.ratingKind === "center") tierCenter.push(d);
+      else tierOwn.push(d);
+    } else {
+      tierNone.push(d);
+    }
   }
 
-  // C = media de las notas del propio listado (prior). Si hay muy pocos
-  // valorados la media es poco representativa → usamos el fallback.
+  // C y m se calculan sobre todos los valorados (tramos 0+1) para que el prior
+  // sea representativo del listado completo, independientemente de si la nota es
+  // propia o prestada.
+  const allRated = [...tierOwn, ...tierCenter];
+
   const prior =
-    rated.length >= 3
-      ? rated.reduce((s, d) => s + d.rating, 0) / rated.length
+    allRated.length >= 3
+      ? allRated.reduce((s, d) => s + d.rating, 0) / allRated.length
       : RANK_PRIOR_FALLBACK;
 
-  // m = mediana de reseñas del listado (robusta frente a outliers tipo hospital
-  // con miles de reseñas), acotada a [RANK_M_MIN, RANK_M_MAX].
   const m =
-    rated.length >= 3
-      ? clamp(median(rated.map((d) => d.numReviews)), RANK_M_MIN, RANK_M_MAX)
+    allRated.length >= 3
+      ? clamp(median(allRated.map((d) => d.numReviews)), RANK_M_MIN, RANK_M_MAX)
       : RANK_M_MIN;
 
-  const ratedScored = rated.map((d) => ({
-    ...d,
-    rankScore: bayesianScore(d.rating, d.numReviews, prior, m),
-  }));
+  const scoreAndSort = (group: Doctor[]): Doctor[] => {
+    const scored = group.map((d) => ({
+      ...d,
+      rankScore: bayesianScore(d.rating, d.numReviews, prior, m),
+    }));
+    scored.sort((a, b) => {
+      if (b.rankScore !== a.rankScore) return b.rankScore - a.rankScore;
+      const da = a.distanceKm ?? Number.POSITIVE_INFINITY;
+      const db = b.distanceKm ?? Number.POSITIVE_INFINITY;
+      if (da !== db) return da - db;
+      return b.numReviews - a.numReviews;
+    });
+    return scored;
+  };
 
-  ratedScored.sort((a, b) => {
-    if (b.rankScore !== a.rankScore) return b.rankScore - a.rankScore;
-    const da = a.distanceKm ?? Number.POSITIVE_INFINITY;
-    const db = b.distanceKm ?? Number.POSITIVE_INFINITY;
-    if (da !== db) return da - db;
-    return b.numReviews - a.numReviews;
-  });
-  unrated.sort((a, b) => {
+  tierNone.sort((a, b) => {
     const da = a.distanceKm ?? Number.POSITIVE_INFINITY;
     const db = b.distanceKm ?? Number.POSITIVE_INFINITY;
     if (da !== db) return da - db;
     return a.nombre.localeCompare(b.nombre, "es");
   });
-  return [...ratedScored, ...unrated];
+
+  return [...scoreAndSort(tierOwn), ...scoreAndSort(tierCenter), ...tierNone];
 }

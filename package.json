@@ -15,7 +15,8 @@
     "scrape:doctoralia-reviews": "tsx scraper/scrape-doctoralia-reviews.ts",
     "scrape:google": "tsx scraper/scrape.ts --only=google",
     "scrape:adeslas": "tsx scraper/scrape-adeslas.ts",
-    "scrape:occident": "tsx scraper/scrape-occident.ts"
+    "scrape:occident": "tsx scraper/scrape-occident.ts",
+    "enrich:google": "node --env-file-if-exists=.env.local --import tsx scraper/enrich-google-batch.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.88.0",

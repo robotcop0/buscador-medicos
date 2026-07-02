@@ -1,11 +1,10 @@
 /**
- * Índice en memoria con los ratings de Google Maps para centros médicos
- * (clínicas, hospitales, policlínicos, ambulatorios, centros médicos…).
+ * Índice en memoria con los ratings de Google Maps.
  *
- * No operamos sobre personas: el test con el scraper de jinef-john demostró
- * que para nombres propios Google devuelve resultados muy inconsistentes
- * (hospitales random, la ciudad pelada, etc.). Para centros el match es
- * casi perfecto y hay cientos/miles de reseñas útiles.
+ * Cubre tanto centros (clínicas, hospitales, policlínicos…) como personas.
+ * Para personas, el registro puede tener kind:"own" (listing propio en Google)
+ * o kind:"center" (fallback al centro donde ejerce — el campo centerName
+ * identifica el centro). mergeRatings decide qué hacer con esta info.
  *
  * Clave: `normNameKey(nombre)::cp.slice(0,2)` — misma convención que
  * `ratings-index.ts` para Doctoralia.
@@ -33,6 +32,9 @@ export type GoogleRatingRecord = {
   placeId: string;
   address?: string;
   at: number;
+  kind?: "own" | "center";
+  /** Nombre del centro en Google Maps cuando kind === "center" (fallback-centro). */
+  centerName?: string;
 };
 
 const RATINGS_FILE = path.join(process.cwd(), "data", "google-ratings.json");
@@ -75,15 +77,12 @@ function getIndex(): Map<string, GoogleRatingRecord> {
 }
 
 export function lookupGoogle(nombre: string, cp: string): GoogleRatingRecord | null {
-  if (!isCenter(nombre)) return null;
   if (!cp || cp.length < 2) return null;
   const key = `${normNameKey(nombre)}::${cp.slice(0, 2)}`;
   return getIndex().get(key) ?? null;
 }
 
 export function enrichWithGoogle(doctor: Doctor): Doctor {
-  // No-op para personas; solo centros.
-  if (!isCenter(doctor.nombre)) return doctor;
   // Si ya lo tenía (p.ej. inyectado en runtime), no lo pisamos.
   if (doctor.googleRating && doctor.googleRating > 0) return doctor;
 
@@ -95,6 +94,12 @@ export function enrichWithGoogle(doctor: Doctor): Doctor {
     googleRating: hit.rating,
     googleNumReviews: hit.numReviews,
     googlePlaceId: hit.placeId,
+    // Propagamos la clasificación own/center y la fuente para la UI.
+    ratingKind: hit.kind ?? "own",
+    ratingSource: "google",
+    ...(hit.kind === "center" && hit.centerName
+      ? { ratingCenterName: hit.centerName }
+      : {}),
   };
 }
 
@@ -109,8 +114,12 @@ export function persistGoogleRating(rec: GoogleRatingRecord): void {
   const idx = existing.findIndex((r) => `${r.nameKey}::${r.cpPrefix}` === key);
   if (idx >= 0) existing[idx] = rec;
   else existing.push(rec);
-  fs.mkdirSync(path.dirname(RATINGS_FILE), { recursive: true });
-  fs.writeFileSync(RATINGS_FILE, JSON.stringify(existing, null, 2), "utf-8");
+  try {
+    fs.mkdirSync(path.dirname(RATINGS_FILE), { recursive: true });
+    fs.writeFileSync(RATINGS_FILE, JSON.stringify(existing, null, 2), "utf-8");
+  } catch {
+    // FS de solo lectura (serverless): seguimos sirviendo desde memoria/JSON commiteado.
+  }
   indexCache = null; // forzamos relectura a la próxima
   indexMtime = 0;
 }
