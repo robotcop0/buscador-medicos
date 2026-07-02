@@ -25,6 +25,7 @@ import * as path from "path";
 import { resolveGoogleRating, persistGoogleRating } from "@/lib/google-resolve";
 import { isCenter } from "@/lib/center";
 import { normNameKey } from "@/lib/ratings-index";
+import { readMisses, persistMiss, MISS_TTL_MS } from "@/lib/google-misses";
 import type { Doctor } from "@/lib/types";
 import type { GoogleRatingRecord } from "@/lib/google-ratings-index";
 
@@ -144,74 +145,102 @@ async function main() {
       (limit !== undefined ? ` (--limit=${limit})` : "")
   );
 
-  // 5. Construir Set de claves frescas si --resume
+  // 5. Construir Set de claves frescas si --resume (hits + misses cacheados)
   const freshKeys = new Set<string>();
+  const missMap = readMisses();
   if (resume) {
     const existing = readRatingsFile();
     const now = Date.now();
-    let freshCount = 0;
+    let freshHitCount = 0;
     for (const rec of existing) {
       if (rec.nameKey && rec.cpPrefix && typeof rec.at === "number") {
         if (now - rec.at < TTL_MS) {
           freshKeys.add(`${rec.nameKey}::${rec.cpPrefix}`);
-          freshCount++;
+          freshHitCount++;
         }
       }
     }
-    log(`--resume: ${freshCount} registros frescos en caché (TTL ${TTL_MS / 86400000} días) → serán omitidos`);
+    let freshMissCount = 0;
+    for (const [key, at] of missMap) {
+      if (now - at < MISS_TTL_MS) {
+        freshKeys.add(key);
+        freshMissCount++;
+      }
+    }
+    log(
+      `--resume: ${freshHitCount} ratings frescos (TTL ${TTL_MS / 86400000}d) + ` +
+        `${freshMissCount} sin-match frescos (TTL ${MISS_TTL_MS / 86400000}d) → serán omitidos`
+    );
   }
 
   // 6. Procesar secuencialmente
   const total = workList.length;
   let done = 0;
   let hits = 0;
+  let misses = 0;
   let skipped = 0;
+  let errors = 0;
 
   for (const doctor of workList) {
     const { nombre, cp, ciudad, especialidad } = doctor;
 
-    // Saltar si ya está fresco (--resume)
+    // Saltar si ya está fresco (--resume): rating cacheado o miss cacheado
     if (resume && cp && cp.length >= 2) {
       const key = `${normNameKey(nombre)}::${cp.slice(0, 2)}`;
       if (freshKeys.has(key)) {
         done++;
         skipped++;
         if (done % 50 === 0) {
-          log(`${done}/${total} procesados, ${hits} hits, ${skipped} omitidos (cache fresca)`);
+          log(
+            `${done}/${total} procesados, ${hits} hits, ${misses} sin-match cacheados, ` +
+              `${skipped} omitidos, ${errors} errores`
+          );
         }
         continue;
       }
     }
 
-    // Llamar al sidecar
+    // Llamar al sidecar (vía resolveGoogleRating, lógica compartida con la API route)
+    let rec: GoogleRatingRecord | null = null;
     try {
-      const rec = await resolveGoogleRating({
+      rec = await resolveGoogleRating({
         nombre,
         cp: cp ?? "",
         ciudad: ciudad ?? "",
         especialidad: especialidad ?? "",
       });
-
-      if (rec) {
-        persistGoogleRating(rec);
-        hits++;
-      }
     } catch (err) {
-      // El sidecar puede estar caído momentáneamente; continuamos
-      log(`WARN: error al resolver "${nombre}" (${cp}): ${err}`);
+      // TRANSIENT (sidecar caído / red / JSON inválido): NO cacheamos miss,
+      // se reintentará en la próxima corrida.
+      errors++;
+      log(`WARN: error transitorio al resolver "${nombre}" (${cp}): ${err}`);
+      done++;
+      continue;
+    }
+
+    if (rec) {
+      persistGoogleRating(rec);
+      hits++;
+    } else {
+      // GENUINE no-match: Google respondió pero sin nada usable/relevante.
+      persistMiss(normNameKey(nombre), (cp ?? "").slice(0, 2));
+      misses++;
     }
 
     done++;
 
     if (done % 50 === 0) {
-      log(`${done}/${total} procesados, ${hits} hits, ${skipped} omitidos (cache fresca)`);
+      log(
+        `${done}/${total} procesados, ${hits} hits, ${misses} sin-match cacheados, ` +
+          `${skipped} omitidos, ${errors} errores`
+      );
     }
   }
 
-  log(`FIN: ${done} procesados, ${hits} con rating de Google`);
-  if (resume && skipped > 0) {
-    log(`(${skipped} omitidos por cache fresca)`);
-  }
+  log(
+    `FIN: ${done} procesados, ${hits} hits, ${misses} sin-match cacheados, ` +
+      `${skipped} omitidos, ${errors} errores`
+  );
 }
 
 main().catch((err) => {

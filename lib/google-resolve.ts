@@ -68,8 +68,17 @@ function maxKmForCp(cp: string): number {
 
 /**
  * Llama al sidecar de Google Maps y devuelve un `GoogleRatingRecord` listo
- * para persistir, o `null` si el sidecar está caído, no devuelve datos, o el
- * resultado no es suficientemente relevante.
+ * para persistir, o `null` si Google respondió pero no hay un resultado
+ * suficientemente relevante (no-match genuino).
+ *
+ * Importante — error transitorio vs no-match genuino:
+ *   Esta función THROWS (no devuelve null) cuando NO pudimos siquiera
+ *   preguntarle a Google: sidecar caído/red (fetch catch), respuesta HTTP no-ok,
+ *   o JSON inválido. Eso significa "inténtalo de nuevo más tarde", no "Google no
+ *   tiene nada". Devuelve `null` solo cuando SÍ obtuvimos una respuesta del
+ *   sidecar pero no hay datos usables o no supera el filtro de relevancia — ahí
+ *   sí es seguro cachear un "sin match" con TTL, porque repetir la consulta no
+ *   va a cambiar el resultado a corto plazo.
  *
  * Clasificación own/center:
  *   - own:    el nombre del hit coincide con el buscado (resultLooksRelevant) —
@@ -97,22 +106,29 @@ export async function resolveGoogleRating(
       `${GMAPS_SIDECAR_URL}/search?q=${encodeURIComponent(q)}`,
       { signal: controller.signal }
     );
-  } catch {
-    return null;
+  } catch (err) {
+    // TRANSIENT: sidecar caído / red — no sabemos si Google tiene algo o no.
+    throw new Error(`sidecar fetch failed: ${err}`);
   } finally {
     clearTimeout(timer);
   }
 
-  if (!sidecarResp.ok) return null;
+  if (!sidecarResp.ok) {
+    // TRANSIENT: el sidecar respondió pero con error — no es un no-match de Google.
+    throw new Error(`sidecar responded ${sidecarResp.status}`);
+  }
 
   let data: SidecarResult | null = null;
   try {
     data = (await sidecarResp.json()) as SidecarResult | null;
-  } catch {
-    return null;
+  } catch (err) {
+    // TRANSIENT: respuesta corrupta/no-JSON del sidecar.
+    throw new Error(`sidecar returned invalid JSON: ${err}`);
   }
 
   if (!data || !data.place_id || !data.rating || !data.review_count) {
+    // GENUINE no-match: el sidecar respondió correctamente pero Google no
+    // tiene nada usable para esta query.
     return null;
   }
 

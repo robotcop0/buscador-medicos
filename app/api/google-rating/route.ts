@@ -65,8 +65,13 @@ export async function GET(req: Request): Promise<Response> {
     });
   }
 
-  // Resolución vía sidecar (lógica compartida con el batch offline)
-  const record = await resolveGoogleRating({ nombre, cp, ciudad, especialidad });
+  // Resolución vía sidecar (lógica compartida con el batch offline).
+  // resolveGoogleRating puede THROW ante fallos transitorios (sidecar caído,
+  // red, JSON inválido) — para el caller HTTP eso es indistinguible de un
+  // no-match: devolvemos el mismo "miss" que hoy, sin romper la UI.
+  const record = await resolveGoogleRating({ nombre, cp, ciudad, especialidad }).catch(
+    () => null
+  );
 
   if (!record) {
     return NextResponse.json(
