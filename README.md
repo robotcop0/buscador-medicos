@@ -2,6 +2,8 @@
 
 Directorio de médicos por mutua, especialidad y código postal. Frontend estático con datos mock. Sin backend, sin login, sin pagos.
 
+**Producción:** [buscatumedico.es](https://buscatumedico.es) (desplegado en Vercel).
+
 ## Stack
 
 - Next.js 14 (App Router)

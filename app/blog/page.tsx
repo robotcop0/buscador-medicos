@@ -3,7 +3,7 @@ import Link from "next/link";
 import SiteFooter from "@/components/SiteFooter";
 import { BLOG_POSTS, formatBlogDate } from "@/lib/blog";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+import { SITE_URL } from "@/lib/site-url";
 
 export const metadata: Metadata = {
   title: "Blog — Buscador de Médicos",

@@ -6,7 +6,7 @@ import SiteFooter from "@/components/SiteFooter";
 import { ESPECIALIDADES, MUTUAS, findEspecialidadBySlug } from "@/lib/slugs";
 import { getEspecialidadStats } from "@/lib/programmatic";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+import { SITE_URL } from "@/lib/site-url";
 
 type Params = { especialidad: string };
 

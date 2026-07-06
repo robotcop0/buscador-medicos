@@ -4,9 +4,10 @@ import { notFound } from "next/navigation";
 import SearchForm from "@/components/SearchForm";
 import SiteFooter from "@/components/SiteFooter";
 import { MUTUAS, ESPECIALIDADES, findMutuaBySlug } from "@/lib/slugs";
-import { getMutuaStats } from "@/lib/programmatic";
+import { PROVINCIAS } from "@/lib/provincias";
+import { getMutuaStats, provinciasConMutua } from "@/lib/programmatic";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+import { SITE_URL } from "@/lib/site-url";
 
 type Params = { mutua: string };
 
@@ -42,6 +43,17 @@ export default async function CuadroMedicoPage({
   if (!mutua) notFound();
 
   const stats = mutua.hasOfflineData ? getMutuaStats(mutua.nombre) : null;
+
+  // Provincias con página propia para esta mutua (umbral N≥10, idéntico al de
+  // la ruta L2). Enlazarlas desde el hub da a esas páginas profundas — las de
+  // mayor intención de búsqueda — link equity descendente, en vez de dejarlas
+  // dependiendo solo del sitemap.
+  const provincias = mutua.hasOfflineData
+    ? provinciasConMutua(mutua.nombre, 10)
+        .map((code) => PROVINCIAS.find((p) => p.codigo === code))
+        .filter((p): p is (typeof PROVINCIAS)[number] => Boolean(p))
+        .sort((a, b) => a.nombre.localeCompare(b.nombre, "es"))
+    : [];
 
   const faq = [
     {
@@ -144,7 +156,7 @@ export default async function CuadroMedicoPage({
               </div>
               <div>
                 <dt className="text-2xl sm:text-3xl font-bold text-gray-900 tabular-nums">
-                  {stats.topEspecialidades.length > 0 ? "146" : "0"}
+                  {stats.especialidadesCubiertas.toLocaleString("es-ES")}
                 </dt>
                 <dd className="mt-1 text-[11px] text-gray-400 leading-relaxed">
                   especialidades cubiertas
@@ -231,6 +243,34 @@ export default async function CuadroMedicoPage({
                 </li>
               ))}
             </ol>
+          </div>
+        </section>
+      )}
+
+      {/* ── Provincias (cross-link descendente a páginas L2) ── */}
+      {provincias.length > 0 && (
+        <section className="px-4 sm:px-6 py-12 sm:py-16 border-t border-gray-100">
+          <div className="w-full max-w-2xl mx-auto">
+            <p className="text-[10px] tracking-widest text-gray-400 uppercase mb-4">
+              Cuadro médico por provincia
+            </p>
+            <h2 className="text-2xl font-light tracking-tight text-gray-900 leading-snug mb-8">
+              Explora el cuadro médico de {mutua.nombre} por{" "}
+              <span className="font-bold">provincia</span>.
+            </h2>
+
+            <ul className="flex flex-wrap gap-2">
+              {provincias.map((p) => (
+                <li key={p.slug}>
+                  <Link
+                    href={`/cuadro-medico/${mutua.slug}/${p.slug}`}
+                    className="inline-block text-xs text-gray-700 bg-white border border-gray-200 rounded-full px-3 py-1 hover:border-gray-400 hover:text-gray-900 transition-colors"
+                  >
+                    {p.nombre}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
         </section>
       )}

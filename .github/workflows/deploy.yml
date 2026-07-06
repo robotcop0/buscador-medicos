@@ -1,0 +1,55 @@
+name: Deploy to VPS
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-vps
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy over SSH
+        env:
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          VPS_USER: ${{ secrets.VPS_USER }}
+          VPS_SSH_KEY_B64: ${{ secrets.VPS_SSH_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          CONTACT_FROM_EMAIL: ${{ secrets.CONTACT_FROM_EMAIL }}
+        run: |
+          set -e
+          mkdir -p ~/.ssh
+          echo "$VPS_SSH_KEY_B64" | tr -d '[:space:]' | base64 -d > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H "$VPS_HOST" >> ~/.ssh/known_hosts 2>/dev/null
+          # Los secretos viajan por stdin como líneas NAME=VALUE (no aparecen en argv
+          # ni en los logs del runner). Solo se envían los que no estén vacíos.
+          {
+            [ -n "$ANTHROPIC_API_KEY" ]  && printf 'ANTHROPIC_API_KEY=%s\n'  "$ANTHROPIC_API_KEY"
+            [ -n "$RESEND_API_KEY" ]     && printf 'RESEND_API_KEY=%s\n'     "$RESEND_API_KEY"
+            [ -n "$CONTACT_FROM_EMAIL" ] && printf 'CONTACT_FROM_EMAIL=%s\n' "$CONTACT_FROM_EMAIL"
+            true
+          } | ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=accept-new "$VPS_USER@$VPS_HOST" '
+            set -e
+            cd /opt/buscatumedico
+            touch .env.local
+            # Upsert de cada NAME=VALUE recibido por stdin en .env.local.
+            while IFS= read -r line; do
+              [ -z "$line" ] && continue
+              name="${line%%=*}"
+              grep -v "^${name}=" .env.local > .env.local.tmp 2>/dev/null || true
+              printf "%s\n" "$line" >> .env.local.tmp
+              mv .env.local.tmp .env.local
+            done
+            git fetch origin main
+            git reset --hard origin/main
+            npm install --no-audit --no-fund
+            NODE_OPTIONS=--max-old-space-size=3072 npm run build
+            pm2 restart all --update-env
+            pm2 save
+          '

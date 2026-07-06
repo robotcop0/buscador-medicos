@@ -7,10 +7,12 @@ import { usePathname, useRouter } from "next/navigation";
  * Enlace de "Volver" inline en la parte superior de cada página (alineado con el
  * contenedor del contenido, `max-w-4xl`). Oculto en la home (`/`).
  *
- * Si hay historial dentro de la pestaña usa `router.back()`; si el usuario llegó
- * directo a la página (sin historial previo), cae a `/`. En ambos casos, al llegar
- * al destino, fuerza scroll arriba del todo (el navegador por defecto restauraría
- * la posición de scroll que tuviera esa página antes — no es lo que queremos aquí).
+ * Desde la página de resultados (`/resultados`) va SIEMPRE directo a la home:
+ * `router.back()` ahí se bugueaba (volvía a un estado intermedio o a una versión
+ * cacheada de la búsqueda). En el resto de páginas, si hay historial usa
+ * `router.back()`; si el usuario llegó directo (sin historial previo), cae a `/`.
+ * En todos los casos, al llegar al destino fuerza scroll arriba del todo (el
+ * navegador por defecto restauraría la posición de scroll previa, que no queremos).
  */
 export default function BackButton() {
   const pathname = usePathname();
@@ -29,6 +31,11 @@ export default function BackButton() {
 
   function handleClick() {
     justClicked.current = true;
+    // Desde resultados, siempre a la home (evita el bug de router.back()).
+    if (pathname.startsWith("/resultados")) {
+      router.push("/");
+      return;
+    }
     if (typeof window !== "undefined" && window.history.length > 1) {
       router.back();
     } else {

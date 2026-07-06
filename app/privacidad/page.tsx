@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import SiteFooter from "@/components/SiteFooter";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+import { SITE_URL } from "@/lib/site-url";
 
 export const metadata: Metadata = {
   title: "Política de privacidad — Buscador de Médicos",
@@ -30,7 +30,7 @@ export default function PrivacidadPage() {
             Política de privacidad
           </h1>
           <p className="text-xs text-gray-400">
-            Última actualización: 5 de mayo de 2026
+            Última actualización: 21 de junio de 2026
           </p>
 
           <div className="prose prose-sm mt-10 space-y-8 text-gray-700">
@@ -69,27 +69,37 @@ export default function PrivacidadPage() {
 
             <section>
               <h2 className="text-base font-semibold text-gray-900 mb-3">
-                3. Analítica de uso (Plausible)
+                3. Analítica de uso (Google Analytics)
               </h2>
               <p className="text-sm leading-relaxed">
-                Para entender el uso agregado del sitio empleamos la herramienta
-                de analítica <strong>Plausible Analytics</strong>, diseñada
-                específicamente para cumplir con el RGPD sin uso de cookies,
-                identificadores persistentes ni datos personales. Plausible
-                registra eventos anónimos y agregados (búsquedas iniciadas,
-                clics en teléfono, despliegue de reseñas) sin generar perfiles
-                de usuario ni rastreo entre sitios.
+                Para entender el uso agregado del sitio empleamos{" "}
+                <strong>Google Analytics 4</strong> (Google Ireland Ltd.), que
+                mide de forma estadística qué páginas se visitan y cómo se
+                navega. Tenemos activada la anonimización de la dirección IP y
+                el modo de consentimiento de Google, de manera que{" "}
+                <strong>
+                  no se instala ninguna cookie ni se recoge ningún dato hasta
+                  que aceptas
+                </strong>{" "}
+                en el banner de cookies.
               </p>
               <p className="text-sm leading-relaxed mt-3">
-                Por su naturaleza completamente anónima, el uso de Plausible no
-                requiere consentimiento previo del usuario. Más información en{" "}
+                La base legal de este tratamiento es tu{" "}
+                <strong>consentimiento</strong> (artículo 6.1.a del RGPD), que
+                puedes retirar en cualquier momento rechazando las cookies o
+                borrando los datos del sitio en tu navegador. El detalle de las
+                cookies utilizadas figura en la{" "}
+                <Link href="/cookies" className="text-blue-600 hover:underline">
+                  política de cookies
+                </Link>
+                . Puedes consultar cómo trata Google los datos en{" "}
                 <a
-                  href="https://plausible.io/data-policy"
+                  href="https://policies.google.com/privacy"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-blue-600 hover:underline"
                 >
-                  plausible.io/data-policy
+                  policies.google.com/privacy
                 </a>
                 .
               </p>

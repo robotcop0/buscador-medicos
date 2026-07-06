@@ -12,6 +12,11 @@ function getAllDoctors(): Doctor[] {
   return cached;
 }
 
+/** Nº total de registros del índice offline (profesionales + centros). */
+export function getTotalIndexed(): number {
+  return getAllDoctors().length;
+}
+
 function topN<T extends string>(
   counts: Map<T, number>,
   n: number,
@@ -26,6 +31,7 @@ export type MutuaStats = {
   total: number;
   topCiudades: { name: string; count: number }[];
   topEspecialidades: { name: string; count: number }[];
+  especialidadesCubiertas: number;
   provinciasCubiertas: number;
 };
 
@@ -49,6 +55,7 @@ export function getMutuaStats(mutuaNombre: string): MutuaStats | null {
     total: matches.length,
     topCiudades: topN(ciudades, 10),
     topEspecialidades: topN(especialidades, 10),
+    especialidadesCubiertas: especialidades.size,
     provinciasCubiertas: provincias.size,
   };
 }
