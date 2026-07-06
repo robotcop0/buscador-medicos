@@ -43314,7 +43314,7 @@
     "numReviews": 150,
     "placeId": "0x12a4b523e565fa9f:0xe37d34bae3bf97d",
     "address": "Centre Mèdic d'Especialitats GEMA I, Carrer Nou, 13-15, 08301 Mataró, Barcelona",
-    "at": 1783322318523,
+    "at": 1783322948274,
     "kind": "center",
     "centerName": "Centre Mèdic d'Especialitats GEMA I"
   },
@@ -63382,7 +63382,7 @@
     "numReviews": 94,
     "placeId": "0xc40956b4cb3d47f:0x49501346a024b46b",
     "address": "ICOT Policlínico Las Palmas, C. Pdte. Alvear, 10, 35006 Las Palmas de Gran Canaria, Las Palmas",
-    "at": 1783322293315,
+    "at": 1783322945394,
     "kind": "center",
     "centerName": "ICOT Policlínico Las Palmas"
   },
@@ -161571,7 +161571,7 @@
     "numReviews": 24,
     "placeId": "0xd6342237886af11:0x1d0dc0469fc3b2dc",
     "address": "Centro Médico Psoas SL, C. Príncipe de Asturias, 9, 30204 Cartagena, Murcia",
-    "at": 1783322261631,
+    "at": 1783322914843,
     "kind": "center",
     "centerName": "Centro Médico Psoas SL"
   },
@@ -213112,6 +213112,186 @@
     "placeId": "0xd422950a1adec35:0xccaa22f6325e533b",
     "address": "Dra. Silvia García Jorge. Psiquiatría y Psicoterapia., Calle de Maldonado, 59, Bajo izq, Salamanca, 28006 Madrid",
     "at": 1783322838483,
+    "kind": "own"
+  },
+  {
+    "nameKey": "alvarez cotoli paloma",
+    "cpPrefix": "28",
+    "nombreOriginal": "Paloma Alvarez Cotoli",
+    "rating": 4,
+    "numReviews": 43,
+    "placeId": "0xd42286f7bc69d77:0x18fc7c7332bbd643",
+    "address": "Centro de Psiquiatría y Psicología Plaza de España, C. de Ventura Rodríguez, 5, 1º B, Moncloa - Aravaca, 28008 Madrid",
+    "at": 1783322951171,
+    "kind": "center",
+    "centerName": "Centro de Psiquiatría y Psicología Plaza de España"
+  },
+  {
+    "nameKey": "botella ignacio serrano",
+    "cpPrefix": "28",
+    "nombreOriginal": "Ignacio Botella Serrano",
+    "rating": 5,
+    "numReviews": 2,
+    "placeId": "0xd4228fc8c0e43c3:0x11fcdd10c2f5ff3c",
+    "address": "Dr. Ignacio Botella, Psiquiatra, C. Puerto de los Leones, 1, Loc 301, 28220 Majadahonda, Madrid",
+    "at": 1783322952830,
+    "kind": "own"
+  },
+  {
+    "nameKey": "angel mera ramon rivera",
+    "cpPrefix": "03",
+    "nombreOriginal": "Dr. Rivera Mera, Ramon Angel",
+    "rating": 4.3,
+    "numReviews": 103,
+    "placeId": "0xd6204ee087c7a89:0x2fd9c7f1e6452624",
+    "address": "Espiral Centros Terapéuticos, Av. de la Comunitat Valenciana, 7, 03503 Benidorm, Alicante",
+    "at": 1783322972033,
+    "kind": "center",
+    "centerName": "Espiral Centros Terapéuticos"
+  },
+  {
+    "nameKey": "gomez lorenzo teresa",
+    "cpPrefix": "36",
+    "nombreOriginal": "Dra. Lorenzo Gomez, Teresa",
+    "rating": 4,
+    "numReviews": 42,
+    "placeId": "0xd2f63793cbb931f:0x888b884bed72f46e",
+    "address": "Psiquiatras Vigo Teresa Lorenzo Gómez, R. de García Barbón, 48, 1º, Santiago de Vigo, 36201 Vigo, Pontevedra",
+    "at": 1783322989246,
+    "kind": "own"
+  },
+  {
+    "nameKey": "grau inmaculada joaquin",
+    "cpPrefix": "43",
+    "nombreOriginal": "Dra. Grau Joaquin, Inmaculada",
+    "rating": 4.6,
+    "numReviews": 505,
+    "placeId": "0x12a151b04b58069f:0x213630f9f3a50397",
+    "address": "Instituto Pedro Mata, Carretera Institut Pere Mata, 6, 43206 Reus, Tarragona",
+    "at": 1783322991325,
+    "kind": "center",
+    "centerName": "Instituto Pedro Mata"
+  },
+  {
+    "nameKey": "francisco huertas serna",
+    "cpPrefix": "13",
+    "nombreOriginal": "Francisco Huertas Serna",
+    "rating": 3.5,
+    "numReviews": 22,
+    "placeId": "0xd6bc36ae7c6a0f5:0x5a8e684ec31f2d5a",
+    "address": "Psiquiatra Francisco Huertas, Av. Torreón del Alcázar, 3, 2-C, 13004 Ciudad Real, Cdad. Real",
+    "at": 1783322994037,
+    "kind": "own"
+  },
+  {
+    "nameKey": "juana rodriguez sosa teresa",
+    "cpPrefix": "35",
+    "nombreOriginal": "Juana Teresa Rodriguez Sosa",
+    "rating": 4.2,
+    "numReviews": 21,
+    "placeId": "0xc4095f99700f1a1:0x4c88227997c1d75b",
+    "address": "Alicia Rodríguez Psiquiatría y Salud Mental, Venegas 2 Portal B - Oficina 11 - Primera, planta, 35003 Las Palmas de Gran Canaria, Las Palmas",
+    "at": 1783322997559,
+    "kind": "own"
+  },
+  {
+    "nameKey": "felisa gomez robina",
+    "cpPrefix": "05",
+    "nombreOriginal": "Felisa Gomez Robina",
+    "rating": 3.7,
+    "numReviews": 3,
+    "placeId": "0xd40f300f72ccc2f:0xee7c1cd51af21641",
+    "address": "Consulta Privada de Gómez Robina, Felisa, Av. Santa Cruz de Tenerife, 11, 05005 Ávila",
+    "at": 1783323001417,
+    "kind": "own"
+  },
+  {
+    "nameKey": "aguanell marfil odila",
+    "cpPrefix": "28",
+    "nombreOriginal": "Odila Aguanell Marfil",
+    "rating": 2.3,
+    "numReviews": 24,
+    "placeId": "0xd4229f26f4268d3:0x68966faf1544d4fa",
+    "address": "Dra. Odila Aguanell Marfil, Psiquiatra, Av. del General Perón, 15, Tetuán, 28020 Madrid",
+    "at": 1783323007517,
+    "kind": "own"
+  },
+  {
+    "nameKey": "aba salud",
+    "cpPrefix": "41",
+    "nombreOriginal": "Aba Salud, S.l.",
+    "rating": 3,
+    "numReviews": 43,
+    "placeId": "0xd126e7f809edae9:0x8a617d9909a1e51b",
+    "address": "ABA SALUD, Av. Padre García Tejero, 6B, 41012 Sevilla",
+    "at": 1783323013230,
+    "kind": "own"
+  },
+  {
+    "nameKey": "hercberg philippe",
+    "cpPrefix": "11",
+    "nombreOriginal": "Philippe Hercberg",
+    "rating": 3.7,
+    "numReviews": 18,
+    "placeId": "0xd0dcd3934b7da37:0xa475b284e17c440d",
+    "address": "Dr. Philippe Hercberg, Psiquiatra, C/ S. Ignacio, 12, B, 11100 San Fernando, Cádiz",
+    "at": 1783323019734,
+    "kind": "own"
+  },
+  {
+    "nameKey": "beatriz castano monsalve",
+    "cpPrefix": "08",
+    "nombreOriginal": "Beatriz E. Castaño Monsalve",
+    "rating": 5,
+    "numReviews": 1,
+    "placeId": "0x12a4bb679edadbf7:0xc15d5f551435cfef",
+    "address": "Dra. Beatriz Castaño Monsalve, Camí de Can Ruti, s/n, 08916 Badalona, Barcelona",
+    "at": 1783323022482,
+    "kind": "own"
+  },
+  {
+    "nameKey": "analy brener werbin",
+    "cpPrefix": "29",
+    "nombreOriginal": "Analy Werbin Brener",
+    "rating": 3,
+    "numReviews": 12,
+    "placeId": "0xd72587526869815:0xa927bda4a45d2cbb",
+    "address": "Dra. Analy Werbin, C. Idris, 3, Málaga-Este, 29016 Málaga",
+    "at": 1783323024912,
+    "kind": "own"
+  },
+  {
+    "nameKey": "garcia nieves recio",
+    "cpPrefix": "18",
+    "nombreOriginal": "Dra. Garcia Recio, M. Nieves",
+    "rating": 4.2,
+    "numReviews": 41,
+    "placeId": "0xd71fca35c5b93c7:0xc5bbcbc5fa13d12a",
+    "address": "Dra. María de las Nieves García Recio, Policlínica Granada, C. Alminares del Genil, 7, Genil, 18006 Granada",
+    "at": 1783323027937,
+    "kind": "own"
+  },
+  {
+    "nameKey": "goza jorge leon",
+    "cpPrefix": "35",
+    "nombreOriginal": "Jorge Goza Leon",
+    "rating": 5,
+    "numReviews": 12,
+    "placeId": "0xc4097dd4bd2d55b:0x13793daa0dca1546",
+    "address": "Mateo Gallego. Psiquiatra en Telde Adultos. Centro de Psicología, C. Secundino Delgado, 9, 35200 Telde, Las Palmas",
+    "at": 1783323033299,
+    "kind": "center",
+    "centerName": "Mateo Gallego. Psiquiatra en Telde Adultos. Centro de Psicología"
+  },
+  {
+    "nameKey": "gonzalez iglesias maria",
+    "cpPrefix": "17",
+    "nombreOriginal": "Maria Iglesias Gonzalez",
+    "rating": 4.1,
+    "numReviews": 15,
+    "placeId": "0x12bae6d8cf48dae7:0xcc37d2351dc33000",
+    "address": "Francesc Iglesias Martí, Carrer Guillem de Colteller, 8, 2º 3ª, 17005 Girona",
+    "at": 1783323036336,
     "kind": "own"
   }
 ]
