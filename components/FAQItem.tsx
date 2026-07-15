@@ -22,7 +22,7 @@ export default function FAQItem({ q, a }: Props) {
         <span>{q}</span>
         <span
           aria-hidden
-          className={`flex-shrink-0 mt-0.5 text-gray-400 transition-transform duration-300 text-lg leading-none ${open ? "rotate-45" : ""}`}
+          className={`flex-shrink-0 mt-0.5 text-gray-500 transition-transform duration-300 text-lg leading-none ${open ? "rotate-45" : ""}`}
         >
           +
         </span>

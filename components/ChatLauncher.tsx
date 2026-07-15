@@ -83,7 +83,7 @@ export default function ChatLauncher() {
               type="button"
               onClick={close}
               aria-label="Cerrar asistente"
-              className="text-gray-400 hover:text-gray-700 transition-colors"
+              className="text-gray-500 hover:text-gray-700 transition-colors"
             >
               <svg
                 className="h-5 w-5"

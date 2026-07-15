@@ -15,14 +15,14 @@ const VISIBLE_STEP = 3;
 function ReviewItem({ review }: { review: DoctoraliaReview }) {
   return (
     <li className="py-2 border-t border-gray-100 first:border-t-0">
-      <div className="flex items-center gap-2 text-[11px] text-gray-500">
+      <div className="flex items-center gap-2 text-xs text-gray-500">
         <span className="font-medium text-gray-700 truncate">{review.author}</span>
         {review.rating > 0 && (
           <span className="tabular-nums text-amber-600">
             {review.rating.toFixed(1)} ★
           </span>
         )}
-        {review.date && <span className="text-gray-400">· {review.date}</span>}
+        {review.date && <span className="text-gray-500">· {review.date}</span>}
       </div>
       <p className="mt-0.5 text-xs text-gray-600 leading-relaxed">{review.comment}</p>
     </li>
@@ -108,7 +108,7 @@ export default function ReviewsSection({ url }: Props) {
 
   return (
     <details className="mt-3 group/details" onToggle={handleToggle}>
-      <summary className="list-none cursor-pointer text-[11px] inline-flex items-center gap-3 select-none">
+      <summary className="list-none cursor-pointer text-xs inline-flex items-center gap-3 select-none">
         <span className="inline-flex items-center gap-1 text-gray-500 hover:text-gray-900 transition-colors">
           <span
             className="inline-block transition-transform group-open/details:rotate-90"
@@ -121,7 +121,7 @@ export default function ReviewsSection({ url }: Props) {
       </summary>
 
       {status === "loading" && (
-        <p className="mt-2 pl-4 text-[11px] text-gray-400 italic">Cargando reseñas…</p>
+        <p className="mt-2 pl-4 text-xs text-gray-500 italic">Cargando reseñas…</p>
       )}
 
       {status === "loaded" && shown.length > 0 && (
@@ -133,13 +133,13 @@ export default function ReviewsSection({ url }: Props) {
       )}
 
       {status === "loaded" && shown.length === 0 && (
-        <p className="mt-2 pl-4 text-[11px] text-gray-400 italic">
+        <p className="mt-2 pl-4 text-xs text-gray-500 italic">
           Sin reseñas disponibles
         </p>
       )}
 
       {status === "error" && (
-        <p className="mt-2 pl-4 text-[11px] text-gray-400 italic">
+        <p className="mt-2 pl-4 text-xs text-gray-500 italic">
           No se han podido cargar las reseñas.
         </p>
       )}
@@ -150,7 +150,7 @@ export default function ReviewsSection({ url }: Props) {
             type="button"
             onClick={handleVerMas}
             disabled={loadingMore}
-            className="inline-flex items-center gap-1.5 rounded-full bg-gray-900 px-3.5 py-1.5 text-[11px] font-medium text-white shadow-sm ring-1 ring-black/5 hover:bg-black hover:shadow transition-all active:scale-[0.98] disabled:opacity-60 disabled:cursor-wait"
+            className="inline-flex items-center gap-1.5 rounded-full bg-gray-900 px-3.5 py-1.5 text-xs font-medium text-white shadow-sm ring-1 ring-black/5 hover:bg-black hover:shadow transition-all active:scale-[0.98] disabled:opacity-60 disabled:cursor-wait"
           >
             {loadingMore ? (
               <>

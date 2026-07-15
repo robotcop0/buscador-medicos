@@ -72,7 +72,7 @@ export default async function BlogPostPage({
           <div className="w-full max-w-2xl mx-auto">
             <nav
               aria-label="Breadcrumb"
-              className="mb-8 text-[11px] text-gray-400"
+              className="mb-8 text-xs text-gray-500"
             >
               <Link href="/" className="hover:text-gray-700">
                 Buscador de Médicos
@@ -84,13 +84,13 @@ export default async function BlogPostPage({
               · <span className="text-gray-500">{post.title}</span>
             </nav>
 
-            <p className="text-[10px] tracking-widest text-gray-400 uppercase mb-3">
+            <p className="text-[11px] tracking-widest text-gray-500 uppercase mb-3">
               Blog
             </p>
             <h1 className="text-3xl sm:text-4xl md:text-5xl leading-tight tracking-tight text-gray-900 font-bold">
               {post.title}
             </h1>
-            <p className="mt-4 text-[11px] text-gray-400 tabular-nums">
+            <p className="mt-4 text-xs text-gray-500 tabular-nums">
               {formatBlogDate(post.date)} · {post.readingMinutes} min de lectura
             </p>
             <p className="mt-5 text-sm text-gray-600 leading-relaxed">

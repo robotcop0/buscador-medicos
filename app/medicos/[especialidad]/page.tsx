@@ -116,14 +116,14 @@ export default async function EspecialidadPage({
       {/* ── Header ── */}
       <section className="px-4 sm:px-6 pt-12 sm:pt-16 pb-10">
         <div className="w-full max-w-2xl mx-auto">
-          <nav aria-label="Breadcrumb" className="mb-8 text-[11px] text-gray-400">
+          <nav aria-label="Breadcrumb" className="mb-8 text-xs text-gray-500">
             <Link href="/" className="hover:text-gray-700">
               Buscador de Médicos
             </Link>{" "}
             · <span className="text-gray-500">{esp.nombre}</span>
           </nav>
 
-          <p className="text-[10px] tracking-widest text-gray-400 uppercase mb-3">
+          <p className="text-[11px] tracking-widest text-gray-500 uppercase mb-3">
             Especialidad
           </p>
           <h1 className="text-3xl sm:text-4xl md:text-5xl leading-tight tracking-tight text-gray-900">
@@ -139,7 +139,7 @@ export default async function EspecialidadPage({
                 <dt className="text-2xl sm:text-3xl font-bold text-gray-900 tabular-nums">
                   {stats.total.toLocaleString("es-ES")}
                 </dt>
-                <dd className="mt-1 text-[11px] text-gray-400 leading-relaxed">
+                <dd className="mt-1 text-xs text-gray-500 leading-relaxed">
                   profesionales y centros indexados
                 </dd>
               </div>
@@ -147,7 +147,7 @@ export default async function EspecialidadPage({
                 <dt className="text-2xl sm:text-3xl font-bold text-gray-900 tabular-nums">
                   {stats.provinciasCubiertas}
                 </dt>
-                <dd className="mt-1 text-[11px] text-gray-400 leading-relaxed">
+                <dd className="mt-1 text-xs text-gray-500 leading-relaxed">
                   provincias con cobertura
                 </dd>
               </div>
@@ -155,7 +155,7 @@ export default async function EspecialidadPage({
                 <dt className="text-2xl sm:text-3xl font-bold text-gray-900 tabular-nums">
                   15
                 </dt>
-                <dd className="mt-1 text-[11px] text-gray-400 leading-relaxed">
+                <dd className="mt-1 text-xs text-gray-500 leading-relaxed">
                   mutuas que la cubren
                 </dd>
               </div>
@@ -167,7 +167,7 @@ export default async function EspecialidadPage({
       {/* ── Buscador embebido ── */}
       <section className="px-4 sm:px-6 py-10 border-t border-gray-100">
         <div className="w-full max-w-2xl mx-auto">
-          <p className="text-[10px] tracking-widest text-gray-400 uppercase mb-4">
+          <p className="text-[11px] tracking-widest text-gray-500 uppercase mb-4">
             Buscar {esp.nombre.toLowerCase()}
           </p>
           <h2 className="text-2xl font-light tracking-tight text-gray-900 leading-snug mb-6">
@@ -182,7 +182,7 @@ export default async function EspecialidadPage({
       {stats.topCiudades.length > 0 && (
         <section className="px-4 sm:px-6 py-12 sm:py-16 border-t border-gray-100">
           <div className="w-full max-w-2xl mx-auto">
-            <p className="text-[10px] tracking-widest text-gray-400 uppercase mb-4">
+            <p className="text-[11px] tracking-widest text-gray-500 uppercase mb-4">
               Ciudades con mayor presencia
             </p>
             <h2 className="text-2xl font-light tracking-tight text-gray-900 leading-snug mb-8">
@@ -197,7 +197,7 @@ export default async function EspecialidadPage({
                   className="py-3 flex items-center justify-between gap-4 text-sm"
                 >
                   <span className="text-gray-900">{name}</span>
-                  <span className="tabular-nums text-xs text-gray-400">
+                  <span className="tabular-nums text-xs text-gray-500">
                     {count.toLocaleString("es-ES")}
                   </span>
                 </li>
@@ -210,7 +210,7 @@ export default async function EspecialidadPage({
       {/* ── Mutuas (cross-link) ── */}
       <section className="px-4 sm:px-6 py-12 sm:py-16 border-t border-gray-100">
         <div className="w-full max-w-2xl mx-auto">
-          <p className="text-[10px] tracking-widest text-gray-400 uppercase mb-4">
+          <p className="text-[11px] tracking-widest text-gray-500 uppercase mb-4">
             Mutuas cubiertas
           </p>
           <h2 className="text-2xl font-light tracking-tight text-gray-900 leading-snug mb-8">
@@ -236,7 +236,7 @@ export default async function EspecialidadPage({
       {/* ── FAQ ── */}
       <section className="px-4 sm:px-6 py-12 sm:py-16 border-t border-gray-100">
         <div className="w-full max-w-2xl mx-auto">
-          <p className="text-[10px] tracking-widest text-gray-400 uppercase mb-4">
+          <p className="text-[11px] tracking-widest text-gray-500 uppercase mb-4">
             Preguntas frecuentes
           </p>
           <h2 className="text-2xl font-light tracking-tight text-gray-900 leading-snug mb-8">
@@ -252,7 +252,7 @@ export default async function EspecialidadPage({
                     <span>{q}</span>
                     <span
                       aria-hidden="true"
-                      className="flex-shrink-0 mt-0.5 text-gray-400 transition-transform group-open:rotate-45 text-lg leading-none"
+                      className="flex-shrink-0 mt-0.5 text-gray-500 transition-transform group-open:rotate-45 text-lg leading-none"
                     >
                       +
                     </span>
@@ -270,7 +270,7 @@ export default async function EspecialidadPage({
       {/* ── Otras especialidades ── */}
       <section className="px-4 sm:px-6 py-12 sm:py-16 border-t border-gray-100">
         <div className="w-full max-w-2xl mx-auto">
-          <p className="text-[10px] tracking-widest text-gray-400 uppercase mb-4">
+          <p className="text-[11px] tracking-widest text-gray-500 uppercase mb-4">
             Otras especialidades
           </p>
           <h2 className="text-2xl font-light tracking-tight text-gray-900 leading-snug mb-8">

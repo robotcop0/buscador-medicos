@@ -105,19 +105,19 @@ export default async function ResultadosPage({
         <div className="flex items-center justify-between mb-6 sm:mb-10">
           <Link
             href="/"
-            className="text-xs text-gray-400 hover:text-gray-700 transition-colors focus:outline-none focus:underline"
+            className="text-xs text-gray-500 hover:text-gray-700 transition-colors focus:outline-none focus:underline"
           >
             ← Nueva búsqueda
           </Link>
-          <span className="text-xs tracking-widest text-gray-300 uppercase">
+          <span className="text-xs tracking-widest text-gray-500 uppercase">
             Buscador de Médicos
           </span>
         </div>
 
         {error ? (
           <div className="py-20 text-center">
-            <p className="text-sm text-gray-400 mb-1">No se pudo completar la búsqueda.</p>
-            <p className="text-xs text-gray-300 mb-8">{error}</p>
+            <p className="text-sm text-gray-500 mb-1">No se pudo completar la búsqueda.</p>
+            <p className="text-xs text-gray-500 mb-8">{error}</p>
             <Link href="/" className="text-xs text-gray-900 underline underline-offset-4">
               Volver a buscar
             </Link>
@@ -147,7 +147,7 @@ export default async function ResultadosPage({
               </div>
 
               {totalFound > 0 && (
-                <p className="text-xs text-gray-400 mt-3">
+                <p className="text-xs text-gray-500 mt-3">
                   Mostrando {startItem}–{endItem} · valorados primero, luego por cercanía
                   {truncated && (
                     <span className="ml-1 text-gray-500">· afina la búsqueda para ver más</span>
@@ -159,7 +159,7 @@ export default async function ResultadosPage({
               )}
 
               {totalFound > 0 && (
-                <p className="text-[11px] text-gray-400 mt-1 leading-relaxed">
+                <p className="text-xs text-gray-500 mt-1 leading-relaxed">
                   Valoraciones de Doctoralia (médicos) y Google Maps (centros). El matcheo puede no ser 100% exacto.
                 </p>
               )}
@@ -199,10 +199,10 @@ export default async function ResultadosPage({
               </>
             ) : imqOutOfCoverage ? (
               <div className="py-20 text-center">
-                <p className="text-sm text-gray-400 mb-1">
+                <p className="text-sm text-gray-500 mb-1">
                   IMQ solo opera en {IMQ_COVERAGE_LABEL}.
                 </p>
-                <p className="text-xs text-gray-300 mb-8">
+                <p className="text-xs text-gray-500 mb-8">
                   El código postal {cp} está fuera de su red. Prueba con otra mutua o con un CP de esa zona.
                 </p>
                 <Link href="/" className="text-xs text-gray-900 underline underline-offset-4">
@@ -211,8 +211,8 @@ export default async function ResultadosPage({
               </div>
             ) : (
               <div className="py-20 text-center">
-                <p className="text-sm text-gray-400 mb-1">Sin resultados para estos filtros.</p>
-                <p className="text-xs text-gray-300 mb-8">
+                <p className="text-sm text-gray-500 mb-1">Sin resultados para estos filtros.</p>
+                <p className="text-xs text-gray-500 mb-8">
                   {radio ? "Prueba a ampliar el radio." : "Prueba con otros criterios."}
                 </p>
                 <Link href="/" className="text-xs text-gray-900 underline underline-offset-4">
@@ -253,7 +253,7 @@ function Pagination({
       />
       {pages.map((p, i) =>
         p === "…" ? (
-          <span key={`ellipsis-${i}`} className="px-2 text-gray-300 text-sm">
+          <span key={`ellipsis-${i}`} className="px-2 text-gray-500 text-sm">
             …
           </span>
         ) : (
@@ -289,7 +289,7 @@ function PageLink({
     "min-w-[2.25rem] px-3 h-9 text-xs rounded-lg border transition-all flex items-center justify-center";
   if (disabled || !href) {
     return (
-      <span className={`${base} text-gray-300 border-gray-100 bg-white cursor-not-allowed`}>
+      <span className={`${base} text-gray-500 border-gray-100 bg-white cursor-not-allowed`}>
         {label}
       </span>
     );

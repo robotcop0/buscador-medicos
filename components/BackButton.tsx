@@ -49,7 +49,7 @@ export default function BackButton() {
         type="button"
         onClick={handleClick}
         aria-label="Volver"
-        className="inline-flex items-center gap-1.5 text-xs text-gray-400 hover:text-gray-700 transition-colors"
+        className="inline-flex items-center gap-1.5 text-xs text-gray-500 hover:text-gray-700 transition-colors"
       >
         <svg className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" aria-hidden>
           <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />

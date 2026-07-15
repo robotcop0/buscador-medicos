@@ -149,8 +149,8 @@ export default function SearchForm({
     ? "w-28 px-3 py-2 border-r border-gray-200"
     : "w-36 px-5 py-3 border-r border-gray-100";
   const labelCls = compact
-    ? "text-[9px] font-medium text-gray-400 uppercase tracking-wider mb-0.5"
-    : "text-[10px] font-medium text-gray-400 uppercase tracking-wider mb-1";
+    ? "text-[11px] font-medium text-gray-500 uppercase tracking-wider mb-0.5"
+    : "text-[11px] font-medium text-gray-500 uppercase tracking-wider mb-1";
   const buttonCls = compact
     ? "px-5 bg-gray-900 text-white text-xs font-medium hover:bg-gray-700 active:bg-gray-800 transition-colors focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white disabled:bg-gray-300 disabled:cursor-not-allowed disabled:hover:bg-gray-300"
     : "px-7 bg-gray-900 text-white text-sm font-medium hover:bg-gray-700 active:bg-gray-800 transition-colors focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white disabled:bg-gray-300 disabled:cursor-not-allowed disabled:hover:bg-gray-300";
@@ -214,7 +214,7 @@ export default function SearchForm({
 
         {cpComplete && (
           <div className="mt-4 flex items-center gap-3 animate-fade-up">
-            <span className="text-xs text-gray-400 whitespace-nowrap">Radio máximo</span>
+            <span className="text-xs text-gray-500 whitespace-nowrap">Radio máximo</span>
             <div className="flex gap-1.5" role="group">
               {RADIOS.map(({ value, label }) => (
                 <button
@@ -235,7 +235,7 @@ export default function SearchForm({
                 <button
                   type="button"
                   onClick={() => applyRadio(radio)}
-                  className="px-3 py-1 text-xs text-gray-400 hover:text-gray-600"
+                  className="px-3 py-1 text-xs text-gray-500 hover:text-gray-600"
                 >
                   Quitar
                 </button>
@@ -487,11 +487,11 @@ function Combobox({
         aria-expanded={open}
         className={triggerBase}
       >
-        <span className={selected ? "text-gray-900 truncate" : "text-gray-400 truncate"}>
+        <span className={selected ? "text-gray-900 truncate" : "text-gray-500 truncate"}>
           {selected ? selected.label : placeholder}
         </span>
         <svg
-          className={`h-3 w-3 flex-shrink-0 ml-2 text-gray-400 transition-transform ${
+          className={`h-3 w-3 flex-shrink-0 ml-2 text-gray-500 transition-transform ${
             open ? "rotate-180" : ""
           }`}
           fill="none"
@@ -527,7 +527,7 @@ function Combobox({
             style={{ maxHeight: 6 * 36 }}
           >
             {filtered.length === 0 && (
-              <li className="px-4 py-3 text-sm text-gray-400">Sin resultados</li>
+              <li className="px-4 py-3 text-sm text-gray-500">Sin resultados</li>
             )}
             {filtered.map((o, i) => {
               const isHighlighted = highlight === i;
@@ -545,7 +545,7 @@ function Combobox({
                     onClick={() => selectAt(i)}
                     className={`w-full text-left px-4 py-2 text-sm flex items-center justify-between gap-3 transition-colors ${
                       o.disabled
-                        ? "text-gray-300 cursor-not-allowed"
+                        ? "text-gray-500 cursor-not-allowed"
                         : isHighlighted
                         ? "bg-gray-100 text-gray-900 font-medium"
                         : value === o.value
@@ -558,7 +558,7 @@ function Combobox({
                       <span className="truncate">{o.label}</span>
                     </span>
                     {o.badge && (
-                      <span className="text-[10px] font-medium text-amber-600 bg-amber-50 px-2 py-0.5 rounded-full whitespace-nowrap">
+                      <span className="text-[11px] font-medium text-amber-600 bg-amber-50 px-2 py-0.5 rounded-full whitespace-nowrap">
                         {o.badge}
                       </span>
                     )}

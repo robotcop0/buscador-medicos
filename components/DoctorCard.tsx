@@ -12,10 +12,21 @@ type Props = {
   loading?: boolean;
 };
 
-function ratingStyle(rating: number): string {
-  if (rating >= 4.5) return "bg-green-50 text-green-700 border-green-200";
-  if (rating >= 3.5) return "bg-amber-50 text-amber-700 border-amber-200";
-  return "bg-red-50 text-red-600 border-red-200";
+// Color del pill como gradiente CONTINUO rojo→ámbar→verde sobre la escala útil
+// (2.5–5.0), en vez de 3 cubos. Así cada décima se distingue: un 4,5 es un verde
+// menos intenso que un 5,0, y un 3,8 no comparte color con un 4,5.
+function ratingColors(score: number): {
+  color: string;
+  backgroundColor: string;
+  borderColor: string;
+} {
+  const t = Math.max(0, Math.min(1, (score - 3.0) / 2.0)); // ≤3.0→rojo, 5.0→verde
+  const hue = Math.round(t * 145); // 0 = rojo ... 145 = verde
+  return {
+    color: `hsl(${hue}, 60%, 32%)`, // texto oscuro, buen contraste sobre fondo claro
+    backgroundColor: `hsl(${hue}, 65%, 96%)`, // tinte muy suave (estilo -50)
+    borderColor: `hsl(${hue}, 50%, 84%)`, // borde claro (estilo -200)
+  };
 }
 
 function formatPhone(tel: string): string {
@@ -70,11 +81,11 @@ export default function DoctorCard({ doctor, searchCp, loading }: Props) {
               {doctor.nombre}
             </h2>
             {doctor.especialidad && (
-              <span className="text-xs text-gray-400 truncate">{doctor.especialidad}</span>
+              <span className="text-xs text-gray-500 truncate">{doctor.especialidad}</span>
             )}
           </div>
 
-          <p className="mt-1 text-xs text-gray-400 flex flex-wrap items-center gap-x-2">
+          <p className="mt-1 text-xs text-gray-500 flex flex-wrap items-center gap-x-2">
             {doctor.ciudad && <span>{doctor.ciudad}</span>}
             {doctor.cp && <span className="tabular-nums">{doctor.cp}</span>}
             {doctor.direccion && (
@@ -109,7 +120,7 @@ export default function DoctorCard({ doctor, searchCp, loading }: Props) {
               {doctor.mutuas.map((m) => (
                 <span
                   key={m}
-                  className="text-[10px] text-gray-400 bg-white border border-gray-200 px-2 py-0.5 rounded-full"
+                  className="text-[11px] text-gray-500 bg-white border border-gray-200 px-2 py-0.5 rounded-full"
                 >
                   {m}
                 </span>
@@ -127,16 +138,16 @@ export default function DoctorCard({ doctor, searchCp, loading }: Props) {
                 {displayScore.toFixed(1)}
                 <span aria-hidden="true">★</span>
               </div>
-              <p className="text-[11px] text-gray-400 mt-1 whitespace-nowrap">
+              <p className="text-xs text-gray-500 mt-1 whitespace-nowrap">
                 Sin valoración propia
               </p>
-              <p className="text-[11px] text-gray-400 mt-0.5 whitespace-nowrap">
+              <p className="text-xs text-gray-500 mt-0.5 whitespace-nowrap">
                 {doctor.ratingCenterName
                   ? `Centro ${doctor.ratingCenterName}: ${doctor.rating.toLocaleString("es-ES", { minimumFractionDigits: 1, maximumFractionDigits: 1 })}★`
                   : `Valoración del centro: ${doctor.rating.toLocaleString("es-ES", { minimumFractionDigits: 1, maximumFractionDigits: 1 })}★`}
               </p>
               {doctor.numReviews > 0 && (
-                <p className="tabular-nums text-[11px] text-gray-400 mt-0.5 whitespace-nowrap">
+                <p className="tabular-nums text-xs text-gray-500 mt-0.5 whitespace-nowrap">
                   Google · {doctor.numReviews.toLocaleString("es-ES")}
                 </p>
               )}
@@ -155,18 +166,19 @@ export default function DoctorCard({ doctor, searchCp, loading }: Props) {
               const pillContent = (
                 <>
                   <div
-                    className={`inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full border text-sm font-semibold tabular-nums transition-colors ${ratingStyle(displayScore)}${ratingLink ? " group-hover/rating:border-gray-400" : ""}`}
+                    className="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full border text-sm font-semibold tabular-nums transition-colors"
+                    style={ratingColors(displayScore)}
                   >
                     {displayScore.toFixed(1)}
                     <span aria-hidden="true">★</span>
                   </div>
                   {doctor.numReviews > 0 && (
-                    <p className={`tabular-nums text-[11px] text-gray-400 mt-1${ratingLink ? " group-hover/rating:text-gray-600 transition-colors" : ""}`}>
+                    <p className={`tabular-nums text-xs text-gray-500 mt-1${ratingLink ? " group-hover/rating:text-gray-600 transition-colors" : ""}`}>
                       {doctor.numReviews.toLocaleString("es-ES")} reseñas
                     </p>
                   )}
                   {provenanceLabel && (
-                    <p className="text-[10px] text-gray-400 mt-0.5 whitespace-nowrap">
+                    <p className="text-[11px] text-gray-500 mt-0.5 whitespace-nowrap">
                       {provenanceLabel}
                     </p>
                   )}
@@ -201,7 +213,7 @@ export default function DoctorCard({ doctor, searchCp, loading }: Props) {
           ) : (
             <span
               title="Este médico aún no tiene reseñas en nuestras fuentes"
-              className="text-[11px] text-gray-400 italic whitespace-nowrap"
+              className="text-xs text-gray-500 italic whitespace-nowrap"
             >
               Aún sin reseñas online
             </span>

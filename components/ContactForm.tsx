@@ -10,7 +10,7 @@ const MAX_MESSAGE = 4000;
 const INPUT_CLASS =
   "w-full px-4 py-3 text-base sm:text-sm bg-white border border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all";
 
-const LABEL_CLASS = "block text-[11px] tracking-widest text-gray-500 uppercase mb-2";
+const LABEL_CLASS = "block text-xs tracking-widest text-gray-500 uppercase mb-2";
 
 export default function ContactForm() {
   const [nombre, setNombre] = useState("");
@@ -127,14 +127,14 @@ export default function ContactForm() {
           className={INPUT_CLASS}
           placeholder="tucorreo@ejemplo.com"
         />
-        <p className="mt-1.5 text-[11px] text-gray-400">
+        <p className="mt-1.5 text-xs text-gray-500">
           Solo lo usamos para responderte. No te apuntamos a ninguna lista.
         </p>
       </div>
 
       <div>
         <label htmlFor="contact-asunto" className={LABEL_CLASS}>
-          Asunto <span className="text-gray-300 normal-case tracking-normal">(opcional)</span>
+          Asunto <span className="text-gray-500 normal-case tracking-normal">(opcional)</span>
         </label>
         <input
           id="contact-asunto"
@@ -164,13 +164,13 @@ export default function ContactForm() {
           className={`${INPUT_CLASS} resize-y min-h-[160px]`}
           placeholder="Cuéntanos en qué podemos ayudarte. Si nos escribes por una corrección, indica el nombre del profesional o centro y la mutua."
         />
-        <p className="mt-1.5 text-[11px] flex items-center justify-between">
-          <span className={messageTooShort ? "text-amber-700" : "text-gray-400"}>
+        <p className="mt-1.5 text-xs flex items-center justify-between">
+          <span className={messageTooShort ? "text-amber-700" : "text-gray-500"}>
             {messageTooShort
               ? `Escribe al menos ${MIN_MESSAGE} caracteres.`
               : "Sé claro y conciso, nos ahorra ida y vuelta."}
           </span>
-          <span className={remaining < 200 ? "text-amber-700" : "text-gray-400"}>{remaining}</span>
+          <span className={remaining < 200 ? "text-amber-700" : "text-gray-500"}>{remaining}</span>
         </p>
       </div>
 
@@ -188,7 +188,7 @@ export default function ContactForm() {
         {status === "sending" ? "Enviando…" : "Enviar mensaje"}
       </button>
 
-      <p className="text-[11px] text-gray-400 leading-relaxed">
+      <p className="text-xs text-gray-500 leading-relaxed">
         Al enviar este formulario aceptas nuestra{" "}
         <a href="/privacidad" className="text-gray-500 hover:text-gray-700 underline underline-offset-2">
           política de privacidad

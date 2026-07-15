@@ -118,12 +118,12 @@ export default function Home() {
 
       {/* ── Hero + chat (primer fold) ── */}
       <section className="relative z-20 px-4 sm:px-6 pt-8 sm:pt-12 pb-16 sm:pb-24">
-        <div className="w-full max-w-4xl mx-auto animate-fade-up">
+        <div className="w-full animate-fade-up">
           <div className="flex items-baseline justify-between mb-6 sm:mb-8">
-            <p className="text-xs tracking-widest text-gray-400 uppercase">
+            <p className="text-xs tracking-widest text-gray-500 uppercase">
               Buscador de Médicos
             </p>
-            <nav className="flex gap-4 text-xs tracking-widest text-gray-400 uppercase">
+            <nav className="flex gap-4 text-xs tracking-widest text-gray-500 uppercase">
               <Link href="/blog" className="hover:text-gray-600 transition-colors">
                 Blog
               </Link>
@@ -135,10 +135,10 @@ export default function Home() {
 
           <header className="mb-5 sm:mb-7">
             <h1 className="text-3xl sm:text-4xl md:text-5xl leading-tight tracking-tight text-gray-900">
-              <span className="font-light">Encuentra </span>
+              <span className="font-light">Busca </span>
               <span className="font-bold">tu mejor médico.</span>
             </h1>
-            <p className="mt-3 text-sm text-gray-400 font-light">
+            <p className="mt-3 text-sm text-gray-500 font-light">
               Selecciona mutua, especialidad y código postal.{" "}
               <span className="hidden sm:inline">
                 ¿Prefieres preguntar en lenguaje natural? Usa el asistente ↘
@@ -152,9 +152,9 @@ export default function Home() {
 
       {/* ── Qué es ── */}
       <section className="px-4 sm:px-6 py-16 sm:py-24 border-t border-gray-100">
-        <div className="w-full max-w-4xl mx-auto">
+        <div className="w-full">
           <Reveal>
-            <p className="text-[10px] tracking-widest text-gray-400 uppercase mb-4">
+            <p className="text-[11px] tracking-widest text-gray-500 uppercase mb-4">
               Qué es
             </p>
           </Reveal>
@@ -186,7 +186,7 @@ export default function Home() {
                   <dt className="text-2xl sm:text-3xl font-bold text-gray-900 tabular-nums">
                     {n}
                   </dt>
-                  <dd className="mt-1 text-xs text-gray-400 leading-relaxed">
+                  <dd className="mt-1 text-xs text-gray-500 leading-relaxed">
                     {l}
                   </dd>
                 </div>
@@ -199,8 +199,8 @@ export default function Home() {
       {/* ── Mutuas cubiertas ── */}
       <section className="px-4 sm:px-6 py-16 sm:py-24 border-t border-gray-100">
         <Reveal>
-        <div className="w-full max-w-4xl mx-auto">
-          <p className="text-[10px] tracking-widest text-gray-400 uppercase mb-4">
+        <div className="w-full">
+          <p className="text-[11px] tracking-widest text-gray-500 uppercase mb-4">
             Mutuas cubiertas
           </p>
           <h2 className="text-2xl sm:text-3xl font-light tracking-tight text-gray-900 leading-snug">
@@ -225,7 +225,7 @@ export default function Home() {
             ))}
           </ul>
 
-          <p className="mt-6 text-[11px] text-gray-400 leading-relaxed">
+          <p className="mt-6 text-xs text-gray-500 leading-relaxed">
             IMQ solo opera en Euskadi, Cantabria y Burgos. MUFACE compone
             simultáneamente Adeslas y Asisa.
           </p>
@@ -236,8 +236,8 @@ export default function Home() {
       {/* ── Especialidades ── */}
       <section className="px-4 sm:px-6 py-16 sm:py-24 border-t border-gray-100">
         <Reveal>
-        <div className="w-full max-w-4xl mx-auto">
-          <p className="text-[10px] tracking-widest text-gray-400 uppercase mb-4">
+        <div className="w-full">
+          <p className="text-[11px] tracking-widest text-gray-500 uppercase mb-4">
             Especialidades médicas
           </p>
           <h2 className="text-2xl sm:text-3xl font-light tracking-tight text-gray-900 leading-snug">
@@ -266,8 +266,8 @@ export default function Home() {
       {/* ── Cómo funciona ── */}
       <section className="px-4 sm:px-6 py-16 sm:py-24 border-t border-gray-100">
         <Reveal>
-        <div className="w-full max-w-4xl mx-auto">
-          <p className="text-[10px] tracking-widest text-gray-400 uppercase mb-4">
+        <div className="w-full">
+          <p className="text-[11px] tracking-widest text-gray-500 uppercase mb-4">
             Cómo funciona
           </p>
           <h2 className="text-2xl sm:text-3xl font-light tracking-tight text-gray-900 leading-snug">
@@ -309,8 +309,8 @@ export default function Home() {
       {/* ── FAQ ── */}
       <section className="px-4 sm:px-6 py-16 sm:py-24 border-t border-gray-100">
         <Reveal>
-        <div className="w-full max-w-4xl mx-auto">
-          <p className="text-[10px] tracking-widest text-gray-400 uppercase mb-4">
+        <div className="w-full">
+          <p className="text-[11px] tracking-widest text-gray-500 uppercase mb-4">
             Preguntas frecuentes
           </p>
           <h2 className="text-2xl sm:text-3xl font-light tracking-tight text-gray-900 leading-snug mb-10">
@@ -333,7 +333,7 @@ export default function Home() {
       >
         <Reveal>
           <div className="w-full max-w-2xl mx-auto">
-            <p className="text-[10px] tracking-widest text-gray-400 uppercase mb-3">
+            <p className="text-[11px] tracking-widest text-gray-500 uppercase mb-3">
               Contacto
             </p>
             <h2 className="text-xl sm:text-2xl font-light tracking-tight text-gray-900 leading-snug">

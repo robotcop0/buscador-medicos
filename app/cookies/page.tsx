@@ -16,20 +16,20 @@ export default function CookiesPage() {
     <main>
       <section className="px-4 sm:px-6 pt-12 sm:pt-16 pb-16">
         <div className="w-full max-w-2xl mx-auto">
-          <nav aria-label="Breadcrumb" className="mb-8 text-[11px] text-gray-400">
+          <nav aria-label="Breadcrumb" className="mb-8 text-xs text-gray-500">
             <Link href="/" className="hover:text-gray-700">
               Buscador de Médicos
             </Link>{" "}
             · <span className="text-gray-500">Política de cookies</span>
           </nav>
 
-          <p className="text-[10px] tracking-widest text-gray-400 uppercase mb-3">
+          <p className="text-[11px] tracking-widest text-gray-500 uppercase mb-3">
             Información legal
           </p>
           <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-gray-900 mb-2">
             Política de cookies
           </h1>
-          <p className="text-xs text-gray-400">
+          <p className="text-xs text-gray-500">
             Última actualización: 21 de junio de 2026
           </p>
 

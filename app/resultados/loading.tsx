@@ -5,8 +5,8 @@ export default function Loading() {
 
         {/* Nav skeleton */}
         <div className="flex items-center justify-between mb-6 sm:mb-10">
-          <div className="text-xs text-gray-400">← Nueva búsqueda</div>
-          <span className="text-xs tracking-widest text-gray-300 uppercase">Buscador de Médicos</span>
+          <div className="text-xs text-gray-500">← Nueva búsqueda</div>
+          <span className="text-xs tracking-widest text-gray-500 uppercase">Buscador de Médicos</span>
         </div>
 
         {/* Header */}
@@ -25,7 +25,7 @@ export default function Loading() {
             <div className="h-full w-1/3 bg-gradient-to-r from-gray-300 via-gray-700 to-gray-300 rounded-full animate-progress-sweep" />
           </div>
 
-          <p className="text-xs text-gray-400 mt-3">
+          <p className="text-xs text-gray-500 mt-3">
             Consultando directorios médicos en tiempo real
           </p>
         </header>

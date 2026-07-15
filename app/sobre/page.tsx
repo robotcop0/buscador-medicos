@@ -16,14 +16,14 @@ export default function SobrePage() {
     <main>
       <section className="px-4 sm:px-6 pt-12 sm:pt-16 pb-12">
         <div className="w-full max-w-2xl mx-auto">
-          <nav aria-label="Breadcrumb" className="mb-8 text-[11px] text-gray-400">
+          <nav aria-label="Breadcrumb" className="mb-8 text-xs text-gray-500">
             <Link href="/" className="hover:text-gray-700">
               Buscador de Médicos
             </Link>{" "}
             · <span className="text-gray-500">Sobre</span>
           </nav>
 
-          <p className="text-[10px] tracking-widest text-gray-400 uppercase mb-3">
+          <p className="text-[11px] tracking-widest text-gray-500 uppercase mb-3">
             Sobre el proyecto
           </p>
           <h1 className="text-3xl sm:text-4xl md:text-5xl leading-tight tracking-tight text-gray-900">
@@ -44,7 +44,7 @@ export default function SobrePage() {
       {/* ── Misión ── */}
       <section className="px-4 sm:px-6 py-12 sm:py-16 border-t border-gray-100">
         <div className="w-full max-w-2xl mx-auto">
-          <p className="text-[10px] tracking-widest text-gray-400 uppercase mb-4">
+          <p className="text-[11px] tracking-widest text-gray-500 uppercase mb-4">
             Misión
           </p>
           <h2 className="text-2xl font-light tracking-tight text-gray-900 leading-snug mb-5">
@@ -64,7 +64,7 @@ export default function SobrePage() {
       {/* ── Fuentes de datos ── */}
       <section className="px-4 sm:px-6 py-12 sm:py-16 border-t border-gray-100">
         <div className="w-full max-w-2xl mx-auto">
-          <p className="text-[10px] tracking-widest text-gray-400 uppercase mb-4">
+          <p className="text-[11px] tracking-widest text-gray-500 uppercase mb-4">
             Fuentes de datos
           </p>
           <h2 className="text-2xl font-light tracking-tight text-gray-900 leading-snug mb-5">
@@ -112,7 +112,7 @@ export default function SobrePage() {
       {/* ── Cómo se calcula el rating ── */}
       <section className="px-4 sm:px-6 py-12 sm:py-16 border-t border-gray-100">
         <div className="w-full max-w-2xl mx-auto">
-          <p className="text-[10px] tracking-widest text-gray-400 uppercase mb-4">
+          <p className="text-[11px] tracking-widest text-gray-500 uppercase mb-4">
             Cálculo del rating
           </p>
           <h2 className="text-2xl font-light tracking-tight text-gray-900 leading-snug mb-5">
@@ -136,7 +136,7 @@ export default function SobrePage() {
       {/* ── Modelo de negocio ── */}
       <section className="px-4 sm:px-6 py-12 sm:py-16 border-t border-gray-100">
         <div className="w-full max-w-2xl mx-auto">
-          <p className="text-[10px] tracking-widest text-gray-400 uppercase mb-4">
+          <p className="text-[11px] tracking-widest text-gray-500 uppercase mb-4">
             Modelo
           </p>
           <h2 className="text-2xl font-light tracking-tight text-gray-900 leading-snug mb-5">
@@ -160,7 +160,7 @@ export default function SobrePage() {
       {/* ── Limitaciones ── */}
       <section className="px-4 sm:px-6 py-12 sm:py-16 border-t border-gray-100">
         <div className="w-full max-w-2xl mx-auto">
-          <p className="text-[10px] tracking-widest text-gray-400 uppercase mb-4">
+          <p className="text-[11px] tracking-widest text-gray-500 uppercase mb-4">
             Limitaciones
           </p>
           <h2 className="text-2xl font-light tracking-tight text-gray-900 leading-snug mb-5">
@@ -192,7 +192,7 @@ export default function SobrePage() {
       {/* ── Contacto ── */}
       <section className="px-4 sm:px-6 py-12 sm:py-16 border-t border-gray-100">
         <div className="w-full max-w-2xl mx-auto">
-          <p className="text-[10px] tracking-widest text-gray-400 uppercase mb-4">
+          <p className="text-[11px] tracking-widest text-gray-500 uppercase mb-4">
             Contacto
           </p>
           <h2 className="text-2xl font-light tracking-tight text-gray-900 leading-snug mb-5">

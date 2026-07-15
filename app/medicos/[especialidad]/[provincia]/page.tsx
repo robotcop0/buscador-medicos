@@ -144,7 +144,7 @@ export default async function EspProvPage({
       {/* ── Header ── */}
       <section className="px-4 sm:px-6 pt-12 sm:pt-16 pb-10">
         <div className="w-full max-w-2xl mx-auto">
-          <nav aria-label="Breadcrumb" className="mb-8 text-[11px] text-gray-400">
+          <nav aria-label="Breadcrumb" className="mb-8 text-xs text-gray-500">
             <Link href="/" className="hover:text-gray-700">Buscador de Médicos</Link>{" "}
             ·{" "}
             <Link href={`/medicos/${esp.slug}`} className="hover:text-gray-700">
@@ -153,7 +153,7 @@ export default async function EspProvPage({
             · <span className="text-gray-500">{provincia.nombre}</span>
           </nav>
 
-          <p className="text-[10px] tracking-widest text-gray-400 uppercase mb-3">
+          <p className="text-[11px] tracking-widest text-gray-500 uppercase mb-3">
             {esp.nombre}
           </p>
           <h1 className="text-3xl sm:text-4xl md:text-5xl leading-tight tracking-tight text-gray-900">
@@ -168,7 +168,7 @@ export default async function EspProvPage({
               <dt className="text-2xl sm:text-3xl font-bold text-gray-900 tabular-nums">
                 {stats.total.toLocaleString("es-ES")}
               </dt>
-              <dd className="mt-1 text-[11px] text-gray-400 leading-relaxed">
+              <dd className="mt-1 text-xs text-gray-500 leading-relaxed">
                 profesionales y centros indexados
               </dd>
             </div>
@@ -176,7 +176,7 @@ export default async function EspProvPage({
               <dt className="text-2xl sm:text-3xl font-bold text-gray-900 tabular-nums">
                 {stats.topCiudades.length}
               </dt>
-              <dd className="mt-1 text-[11px] text-gray-400 leading-relaxed">
+              <dd className="mt-1 text-xs text-gray-500 leading-relaxed">
                 ciudades de la provincia
               </dd>
             </div>
@@ -184,7 +184,7 @@ export default async function EspProvPage({
               <dt className="text-2xl sm:text-3xl font-bold text-gray-900 tabular-nums">
                 {stats.topMutuas.length}
               </dt>
-              <dd className="mt-1 text-[11px] text-gray-400 leading-relaxed">
+              <dd className="mt-1 text-xs text-gray-500 leading-relaxed">
                 mutuas con cobertura
               </dd>
             </div>
@@ -195,7 +195,7 @@ export default async function EspProvPage({
       {/* ── Buscador embebido ── */}
       <section className="px-4 sm:px-6 py-10 border-t border-gray-100">
         <div className="w-full max-w-2xl mx-auto">
-          <p className="text-[10px] tracking-widest text-gray-400 uppercase mb-4">
+          <p className="text-[11px] tracking-widest text-gray-500 uppercase mb-4">
             Buscar {esp.nombre.toLowerCase()} en {provincia.nombre}
           </p>
           <h2 className="text-2xl font-light tracking-tight text-gray-900 leading-snug mb-6">
@@ -210,7 +210,7 @@ export default async function EspProvPage({
       {stats.topCiudades.length > 0 && (
         <section className="px-4 sm:px-6 py-12 sm:py-16 border-t border-gray-100">
           <div className="w-full max-w-2xl mx-auto">
-            <p className="text-[10px] tracking-widest text-gray-400 uppercase mb-4">
+            <p className="text-[11px] tracking-widest text-gray-500 uppercase mb-4">
               Ciudades con mayor cobertura
             </p>
             <h2 className="text-2xl font-light tracking-tight text-gray-900 leading-snug mb-8">
@@ -224,7 +224,7 @@ export default async function EspProvPage({
               {stats.topCiudades.map(({ name, count }) => (
                 <li key={name} className="py-3 flex items-center justify-between gap-4 text-sm">
                   <span className="text-gray-900">{name}</span>
-                  <span className="tabular-nums text-xs text-gray-400">
+                  <span className="tabular-nums text-xs text-gray-500">
                     {count.toLocaleString("es-ES")}
                   </span>
                 </li>
@@ -237,7 +237,7 @@ export default async function EspProvPage({
       {/* ── Cross-link a mutuas ── */}
       <section className="px-4 sm:px-6 py-12 sm:py-16 border-t border-gray-100">
         <div className="w-full max-w-2xl mx-auto">
-          <p className="text-[10px] tracking-widest text-gray-400 uppercase mb-4">
+          <p className="text-[11px] tracking-widest text-gray-500 uppercase mb-4">
             Por mutua
           </p>
           <h2 className="text-2xl font-light tracking-tight text-gray-900 leading-snug mb-8">
@@ -262,7 +262,7 @@ export default async function EspProvPage({
       {otrasProvincias.length > 0 && (
         <section className="px-4 sm:px-6 py-12 sm:py-16 border-t border-gray-100">
           <div className="w-full max-w-2xl mx-auto">
-            <p className="text-[10px] tracking-widest text-gray-400 uppercase mb-4">
+            <p className="text-[11px] tracking-widest text-gray-500 uppercase mb-4">
               {esp.nombre} en otras provincias
             </p>
             <h2 className="text-2xl font-light tracking-tight text-gray-900 leading-snug mb-8">
@@ -287,7 +287,7 @@ export default async function EspProvPage({
       {/* ── FAQ ── */}
       <section className="px-4 sm:px-6 py-12 sm:py-16 border-t border-gray-100">
         <div className="w-full max-w-2xl mx-auto">
-          <p className="text-[10px] tracking-widest text-gray-400 uppercase mb-4">
+          <p className="text-[11px] tracking-widest text-gray-500 uppercase mb-4">
             Preguntas frecuentes
           </p>
           <h2 className="text-2xl font-light tracking-tight text-gray-900 leading-snug mb-8">
@@ -302,7 +302,7 @@ export default async function EspProvPage({
                     <span>{q}</span>
                     <span
                       aria-hidden="true"
-                      className="flex-shrink-0 mt-0.5 text-gray-400 transition-transform group-open:rotate-45 text-lg leading-none"
+                      className="flex-shrink-0 mt-0.5 text-gray-500 transition-transform group-open:rotate-45 text-lg leading-none"
                     >
                       +
                     </span>

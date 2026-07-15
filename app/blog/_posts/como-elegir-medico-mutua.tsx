@@ -9,7 +9,7 @@ export default function ComoElegirMedicoMutua() {
     <>
       <section className="px-4 sm:px-6 py-12 sm:py-16 border-t border-gray-100">
         <div className="w-full max-w-2xl mx-auto">
-          <p className="text-[10px] tracking-widest text-gray-400 uppercase mb-4">
+          <p className="text-[11px] tracking-widest text-gray-500 uppercase mb-4">
             El problema
           </p>
           <h2 className="text-2xl font-light tracking-tight text-gray-900 leading-snug mb-5">
@@ -33,7 +33,7 @@ export default function ComoElegirMedicoMutua() {
 
       <section className="px-4 sm:px-6 py-12 sm:py-16 border-t border-gray-100">
         <div className="w-full max-w-2xl mx-auto">
-          <p className="text-[10px] tracking-widest text-gray-400 uppercase mb-4">
+          <p className="text-[11px] tracking-widest text-gray-500 uppercase mb-4">
             1 · La especialidad exacta
           </p>
           <h2 className="text-2xl font-light tracking-tight text-gray-900 leading-snug mb-5">
@@ -58,7 +58,7 @@ export default function ComoElegirMedicoMutua() {
 
       <section className="px-4 sm:px-6 py-12 sm:py-16 border-t border-gray-100">
         <div className="w-full max-w-2xl mx-auto">
-          <p className="text-[10px] tracking-widest text-gray-400 uppercase mb-4">
+          <p className="text-[11px] tracking-widest text-gray-500 uppercase mb-4">
             2 · La cercanía real
           </p>
           <h2 className="text-2xl font-light tracking-tight text-gray-900 leading-snug mb-5">
@@ -82,7 +82,7 @@ export default function ComoElegirMedicoMutua() {
 
       <section className="px-4 sm:px-6 py-12 sm:py-16 border-t border-gray-100">
         <div className="w-full max-w-2xl mx-auto">
-          <p className="text-[10px] tracking-widest text-gray-400 uppercase mb-4">
+          <p className="text-[11px] tracking-widest text-gray-500 uppercase mb-4">
             3 · Las valoraciones que no engañan
           </p>
           <h2 className="text-2xl font-light tracking-tight text-gray-900 leading-snug mb-5">
@@ -113,7 +113,7 @@ export default function ComoElegirMedicoMutua() {
 
       <section className="px-4 sm:px-6 py-12 sm:py-16 border-t border-gray-100">
         <div className="w-full max-w-2xl mx-auto">
-          <p className="text-[10px] tracking-widest text-gray-400 uppercase mb-4">
+          <p className="text-[11px] tracking-widest text-gray-500 uppercase mb-4">
             4 · El teléfono directo
           </p>
           <h2 className="text-2xl font-light tracking-tight text-gray-900 leading-snug mb-5">
@@ -132,7 +132,7 @@ export default function ComoElegirMedicoMutua() {
 
       <section className="px-4 sm:px-6 py-12 sm:py-16 border-t border-gray-100">
         <div className="w-full max-w-2xl mx-auto">
-          <p className="text-[10px] tracking-widest text-gray-400 uppercase mb-4">
+          <p className="text-[11px] tracking-widest text-gray-500 uppercase mb-4">
             Errores comunes
           </p>
           <h2 className="text-2xl font-light tracking-tight text-gray-900 leading-snug mb-5">

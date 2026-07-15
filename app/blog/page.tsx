@@ -26,14 +26,14 @@ export default function BlogIndexPage() {
     <main>
       <section className="px-4 sm:px-6 pt-12 sm:pt-16 pb-12">
         <div className="w-full max-w-2xl mx-auto">
-          <nav aria-label="Breadcrumb" className="mb-8 text-[11px] text-gray-400">
+          <nav aria-label="Breadcrumb" className="mb-8 text-xs text-gray-500">
             <Link href="/" className="hover:text-gray-700">
               Buscador de Médicos
             </Link>{" "}
             · <span className="text-gray-500">Blog</span>
           </nav>
 
-          <p className="text-[10px] tracking-widest text-gray-400 uppercase mb-3">
+          <p className="text-[11px] tracking-widest text-gray-500 uppercase mb-3">
             Blog
           </p>
           <h1 className="text-3xl sm:text-4xl md:text-5xl leading-tight tracking-tight text-gray-900">
@@ -58,7 +58,7 @@ export default function BlogIndexPage() {
                   href={`/blog/${p.slug}`}
                   className="group block py-6 sm:py-7"
                 >
-                  <p className="text-[11px] text-gray-400 tabular-nums">
+                  <p className="text-xs text-gray-500 tabular-nums">
                     {formatBlogDate(p.date)} · {p.readingMinutes} min de lectura
                   </p>
                   <h2 className="mt-2 text-lg sm:text-xl font-semibold text-gray-900 leading-snug group-hover:underline">

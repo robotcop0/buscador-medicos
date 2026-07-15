@@ -18,14 +18,14 @@ export default function ContactoPage() {
     <main>
       <section className="px-4 sm:px-6 pt-12 sm:pt-16 pb-8">
         <div className="w-full max-w-2xl mx-auto">
-          <nav aria-label="Breadcrumb" className="mb-8 text-[11px] text-gray-400">
+          <nav aria-label="Breadcrumb" className="mb-8 text-xs text-gray-500">
             <Link href="/" className="hover:text-gray-700">
               Buscador de Médicos
             </Link>{" "}
             · <span className="text-gray-500">Contacto</span>
           </nav>
 
-          <p className="text-[10px] tracking-widest text-gray-400 uppercase mb-3">
+          <p className="text-[11px] tracking-widest text-gray-500 uppercase mb-3">
             Contacto
           </p>
           <h1 className="text-3xl sm:text-4xl md:text-5xl leading-tight tracking-tight text-gray-900">
@@ -48,7 +48,7 @@ export default function ContactoPage() {
 
       <section className="px-4 sm:px-6 py-12 border-t border-gray-100">
         <div className="w-full max-w-2xl mx-auto">
-          <p className="text-[10px] tracking-widest text-gray-400 uppercase mb-3">
+          <p className="text-[11px] tracking-widest text-gray-500 uppercase mb-3">
             Antes de escribir
           </p>
           <ul className="text-sm text-gray-600 leading-relaxed list-disc pl-5 space-y-2">
@@ -67,7 +67,7 @@ export default function ContactoPage() {
               directamente con tu mutua o profesional.
             </li>
           </ul>
-          <p className="mt-6 text-[11px] text-gray-400">
+          <p className="mt-6 text-xs text-gray-500">
             ¿Buscas algo concreto? Quizá te ayude la página{" "}
             <Link href="/sobre" className="text-gray-500 hover:text-gray-700 underline underline-offset-2">
               sobre el proyecto

@@ -188,7 +188,7 @@ export default async function MutProvEspPage({
       {/* ── Header ── */}
       <section className="px-4 sm:px-6 pt-12 sm:pt-16 pb-10">
         <div className="w-full max-w-2xl mx-auto">
-          <nav aria-label="Breadcrumb" className="mb-8 text-[11px] text-gray-400">
+          <nav aria-label="Breadcrumb" className="mb-8 text-xs text-gray-500">
             <Link href="/" className="hover:text-gray-700">
               Buscador de Médicos
             </Link>{" "}
@@ -209,7 +209,7 @@ export default async function MutProvEspPage({
             · <span className="text-gray-500">{esp.nombre}</span>
           </nav>
 
-          <p className="text-[10px] tracking-widest text-gray-400 uppercase mb-3">
+          <p className="text-[11px] tracking-widest text-gray-500 uppercase mb-3">
             {esp.nombre} · {mutua.nombre} · {provincia.nombre}
           </p>
           <h1 className="text-3xl sm:text-4xl md:text-5xl leading-tight tracking-tight text-gray-900">
@@ -223,7 +223,7 @@ export default async function MutProvEspPage({
               <dt className="text-2xl sm:text-3xl font-bold text-gray-900 tabular-nums">
                 {stats.total.toLocaleString("es-ES")}
               </dt>
-              <dd className="mt-1 text-[11px] text-gray-400 leading-relaxed">
+              <dd className="mt-1 text-xs text-gray-500 leading-relaxed">
                 profesionales y centros
               </dd>
             </div>
@@ -231,7 +231,7 @@ export default async function MutProvEspPage({
               <dt className="text-2xl sm:text-3xl font-bold text-gray-900 tabular-nums">
                 {stats.topCiudades.length}
               </dt>
-              <dd className="mt-1 text-[11px] text-gray-400 leading-relaxed">
+              <dd className="mt-1 text-xs text-gray-500 leading-relaxed">
                 ciudades con cobertura
               </dd>
             </div>
@@ -239,7 +239,7 @@ export default async function MutProvEspPage({
               <dt className="text-2xl sm:text-3xl font-bold text-gray-900 tabular-nums">
                 {stats.topCentros.filter((c) => c.rating > 0).length}
               </dt>
-              <dd className="mt-1 text-[11px] text-gray-400 leading-relaxed">
+              <dd className="mt-1 text-xs text-gray-500 leading-relaxed">
                 con valoración
               </dd>
             </div>
@@ -250,7 +250,7 @@ export default async function MutProvEspPage({
       {/* ── Buscador embebido ── */}
       <section className="px-4 sm:px-6 py-10 border-t border-gray-100">
         <div className="w-full max-w-2xl mx-auto">
-          <p className="text-[10px] tracking-widest text-gray-400 uppercase mb-4">
+          <p className="text-[11px] tracking-widest text-gray-500 uppercase mb-4">
             Filtrar por código postal
           </p>
           <h2 className="text-2xl font-light tracking-tight text-gray-900 leading-snug mb-6">
@@ -266,7 +266,7 @@ export default async function MutProvEspPage({
       {/* ── Top centros ── */}
       <section className="px-4 sm:px-6 py-12 sm:py-16 border-t border-gray-100">
         <div className="w-full max-w-2xl mx-auto">
-          <p className="text-[10px] tracking-widest text-gray-400 uppercase mb-4">
+          <p className="text-[11px] tracking-widest text-gray-500 uppercase mb-4">
             Listado
           </p>
           <h2 className="text-2xl font-light tracking-tight text-gray-900 leading-snug mb-8">
@@ -281,7 +281,7 @@ export default async function MutProvEspPage({
               >
                 <div className="min-w-0">
                   <p className="text-gray-900 truncate">{c.nombre}</p>
-                  <p className="text-[11px] text-gray-400 mt-0.5 truncate">
+                  <p className="text-xs text-gray-500 mt-0.5 truncate">
                     {[c.ciudad, c.direccion].filter(Boolean).join(" · ")}
                   </p>
                 </div>
@@ -290,14 +290,14 @@ export default async function MutProvEspPage({
                     {c.rating.toFixed(1)} ★
                   </span>
                 ) : (
-                  <span className="flex-shrink-0 text-[11px] text-gray-400 italic">
+                  <span className="flex-shrink-0 text-xs text-gray-500 italic">
                     Sin valoraciones
                   </span>
                 )}
               </li>
             ))}
           </ol>
-          <p className="mt-4 text-[11px] text-gray-400 leading-relaxed">
+          <p className="mt-4 text-xs text-gray-500 leading-relaxed">
             Para ver teléfonos, dirección completa y filtrar por código postal,
             usa el buscador de arriba.
           </p>
@@ -308,7 +308,7 @@ export default async function MutProvEspPage({
       {stats.topCiudades.length > 1 && (
         <section className="px-4 sm:px-6 py-12 sm:py-16 border-t border-gray-100">
           <div className="w-full max-w-2xl mx-auto">
-            <p className="text-[10px] tracking-widest text-gray-400 uppercase mb-4">
+            <p className="text-[11px] tracking-widest text-gray-500 uppercase mb-4">
               Distribución por ciudad
             </p>
             <h2 className="text-2xl font-light tracking-tight text-gray-900 leading-snug mb-8">
@@ -322,7 +322,7 @@ export default async function MutProvEspPage({
                   className="py-3 flex items-center justify-between gap-4 text-sm"
                 >
                   <span className="text-gray-900">{name}</span>
-                  <span className="tabular-nums text-xs text-gray-400">
+                  <span className="tabular-nums text-xs text-gray-500">
                     {count.toLocaleString("es-ES")}
                   </span>
                 </li>
@@ -336,7 +336,7 @@ export default async function MutProvEspPage({
       {otrasEspecialidades.length > 0 && (
         <section className="px-4 sm:px-6 py-12 sm:py-16 border-t border-gray-100">
           <div className="w-full max-w-2xl mx-auto">
-            <p className="text-[10px] tracking-widest text-gray-400 uppercase mb-4">
+            <p className="text-[11px] tracking-widest text-gray-500 uppercase mb-4">
               Otras especialidades en {provincia.nombre}
             </p>
             <h2 className="text-2xl font-light tracking-tight text-gray-900 leading-snug mb-8">
@@ -364,7 +364,7 @@ export default async function MutProvEspPage({
       {otrasProvincias.length > 0 && (
         <section className="px-4 sm:px-6 py-12 sm:py-16 border-t border-gray-100">
           <div className="w-full max-w-2xl mx-auto">
-            <p className="text-[10px] tracking-widest text-gray-400 uppercase mb-4">
+            <p className="text-[11px] tracking-widest text-gray-500 uppercase mb-4">
               {esp.nombre} en otras provincias
             </p>
             <h2 className="text-2xl font-light tracking-tight text-gray-900 leading-snug mb-8">
@@ -390,7 +390,7 @@ export default async function MutProvEspPage({
       {/* ── FAQ ── */}
       <section className="px-4 sm:px-6 py-12 sm:py-16 border-t border-gray-100">
         <div className="w-full max-w-2xl mx-auto">
-          <p className="text-[10px] tracking-widest text-gray-400 uppercase mb-4">
+          <p className="text-[11px] tracking-widest text-gray-500 uppercase mb-4">
             Preguntas frecuentes
           </p>
           <h2 className="text-2xl font-light tracking-tight text-gray-900 leading-snug mb-8">
@@ -405,7 +405,7 @@ export default async function MutProvEspPage({
                     <span>{q}</span>
                     <span
                       aria-hidden="true"
-                      className="flex-shrink-0 mt-0.5 text-gray-400 transition-transform group-open:rotate-45 text-lg leading-none"
+                      className="flex-shrink-0 mt-0.5 text-gray-500 transition-transform group-open:rotate-45 text-lg leading-none"
                     >
                       +
                     </span>
