@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import Analytics from "@/components/Analytics";
 import CookieConsent from "@/components/CookieConsent";
 import BackButton from "@/components/BackButton";
+import SmoothScroll from "@/components/SmoothScroll";
 import { SITE_URL } from "@/lib/site-url";
 import "./globals.css";
 
@@ -54,6 +55,7 @@ export default function RootLayout({
   return (
     <html lang="es" className={inter.variable}>
       <body className="bg-[#f7f6f3] text-gray-900 font-sans antialiased">
+        <SmoothScroll />
         <BackButton />
         {children}
         <Analytics />
